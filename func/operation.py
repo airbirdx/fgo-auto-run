@@ -27,8 +27,8 @@ def scene_operation():
         task_select()
         pass
     elif 'support' in scene:
-        # select_support()
-        select_support(servant='meilin', skill='310')
+        select_support()
+        # select_support(servant='meilin', skill='310')
     elif 'team' in scene:
         team_confirm()
     elif 'loading' in scene:

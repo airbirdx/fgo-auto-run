@@ -16,18 +16,18 @@ from config import *
 
 
 
-
-
 init_tmp()
 
 if dbg_shoot:
     screenshot()
+    exit()
 
 if dbg_train:
     training()
+    exit()
+
 
 while True:
-
     screenshot()
     scene_operation()
     time.sleep(1)

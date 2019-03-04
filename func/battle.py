@@ -1,30 +1,20 @@
-import os
 import cv2
-import time
 from PIL import Image
-
-from config import cfg_sk_seq
-
-from util.default import screenshot_path
-from util.default import tmp_path
-from util.default import cfg_path
-from util.default import battle_path
-from util.default import tmp_battle
-
-from util.scene import curr_png_lst
-from util.default import tmp_card
-from util.cvs import position
-from util.cvs import analyze
-
-from util.ats import tap
-from util.ats import picture_tap
-from util.ats import screenshot
-
-from psn.psfunc import skill_seq
-from psn.PSN import *
 
 from config import *
 
+from util.default import *
+from util.scene import curr_png_lst
+from util.cvs import position
+from util.cvs import analyze
+
+from util.ats import screenshot
+
+from psn.psfunc import *
+from psn.PSN import *
+
+
+# compare the two picture to find whether simlar
 def classfiy_histogram(image1, image2, size=(256, 256)):
     ''' 'image1' and 'image2' is a Image Object.
     You can build it by 'Image.open(path)'.
@@ -122,11 +112,11 @@ def servant_logo():
 
 
 def training():
-    lst = curr_png_lst('./buffer')
+    lst = curr_png_lst(cfg_path)
     for file in lst:
         name, ext = os.path.splitext(file)
         if 'train' in name:
-            split_in_battle(f'./buffer/{file}')
+            split_in_battle(cfg_path + f'/{file}')
             servant_logo()
 
 
@@ -209,13 +199,20 @@ def color_num(crd_attr):
     return rgb[0] * 100 + rgb[1] * 10 + rgb[2]
 
 
-def servent_priority(crd_attr):
-    # servent_priority = [1, 0, 2]
-    # servant_priority = [1, 0, 2]
+def svt_priority(crd_attr):
+
     n = crd_attr[1]
-    from config import servant_priority
-    for i in range(len(servant_priority)):
-        if n == servant_priority[i]:
+
+    try:
+        servant_priority
+    except NameError:
+        svt_prior = []
+    else:
+        svt_prior = servant_priority
+        pass
+
+    for i in range(len(svt_prior)):
+        if n == svt_prior[i]:
             return 5 - i  # 优先级 5>4>3>2>1...
 
     return -1  # 从者优先级一样
@@ -236,11 +233,11 @@ def turn_sorted(turn_attr):
 
                 sort_crd_attr = turn_sort[j]
 
-                if servent_priority(curr_crd_attr) > servent_priority(sort_crd_attr):
+                if svt_priority(curr_crd_attr) > svt_priority(sort_crd_attr):
                     # 当前卡优先级高，插入到所比较排序的前面去，否则在最后append
                     turn_sort.insert(j, curr_crd_attr)
                     break
-                elif servent_priority(curr_crd_attr) == servent_priority(sort_crd_attr):
+                elif svt_priority(curr_crd_attr) == svt_priority(sort_crd_attr):
 
                     if color_num(curr_crd_attr) >= color_num(sort_crd_attr):
                         turn_sort.insert(j, curr_crd_attr)
@@ -303,23 +300,14 @@ def attack():
     turn += 1
     print('{-}{-}{-}{-}{-}curr turn is : %d' % turn)
 
-    if turn <= len(cfg_sk_seq):
-        skill_seq(cfg_sk_seq[turn - 1])
+    skill_lst = cfgstr2lst(default_skill)
+
+    if turn <= len(skill_lst):
+        turn_skill(skill_lst[turn - 1])
 
     psn.ATK()
     time.sleep(1)
     screenshot()
-    # eval('psn.ATK()')
-    # if picture_tap(battle_path + '/attack.png'):
-    #     pass
-    #     print(':::::::: press attack')
-    # else:
-    #     print(':::::::: press attack failed')
-    #     screenshot()
-    #     picture_tap(battle_path + '/attack.png')
-    #     print(':::::::: press attack again')
-
-
 
     split_in_battle(screenshot_path)
     turn_attr = turn_attribute()
@@ -329,8 +317,9 @@ def attack():
     # for i in tap_lst:
     #     print('--> ', i)
 
-    if turn <= len(cfg_baoju_seq):
-        ins = cfg_baoju_seq[turn-1].upper()
+    final_lst = cfgstr2lst(default_final)
+    if turn <= len(final_lst):
+        ins = final_lst[turn-1].upper()
 
         if ins != 'XXX' and ins != '':
         #     lst = tap_lst(turn_sort, 3)

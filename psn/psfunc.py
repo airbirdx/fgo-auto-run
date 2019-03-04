@@ -3,9 +3,59 @@ import time
 from psn.PSN import *
 
 
+# convert the config skill string to list
+# in  : string : (1)abc(2)opq31(4)ijk
+# out : list   : ['abc', 'opq31', '', 'ijk']
+def cfgstr2lst(string):
+
+    string = string.replace(' ', '')
+
+    if string == '':
+        seq = ['']
+        return seq
+
+    tmp_str = string.split('(')
+    tmp_str.remove('')
+    
+    max_idx = 0
+    for skill in tmp_str:
+        tmp_idx = int(skill[:skill.find(')')])
+        if tmp_idx > max_idx:
+            max_idx = tmp_idx
+
+    seq = [''] * max_idx
+
+    for skill in tmp_str:
+        tmp_idx = int(skill[:skill.find(')')])
+        print(tmp_idx)
+        seq[tmp_idx - 1] = skill[skill.find(')') + 1:]
+
+    return seq
+
+
+# convert the skill string to skill param
+# in  : string : 'abc31'
+# out : list   : ['a', 'b', 'c31']
+def split_turn_seq(string=None):
+    lst = []
+    tmp = ''
+    for char in string.upper():
+        # if char >= 'A' and char <= 'Z':
+        if char.isalpha():
+            if tmp != '':
+                lst.append(tmp)
+                tmp = ''
+            tmp += char
+        else:
+            tmp += char
+    lst.append(tmp)
+    return lst
+
+
 # s for switch servant
 # abc, ijk, opq, xyz, s
-# psn <-> position
+# psn means position
+# skill('a') -> psn.A()
 def skill(parm, duration=None):
     psn = PSN()
     lst = list(parm.upper())
@@ -39,24 +89,7 @@ def skill(parm, duration=None):
         pass
 
 
-def skill_seq(parm=None):
-    seq = split_seq(parm)
-    for tmp in seq:
-        skill(tmp)
-
-
-def split_seq(parm=None):
-    parm_seq = []
-    parm_tmp = ''
-    for char in parm.upper():
-        # if char >= 'A' and char <= 'Z':
-        if char.isalpha():
-            if parm_tmp != '':
-                parm_seq.append(parm_tmp)
-                parm_tmp = ''
-            parm_tmp += char
-        else:
-            parm_tmp += char
-    parm_seq.append(parm_tmp)
-    return parm_seq
-
+def turn_skill(string=None):
+    lst = split_turn_seq(string)
+    for skl in lst:
+        skill(skl)

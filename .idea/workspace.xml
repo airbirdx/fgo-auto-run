@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e513f14a-c9de-4d9a-8256-8bb11b7006f1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buffer/task.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buffer/task0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buffer/train_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buffer/train_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buffer/train_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/servant_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/servant_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/servant_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/servant_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/servant_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/servant_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/servant_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/servant_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/task.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/task.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/battle.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/battle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/operation.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/operation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func/support.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/addap/appleAg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/addap/appleAg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/addap/appleAu.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/addap/appleAu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/addap/appleCu.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/addap/appleCu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/addap/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/addap/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/addap/confirm.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/addap/confirm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/action.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/action.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/arts.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/arts.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/attack.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/attack.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/buster.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/buster.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/quick.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/quick.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/resistance.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/resistance.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/restraint.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/restraint.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/speed.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/speed.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/battle/vertigo.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/vertigo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/fail/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/fail/back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/fail/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/fail/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/fail/confirm.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/fail/confirm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/friend/apply.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/friend/apply.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/friend/dontapply.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/friend/dontapply.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/addap.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/addap.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/attack.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/attack.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/fail0.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/fail0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/fail1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/fail1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/fail2.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/fail2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/friend.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/friend.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/loading.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/loading.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/support.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/support.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/task.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/task.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/team.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/team.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/win0.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/win0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/win1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/win1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scenes/win2.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/win2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/end.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/end.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/lib/craft/yanzuo_lizhuang_manpo.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/lib/craft/yanzuo_lizhuang_manpo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/lib/craft/yanzuo_lizhuang_weimanpo.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/lib/craft/yanzuo_lizhuang_weimanpo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/lib/meilin/meilin1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/lib/meilin/meilin1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/lib/meilin/meilin2.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/lib/meilin/meilin2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/lib/meilin/meilin3.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/lib/meilin/meilin3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/lib/meilin/skill_310.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/lib/meilin/skill_310.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/meilin1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/meilin1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/meilin2.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/meilin2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/meilin3.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/meilin3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/support/skill_310.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/support/skill_310.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/task/task.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/task/task.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/team/start.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/team/start.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/win/next.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/win/next.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/psn/FGO.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/psn/FGO.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/psn/psfunc.py" beforeDir="false" afterPath="$PROJECT_DIR$/psn/psfunc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh.png" beforeDir="false" afterPath="$PROJECT_DIR$/sh.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/apple.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/apple.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/battle.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/battle.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/runtime.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/runtime.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/support.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/support.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/ats.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/ats.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1252540296">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="md" value="1" />
+          <entry key="py" value="10" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Markdown" value="1" />
+          <entry key="Python" value="10" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="md" value="2689" />
+          <entry key="py" value="1119" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Markdown" value="2687" />
+          <entry key="Python" value="1121" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/func/battle.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="217" column="24" selection-start-line="205" selection-start-column="4" selection-end-line="217" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/func/operation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/func/support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="51" column="18" selection-start-line="49" selection-start-column="8" selection-end-line="51" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/cvs.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="784">
+              <caret line="46" column="20" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/initmp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/ats.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1017">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/psn/psfunc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="49">
+                <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>servent_priority</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/func/operation.py" />
+        <option value="$PROJECT_DIR$/util/ats.py" />
+        <option value="$PROJECT_DIR$/func/support.py" />
+        <option value="$PROJECT_DIR$/func/battle.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/psn/psfunc.py" />
+        <option value="$PROJECT_DIR$/README.md" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="41" />
+    <option name="y" value="23" />
+    <option name="width" value="1639" />
+    <option name="height" value="1027" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="fgo-auto-run" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fgo-auto-run" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fgo-auto-run" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fgo-auto-run" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fgo-auto-run" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fgo-auto-run" type="462c0819:PsiDirectoryNode" />
+              <item name="psn" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fgo-auto-run" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fgo-auto-run" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e513f14a-c9de-4d9a-8256-8bb11b7006f1" name="Default Changelist" comment="" />
+      <created>1551676891367</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551676891367</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="41" y="23" width="1639" height="1027" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" order="0" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49829933" visible="true" weight="0.13411619" />
+      <window_info active="true" id="Structure" order="2" sideWeight="0.5017007" side_tool="true" visible="true" weight="0.13411619" />
+      <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.371123" />
+      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="2" />
+      <window_info anchor="bottom" id="Message" order="3" />
+      <window_info anchor="bottom" id="Find" order="4" />
+      <window_info anchor="bottom" id="Version Control" order="5" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="6" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/util/cvs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="784">
+          <caret line="46" column="20" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/initmp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/ats.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1017">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/func/operation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/func/support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="51" column="18" selection-start-line="49" selection-start-column="8" selection-end-line="51" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/func/battle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="217" column="24" selection-start-line="205" selection-start-column="4" selection-end-line="217" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/psn/psfunc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="49">
+            <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

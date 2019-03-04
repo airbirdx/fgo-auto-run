@@ -3,6 +3,7 @@ import random
 import time
 import datetime
 import cv2
+import numpy as np
 from util.default import screenshot_path
 from util.cvs import position
 from util.cvs import analyze
@@ -50,9 +51,9 @@ def screenshot():
     os.system('adb shell screencap -p /sdcard/tst.png')
     os.system('adb pull /sdcard/tst.png ' + screenshot_path)
     # inv-clockwise dir
-    if dbg_rotation:
+    if default_rotation:
         img = cv2.imread(screenshot_path, 1)  # 1 is color, 0 is gray
-        for i in range(rotation):
+        for i in range(default_rotation):
             img = np.rot90(img)
         cv2.imwrite(screenshot_path, img)
 
