@@ -31,7 +31,7 @@ Image files in `./cfg` path need to check every new task. (servant_x.png may nee
     
     *task.png / material.png should be used*
 
-    ![task]()
+    ![task](https://github.com/airbirdx/fgo-auto-run/blob/master/lib/readme/task.png)
     
     task
 
@@ -41,7 +41,7 @@ Image files in `./cfg` path need to check every new task. (servant_x.png may nee
 
     * Use step 1 to get some screenshoots which are in attack scene, the more servants in the scene, the better. Just lisk this.
     
-        ![train_0]()
+        ![train_0](https://github.com/airbirdx/fgo-auto-run/blob/master/lib/readme/train_0.png)
     
     * Rename image to `train_{n}.png`, n is start from 0. And put it into **`./cfg`** folder
     
@@ -178,4 +178,4 @@ brew install imagemagick
 * download the python3 install package and the adb dirver
 * install python3
 * add adb driver folder to system PATH var
-* install pyhon lib (see ref For Mac)
+* install pyhon lib (see reference for Mac)
