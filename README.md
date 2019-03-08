@@ -179,3 +179,9 @@ brew install imagemagick
 * install python3
 * add adb driver folder to system PATH var
 * install pyhon lib (see reference for Mac)
+
+## Note
+
+* clean tmp info when team_confirm
+* task scene, check the run_time, run_material parm.
+* about run_material, only count the task number of obtained. No matter how many in one task(get 1/2/3 in one battle, all count 1).

@@ -2,42 +2,15 @@ import cv2
 from PIL import Image
 
 from config import *
-
 from util.default import *
-from util.scene import curr_png_lst
+from util.scene import png_lst
 from util.cvs import position
 from util.cvs import analyze
-
+from util.global0 import *
 from util.ats import screenshot
-
 from psn.psfunc import *
 from psn.PSN import *
-
-
-# compare the two picture to find whether simlar
-def classfiy_histogram(image1, image2, size=(256, 256)):
-    ''' 'image1' and 'image2' is a Image Object.
-    You can build it by 'Image.open(path)'.
-    'Size' is parameter what the image will resize to it.It's 256 * 256 when it default.
-    This function return the similarity rate betweene 'image1' and 'image2'
-    '''
-    image1 = image1.resize(size).convert("RGB")
-    g = image1.histogram()
-
-    image2 = image2.resize(size).convert("RGB")
-    s = image2.histogram()
-
-    assert len(g) == len(s), "error"
-
-    data = []
-
-    for index in range(0, len(g)):
-        if g[index] != s[index]:
-            data.append(1 - abs(g[index] - s[index]) / max(g[index], s[index]))
-        else:
-            data.append(1)
-
-    return sum(data) / len(g)
+from func.Card import *
 
 
 # split the sh picture when it is under battle
@@ -74,252 +47,313 @@ def split_in_battle(file):
         region.save(tmp_path + f'/tmp_servant_{i}.png')
 
 
-# Get the current servant number under cfg_path
-# Used in analyzing the screenshot before auto-run
-def servent_num():
-    num = 0
-
-    lst = curr_png_lst(cfg_path)  # list all files in this folder
-    lst.sort()
-
-    for pic_file in lst:
-        name, extension = os.path.splitext(pic_file)
-        num += int('servant' in name)
-
-    # print('servant num = ', num)
-    return num
-
-
-# Get the current servant logo under cfg_path
-# Used in analyzing the screenshot before auto-run
-def servant_logo():
-    for i in range(5):
-        if not servent_num():
-            res = cv2.imread(tmp_path + '/tmp_servant_0.png')
-            cv2.imwrite(cfg_path + '/servant_0.png', res)
-        else:
-            flg = 0
-            for j in range(servent_num()):
-                tmp = Image.open(tmp_path + f'/tmp_servant_{i}.png')
-                ser = Image.open(cfg_path + f'/servant_{j}.png')
-                res = classfiy_histogram(tmp, ser)
-                thd = 0.5
-                if res > thd:
-                    flg += 1
-            if not flg:
-                new = cv2.imread(tmp_path + f'/tmp_servant_{i}.png')
-                cv2.imwrite(cfg_path + f'/servant_{j+1}.png', new)
-
-
 def training():
-    lst = curr_png_lst(cfg_path)
+    lst = png_lst(cfg_path)
     for file in lst:
         name, ext = os.path.splitext(file)
         if 'train' in name:
             split_in_battle(cfg_path + f'/{file}')
-            servant_logo()
-
-
-def card_attribute(n):
-    crd_attr = [0] * 8
-    # card idx, servant idx, R, G, B, X(+1/0/-1), baoji, px, py
-    # card idx -> use list.insert(0, i) in the end
-    # px, py is the position of the card
-    card = cv2.imread(tmp_path + f'/card_{n}.png', 0)
-
-    crd_attr[0] = 9 # use 9 as default for servant in cfg is null
-    # j indicate servant x under cfg file
-
-    for j in range(servent_num()):
-        servant = cv2.imread(cfg_path + f'/servant_{j}.png', 0)
-        thd = 0.85
-        if analyze(card, servant, thd):
-            crd_attr[0] = j     # CARD ATTR : SERVANT INDEX
-
-    tmp_R = cv2.imread(battle_path + f'/buster.png', 0)
-    tmp_G = cv2.imread(battle_path + f'/quick.png', 0)
-    tmp_B = cv2.imread(battle_path + f'/arts.png', 0)
-    RGB = [tmp_R, tmp_G, tmp_B]
-    for j in range(3):
-        thd = 0.85
-        if analyze(card, RGB[j], thd):
-            # print('i = %d, servent = %d' % (i, j))
-            # Get the position in split picture
-            ps = position(card, RGB[j], thd)
-
-            sh =  cv2.imread(screenshot_path, 0)
-            w, h = sh.shape[::-1]
-
-            crd_attr[j + 1] = 1                  # CARD ATTR : R / G / B = 0/1
-            # Calibra the position to axis of screenshot
-            crd_attr[6] = ps[0][0] + w // 5 * n  # CARD ATTR : PX
-            crd_attr[7] = ps[0][1] + h // 2      # CARD ATTR : PY
-
-    tmp_buff    = cv2.imread(battle_path + '/restraint.png', 0)
-    tmp_debuff  = cv2.imread(battle_path + '/resistance.png', 0)
-    tmp_vertigo = cv2.imread(battle_path + '/vertigo.png', 0)
-    thd = 0.85
-
-    if analyze(card, tmp_buff, thd):    # CARD ATTR : BUFF : 1 / -1 / -2 / 9
-        crd_attr[4] = 1
-    elif analyze(card, tmp_debuff, thd):
-        crd_attr[4] = -1
-    elif analyze(card, tmp_vertigo, thd):
-        crd_attr[4] = -2
-    else:
-        crd_attr[4] = 9
-
-    crd_attr[5] = 0         # CARD ATTR : CRIT RATIO : 10 / 20 / .. / 100
-
-    crd_attr.insert(0, n)   # CARD ATTR : CARD INDEX : [0..4]
-
-    return crd_attr
+            crd = Card()
+            crd.servant_logo()
 
 
 def turn_attribute():
-    turn_attr = []
+    res = []
+    split_in_battle(screenshot_path)
+
+    crd = Card()        # ####################
+    crd.servant_logo()  # ####################
+
     for i in range(5):
-        crd_attr = card_attribute(i)
-        turn_attr.append(crd_attr)
-    return turn_attr
+        # print(i)
+        crd = Card()
+        crd.set_idx(i)
+        crd.analyze()
+        # crd.show()
+        # attr = [crd.idx, crd.servant, crd.color, crd.buff, crd.crit, crd.px, crd.py]
+        # res.append(attr)
+        res.append(crd)
+    # for i in range(5):
+    #     crd = res[i]
+    #     print([crd.idx, crd.servant, crd.color, crd.buff, crd.crit, crd.px, crd.py])
+    return res
 
 
-def color_num(crd_attr):
-
-    clr_read = crd_color_priority.upper()
-    rgb = []
-    for char in clr_read:
-        if char == 'R':
-            tmp = crd_attr[2]
-        elif char == 'G':
-            tmp = crd_attr[3]
-        elif char == 'B':
-            tmp = crd_attr[4]
-        rgb.append(tmp)
-    return rgb[0] * 100 + rgb[1] * 10 + rgb[2]
+def card_priority(crd):
+    a = servant_priority(crd)  # 十进制：1位
+    b = buff_priority(crd)     # 十进制：1位
+    c = color_priority(crd)    # 十进制：1位
+    d = crit_priority(crd)     # 十进制：2位
+    # 几个参数中优先级，a > b > c > d
+    #       servant > buff > color > crit
+    res = a * 1e4 + b * 1e3 + c * 1e2 + d
+    return res
 
 
-def svt_priority(crd_attr):
-
-    n = crd_attr[1]
-
-    try:
-        servant_priority
-    except NameError:
-        svt_prior = []
-    else:
-        svt_prior = servant_priority
-        pass
-
+def servant_priority(crd):
+    svt_prior = eval(rd_global('set_servant_priority'))
+    # 输出，优先级从高到低，5/4/3/2/1/0
     for i in range(len(svt_prior)):
-        if n == svt_prior[i]:
-            return 5 - i  # 优先级 5>4>3>2>1...
+        if crd.servant == svt_prior[i]:
+            return 5 - i
 
-    return -1  # 从者优先级一样
+    # 如果定义为空，一样的返回 -1
+    return -1
 
 
-def turn_sorted(turn_attr):
-    # turn_attr = turn_attribute()
-    turn_sort = []
-
-    for i in range(len(turn_attr)):
-
-        curr_crd_attr = turn_attr[i]
-
-        if i == 0:
-            turn_sort.append(curr_crd_attr)
+def color_priority(crd):
+    clr_prior = rd_global('set_color_priority')
+    clr_prior = clr_prior.upper()
+    for i in range(3):
+        if clr_prior[i] == crd.color:
+            return 3-i
         else:
-            for j in range(len(turn_sort)):
+            pass
 
-                sort_crd_attr = turn_sort[j]
+    return -1
 
-                if svt_priority(curr_crd_attr) > svt_priority(sort_crd_attr):
-                    # 当前卡优先级高，插入到所比较排序的前面去，否则在最后append
-                    turn_sort.insert(j, curr_crd_attr)
-                    break
-                elif svt_priority(curr_crd_attr) == svt_priority(sort_crd_attr):
 
-                    if color_num(curr_crd_attr) >= color_num(sort_crd_attr):
-                        turn_sort.insert(j, curr_crd_attr)
-                        break
-                    else:
-                        turn_sort.insert(j + 1, curr_crd_attr)
-                        break
-                elif j == len(turn_sort) - 1:
-                    turn_sort.append(curr_crd_attr)
-                    break
-                else:
-                    pass
+def crit_priority(crd):
+    return crd.crit // 10
 
-    print('*************************************')
-    for i in range(len(turn_sort)):
-        print(turn_sort[i])
 
+def buff_priority(crd):
+    return crd.buff
+
+
+def extra_chain(crd_lst):
+    # 如果有，返回chain的list，如果没有，返回-1
+    # 如果不能识别的时候，输出false，默认使用color chain
+    # 如果有 extra 的 chain, 输出 servant 编号
+    # 然后与第一位 判断 该 servant 的从者优先级，注意仅仅判断从者优先级，如果从者优先级 >=，那么可以使用此，chain
+    # 之后只需要把这一个 从者 的所有卡选出来即可
+    tmp = [0] * 6
+    for card in crd_lst:
+        if card.servant == -1:
+           pass
+        else:
+            tmp[card.servant] += 1
+    # i = servant number
+    extra_svt = -1
+    for i in tmp:
+        if tmp[i] >= 3:
+            extra_svt = i
+            break
+
+    if extra_svt == -1:
+        return -1
+
+    tmp_lst0 = []
+    tmp_lst1 = []
+    for card in crd_lst:
+        if card.servant == extra_svt:
+            tmp_lst0.append(card)
+        else:
+            tmp_lst1.append(card)
+    tmp_lst = tmp_lst0 + tmp_lst1
+    # 如果 chain 中 从者的优先级比 list 中第一个低的话
+    # 那么就不执行这个 chain
+    # 直接考虑 color chain 或者 平砍 三 张卡
+    if servant_priority(tmp_lst[0]) == -1:
+        tmpchn_prior = buff_priority(tmp_lst[0])   # tmp chain
+        sortop_prior = buff_priority(crd_lst[0])   # sort top
+    else:
+        tmpchn_prior = servant_priority(tmp_lst[0])
+        sortop_prior = servant_priority(crd_lst[0])
+
+    if tmpchn_prior < sortop_prior:
+        return -1
+    else:
+        return tmp_lst
+
+
+def color_chain(crd_lst):
+    # 返回颜色的字符，如果没有，返回-1
+    rgb = 'RGB'
+    lst = [0] * 3
+    for i in range(3):
+        char = rgb[i]
+        for card in crd_lst:
+            if char == card.color:
+                lst[i] += 1
+
+        chain_clr = -1
+    for i in range(3):
+        if lst[i] >= 3:
+            chain_clr = rgb[i]
+
+    if chain_clr == -1:
+        return -1
+
+    # 已知 color
+
+    tmp_lst0 = []
+    tmp_lst1 = []
+    for card in crd_lst:
+        if card.color == chain_clr:
+            tmp_lst0.append(card)
+        else:
+            tmp_lst1.append(card)
+    tmp_lst = tmp_lst0 + tmp_lst1
+    # 如果 chain 中 从者的优先级比 list 中第一个低的话
+    # 那么就不执行这个 chain
+    # 直接考虑 color chain 或者 平砍 三 张卡
+    if servant_priority(tmp_lst[0]) == -1:
+        tmpchn_prior = buff_priority(tmp_lst[0])   # tmp chain
+        sortop_prior = buff_priority(crd_lst[0])   # sort top
+    else:
+        tmpchn_prior = servant_priority(tmp_lst[0])
+        sortop_prior = servant_priority(crd_lst[0])
+
+    if tmpchn_prior < sortop_prior:
+        return -1
+    else:
+        return tmp_lst
+
+
+def turn_sorted(turn_card):
+
+    print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] ORIGINAL CARD')
+    for card in turn_card:
+        card.show()
+
+    sort_card = []
+    sort_card.append(turn_card[0])  # 第一张卡先放到list中
+
+    for curr_card in turn_card[1:]:
+        # print('curr_card', curr_card)
+        for i in range(len(sort_card)):
+            comp_card = turn_card[i]
+            if card_priority(curr_card) > card_priority(comp_card):
+                sort_card.insert(i, curr_card)
+                break
+            elif i == len(sort_card) - 1:
+                sort_card.append(curr_card)
+                break
+            else:
+                pass
+
+    print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] SORT A')
+    for card in sort_card:
+        card.show()
+
+    if eval(rd_global('set_default_chain')):
+
+        if extra_chain(sort_card) != -1:
+            sort_card = extra_chain(sort_card)
+
+            print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] SORT B (EXTRA CHAIN)')
+            for card in sort_card:
+                card.show()
+
+        elif color_chain(sort_card) != -1:
+            sort_card = color_chain(sort_card)
+
+            print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] SORT C (COLOR CHAIN)')
+            for card in sort_card:
+                card.show()
+
+        else:
+            pass
+
+
+    # 将不能移动的移动到最后，特殊情况
+    # 如果chain中有，也是不能够正常启动 chain的
     lst_normal = []
     lst_cantmove = []
-    for i in range(len(turn_sort)):
-        if turn_sort[i][5] == -2:
-            lst_cantmove.append(turn_sort[i])
+    for i in range(len(sort_card)):
+        if sort_card[i].buff == -2:
+            lst_cantmove.append(sort_card[i])
         else:
-            lst_normal.append(turn_sort[i])
+            lst_normal.append(sort_card[i])
 
-    lst_sorted = lst_normal + lst_cantmove
+    sort_card = lst_normal + lst_cantmove
 
-    print('---------------------------------------')
-    for i in range(len(lst_sorted)):
-        print(lst_sorted[i])
 
-    return lst_sorted
+    print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] SORT D (CHANGE BUFF = -2)')
+    for card in sort_card:
+        card.show()
 
-def tap_lst(lst, n):
-    # 红色卡置顶
-    # n = 3
-    tap_lst = lst[n - 5 - 1::-1]  # 前n个逆序排列
+    return sort_card
 
+
+def tap_crd(cards, n):
+    tap_cards = cards[n - 5 - 1::-1]  # 前n个逆序排列
     if n == 3:
-        sum_r = 0
-        for i in range(3):
-            sum_r += tap_lst[i][2]
-        if sum_r > 0 and tap_lst[0][2] == 0:
-            if tap_lst[1][2] > 0:
-                swap_crd = tap_lst.pop(1)
-            else:  # new_tap_lst[2][2] > 0:
-                swap_crd = tap_lst.pop(2)
-            tap_lst.insert(0, swap_crd)
+        sum = 0
+        for card in tap_cards:
+            sum += int(card.color == 'R')
+        if sum >0 and tap_cards[0].color != 'R':
+            if tap_cards[1].color == 'R':
+                swap_card = tap_cards.pop(1)
+            else:
+                swap_card = tap_cards.pop(2)
+            tap_cards.insert(0, swap_card)
 
-    return tap_lst
+    return tap_cards
+
+
+# 返回当前 round, 如果没有识别到，返回-1
+def curr_round():
+    sh = cv2.imread(screenshot_path, 0)
+    for i in range(3):
+        tmp = cv2.imread(round_path + f'/round{i+1}.png', 0)
+        thd = 0.85
+        if analyze(sh, tmp, thd):
+            wt_global('round', i + 1)
+            return i+1
+    return -1
+
+
+
+
 
 
 def attack():
     psn = PSN()
 
-    f = open(tmp_battle, 'r')
-    turn = int(f.read())
-    f.close()
+    # 获取当前 round 数
+    round = curr_round()
+    # print('round', round)
 
+
+    # 获取当前回合数，并更新， +=1 是因为文件内是从 0 开始计算的，需要转换一下
+    turn = eval(rd_global('turn'))
     turn += 1
-    print('{-}{-}{-}{-}{-}curr turn is : %d' % turn)
+    wt_global('turn', turn)
 
+    # 获取设定某些回合技能输入
+    default_skill = rd_global('set_default_skill')
     skill_lst = cfgstr2lst(default_skill)
-
     if turn <= len(skill_lst):
         turn_skill(skill_lst[turn - 1])
 
+    # 点击 ATTACK 按钮，更新截图
     psn.ATK()
     time.sleep(1)
     screenshot()
 
-    split_in_battle(screenshot_path)
-    turn_attr = turn_attribute()
-    # for i in turn_attr:
-    #     print(i)
-    turn_sort = turn_sorted(turn_attr)
-    # for i in tap_lst:
-    #     print('--> ', i)
+    # 获取指令卡属性
+    cards_attr = turn_attribute()
+    cards_sort = turn_sorted(cards_attr)
+    # cards_tap  = tap_crd(cards_sort, n) #####
 
+    default_final = rd_global('set_default_final')
     final_lst = cfgstr2lst(default_final)
-    if turn <= len(final_lst):
-        ins = final_lst[turn-1].upper()
+
+
+    # 这里有段重复，应该可以后期简化
+    # 这里可以控制前面的输出来进行简化
+
+    final_unit = rd_global('set_default_final_unit') # round / turn
+    if final_unit == 'round':
+        td_idx = round  # turn_round_idx
+    else:
+        td_idx = turn
+
+
+    if td_idx <= len(final_lst):
+        ins = final_lst[td_idx-1].upper()
 
         if ins != 'XXX' and ins != '':
         #     lst = tap_lst(turn_sort, 3)
@@ -327,22 +361,48 @@ def attack():
         #         tap(crd[7], crd[8])
         #         time.sleep(1)
         # else: #说明有一张是宝具
-            lst = tap_lst(turn_sort, 2)
+            lst = tap_crd(cards_sort, 2)
             idx = 0
             for char in ins:
                 if char == 'X':
                     crd = lst[idx]
-                    tap(crd[7], crd[8])
+                    tap(crd.px, crd.py)
                     time.sleep(1)
                     idx += 1
                 else:
                     eval('psn.E%s()' % char)
+        else:
+            lst = tap_crd(cards_sort, 3)
+            for crd in lst:
+                tap(crd.px, crd.py)
+                time.sleep(1)
     else:
-        lst = tap_lst(turn_sort, 3)
+        lst = tap_crd(cards_sort, 3)
         for crd in lst:
-            tap(crd[7], crd[8])
+            tap(crd.px, crd.py)
             time.sleep(1)
 
-    f = open(tmp_battle, 'w')
-    f.write(str(turn))
-    f.close()
+
+
+
+
+
+
+
+
+def tst_class_Card():
+    from func.similar.similar import similar_image2
+
+    for i in range(5):
+        for j in range(5):
+            if i < j:
+                file1 = f'./cfg/servant_{i}.png'
+                file2 = f'./cfg/servant_{j}.png'
+                print('i = %d, j = %d' % (i, j), end = ' -->')
+                print(bool(similar_image2(file1, file2)))
+
+                # im1 = Image.open(f'./cfg/servant_{i}.png')
+                # im2 = Image.open(f'./cfg/servant_{j}.png')
+                # print('i = %d, j = %d' % (i, j), simliar_image(im1, im2))
+
+

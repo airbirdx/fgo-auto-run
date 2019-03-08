@@ -19,9 +19,8 @@ def location(sh, tmp, thd):
 
 def aline(tmp, ary):
     ret = []
-
     w, h = tmp.shape[::-1]
-    print(ary)
+    # print(ary)
     for ps in ary:
         psl = []
         psl.append(ps[0] + w // 2)

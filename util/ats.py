@@ -9,6 +9,7 @@ from util.cvs import position
 from util.cvs import analyze
 from config import *
 
+
 def click(x, y):
     cmd_tap = 'adb shell input tap {x0} {y0}'.format(
         x0=x,
@@ -48,8 +49,8 @@ def tap(x, y, error=10):
 
 
 def screenshot():
-    os.system('adb shell screencap -p /sdcard/tst.png')
-    os.system('adb pull /sdcard/tst.png ' + screenshot_path)
+    os.system('adb shell screencap -p /sdcard/tst1.png')
+    os.system('adb pull /sdcard/tst1.png ' + screenshot_path)
     # inv-clockwise dir
     if default_rotation:
         img = cv2.imread(screenshot_path, 1)  # 1 is color, 0 is gray

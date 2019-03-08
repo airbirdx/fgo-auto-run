@@ -61,7 +61,7 @@ def skill(parm, duration=None):
     lst = list(parm.upper())
 
     if lst == []:
-        print('No skill in this turn...')
+        # print('No skill in this turn...')
         return False
 
     # switch servant

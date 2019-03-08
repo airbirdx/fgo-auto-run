@@ -15,20 +15,19 @@ from func.friend import make_friend
 from func.fail import withdrawn
 from func.task import task_select
 from func.battle import attack
+from func.addap import addap0
 
 def scene_operation():
-    # config = load_config()
-
     scene = current_scene()
 
+    print('「 CURRENT SCENE 」', scene)
+
     if 'addap' in scene:
-        pass
+        addap0()
     elif 'task' in scene:
         task_select()
-        pass
     elif 'support' in scene:
         select_support()
-        # select_support(servant='meilin', skill='310')
     elif 'team' in scene:
         team_confirm()
     elif 'loading' in scene:
@@ -36,11 +35,11 @@ def scene_operation():
     elif 'attack' in scene:
         attack()
     elif 'win' in scene:
-        win_and_next()
+        win_and_next(scene)
     elif 'fail' in scene:
         withdrawn()
     elif 'friend' in scene:
         make_friend()
     else:
-        print('「 ONLY GET SCREENSHOT 」')
+        print('「 ONLY GET SCREEN SHOT 」')
         pass

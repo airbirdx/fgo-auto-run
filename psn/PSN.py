@@ -1,13 +1,13 @@
 
 __metaclass__ = type
 
-from util.ats import tap
 import time
+from util.ats import tap
+
 
 class PSN:
     def __init__(self):
         pass
-
 
     def A(self, duration=None):
         if duration is None:
@@ -197,7 +197,7 @@ class PSN:
 
     def S0(self, duration=None):
         if duration is None:
-            duration = 10.0
+            duration = 1.0
         tap(963, 936)
         time.sleep(duration)
 
@@ -263,19 +263,19 @@ class PSN:
 
     def INFI1(self, duration=None):
         if duration is None:
-            duration = 1.5
+            duration = 2.0
         tap(1710, 365)
         time.sleep(duration)
 
     def INFI2(self, duration=None):
         if duration is None:
-            duration = 1.5
+            duration = 3.0
         tap(1255, 840)
         time.sleep(duration)
 
     def INFI3(self, duration=None):
         if duration is None:
-            duration = 3.0
+            duration = 2.0
         tap(960, 840)
         time.sleep(duration)
 
@@ -295,6 +295,12 @@ class PSN:
         if duration is None:
             duration = 1.0
         tap(335, 1040)
+        time.sleep(duration)
+
+    def SUPPREF(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        tap(1255, 193)
         time.sleep(duration)
 
     def ZHIJIE0(self, duration=None):
@@ -365,7 +371,7 @@ class PSN:
 
     def SKIPY(self, duration=None):
         if duration is None:
-            duration = 30.0
+            duration = 2.0
         tap(1240, 840)
         time.sleep(duration)
 

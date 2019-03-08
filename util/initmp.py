@@ -1,7 +1,7 @@
 import os
 import shutil
-from util.default import *
-from util.scene import curr_png_lst
+from util.scene import png_lst
+from util.global0 import *
 
 
 # 循环迭代删除路径文件夹下的所有文件
@@ -25,34 +25,35 @@ def clean(path):
 def create(path):
     file_lst = [
         'support.txt',
-        'battle.txt',
-        'runtime.txt',
-        'apple.txt'
+        'global.txt'
+        # 'runtime.txt',
+        # 'apple.txt'
     ]
     for file in file_lst:
         f = open(path + '/' + file, 'w')
         # if file is not 'support.txt':
-        if file != 'support.txt':
-            f.write('0')
+        # if file != 'support.txt':
+        #     f.write('0')
         f.close()
 
 
-
 def cpcfg2lib():
-    lst = curr_png_lst(cfg_path)
+    lst = png_lst(cfg_path)
+    svt_priority = eval(rd_global('set_servant_priority'))
     for file in lst:
         name, ext = os.path.splitext(file)
-        # print(file)
-        if 'servant' in name:
-            pass
-        elif name == 'task':
+        if name == 'task':
             shutil.copyfile(cfg_path + f'/{file}', task_path + f'/{file}')
             shutil.copyfile(cfg_path + f'/{file}', scenes_path + f'/{file}')
+        elif name == 'material':
+            shutil.copyfile(cfg_path + f'/{file}', win_path + f'/{file}')
+
 
 # 初始化, 清空 tmp 文件夹, 并创建临时 txt 文件
 def init_tmp():
     cpcfg2lib()
     clean(tmp_path)
     create(tmp_path)
+    init_global()
 
 

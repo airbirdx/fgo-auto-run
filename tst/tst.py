@@ -1,17 +1,4 @@
-# import random
-# import datetime
-# import time
-#
-#
-# ct = datetime.datetime.now()
-#
-# cts = int(time.mktime(ct.timetuple()))
-#
-# random.seed(cts)
-# print("Random number with seed 10 : ", random.randint(-10, 10))
-# print(datetime.datetime.now())
-#
-# print(cts)
+
 
 import cv2
 import numpy as np
@@ -38,14 +25,6 @@ def mathc_img(image,Target,value):
     print(pos) # location
 
 
-    print(img_gray.shape)
-    w1, h1 = img_gray.shape[::-1]
-    print(w1, h1)
-    x = random.randrange(-300, 300) + (w1 / 2)
-    y = random.randrange(-200, 200) + (h1 / 2)
-
-    print(x, y)
-
     cv2.namedWindow('Detected',0)
     cv2.startWindowThread()
     cv2.imshow('Detected',img_rgb)
@@ -56,9 +35,9 @@ def mathc_img(image,Target,value):
     # self.crd = [x, y]
 
 
-image=("./tmp/card_2.png")
-Target=("./lib/battle/restraint.png")
-value=0.85
+image=('79' + '.png')
+Target=('round2' + '.png')
+value=0.55
 mathc_img(image,Target,value)
 # print('adsdasfdsad')
 
