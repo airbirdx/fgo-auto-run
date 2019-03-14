@@ -311,7 +311,7 @@ def tap_crd(cards, n):
                 swap_card = tap_cards.pop(2)
             tap_cards.insert(0, swap_card)
 
-    print('@SORT / FINALLY  / TAP CARDS')
+    print('@SORT / FINALLY / TAP CARDS')
     print('|-----|---------|-------|------|------|-----------|')
     print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
     for card in tap_cards:

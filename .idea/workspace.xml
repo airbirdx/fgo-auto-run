@@ -2,33 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="869f6b89-aa76-483b-b660-12ed0cbac3ed" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cfg/servant_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/servant_0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/servant_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/servant_1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfg/servant_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/servant_2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/Card.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/Card.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/addap.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/addap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/func/battle.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/battle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/operation.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/operation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/task.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/task.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/team.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/team.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/func/win.py" beforeDir="false" afterPath="$PROJECT_DIR$/func/win.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/battle/attack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/battle/crit/80.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/battle/crit/80.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/battle/danger.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/scenes/task.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/scenes/task.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/support/meilin1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/support/meilin2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/support/meilin3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/support/skill_310.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/task/task.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/task/task.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/psn/psfunc.py" beforeDir="false" afterPath="$PROJECT_DIR$/psn/psfunc.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sh.png" beforeDir="false" afterPath="$PROJECT_DIR$/sh.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/ats.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/ats.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/global0.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/global0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/initmp.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/initmp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/scene.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/scene.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/global.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/global.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/support.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/support.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +17,7 @@
     <session id="-1252540296">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.opened" value="2" />
@@ -100,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/func/battle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="349" column="12" selection-start-line="349" selection-start-column="12" selection-end-line="349" selection-end-column="12" />
+            <state relative-caret-position="202">
+              <caret line="313" column="27" selection-start-line="313" selection-start-column="27" selection-end-line="313" selection-end-column="27" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -124,11 +101,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="357">
+              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -159,9 +136,9 @@
         <option value="$PROJECT_DIR$/func/team.py" />
         <option value="$PROJECT_DIR$/func/win.py" />
         <option value="$PROJECT_DIR$/func/addap.py" />
-        <option value="$PROJECT_DIR$/func/battle.py" />
         <option value="$PROJECT_DIR$/util/global0.py" />
         <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/func/battle.py" />
       </list>
     </option>
   </component>
@@ -228,7 +205,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="42" y="23" width="1638" height="1027" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4945534" visible="true" weight="0.24984539" />
       <window_info id="Structure" order="1" sideWeight="0.5054466" side_tool="true" visible="true" weight="0.24984539" />
@@ -339,16 +315,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/func/battle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="349" column="12" selection-start-line="349" selection-start-column="12" selection-end-line="349" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util/global0.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -371,8 +337,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="357">
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/func/battle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="313" column="27" selection-start-line="313" selection-start-column="27" selection-end-line="313" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
