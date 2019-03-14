@@ -19,5 +19,5 @@ def judge():
         if set_parm != -1 and isinstance(set_parm, int):
             if run_parm >= set_parm:
                 wt_global('RUN_FLAG', 'False')
-                print('?????? RUN TIMES DONE IN TASK')
+                print('/---/ DONE --> RUN TIMES')
                 exit()

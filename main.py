@@ -1,9 +1,10 @@
+import time
+from util.global0 import *
+from func.battle import training
+from func.operation import scene_operation
 from util.ats import screenshot
 from util.initmp import init_tmp
-from util.global0 import *
-from func.operation import *
-from func.battle import *
-from config import *
+
 
 if dbg_shoot:
     screenshot()
@@ -18,7 +19,6 @@ while rd_global('RUN_FLAG') == 'True':
     screenshot()
     scene_operation()
     time.sleep(1)
-
 
 print('//-------------------------------------------------//')
 print('//------------   D  O  N  E    --------------------//')

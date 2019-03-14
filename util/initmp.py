@@ -39,7 +39,7 @@ def create(path):
 
 def cpcfg2lib():
     lst = png_lst(cfg_path)
-    svt_priority = eval(rd_global('set_servant_priority'))
+    # svt_priority = eval(rd_global('set_servant_priority'))
     for file in lst:
         name, ext = os.path.splitext(file)
         if name == 'task':

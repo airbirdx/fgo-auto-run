@@ -77,7 +77,7 @@ def init_global():
 
     # --> default_final_unit
     if defined_var('default_final_unit'):
-        if set_default_final_unit == 'round' or set_default_final_unit == 'turn':
+        if default_final_unit == 'round' or default_final_unit == 'turn':
             set_default_final_unit = default_final_unit
         else:
             set_default_final_unit = 'round'

@@ -27,7 +27,7 @@ def cfgstr2lst(string):
 
     for skill in tmp_str:
         tmp_idx = int(skill[:skill.find(')')])
-        print(tmp_idx)
+        # print(tmp_idx)
         seq[tmp_idx - 1] = skill[skill.find(')') + 1:]
 
     return seq

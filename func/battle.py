@@ -121,6 +121,16 @@ def buff_priority(crd):
     return crd.buff
 
 
+# update the servant index when has the same servant in one round
+def svt_idx_update(crd_lst):
+    res = []
+    for card in crd_lst:
+        if card.issup:
+            card.idx += 10
+        res.append(card)
+    return res
+
+
 def extra_chain(crd_lst):
     # 如果有，返回chain的list，如果没有，返回-1
     # 如果不能识别的时候，输出false，默认使用color chain
@@ -213,44 +223,54 @@ def color_chain(crd_lst):
 
 def turn_sorted(turn_card):
 
-    print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] ORIGINAL CARD')
+    print('@SORT / ORIGINAL')
+    print('|-----|---------|-------|------|------|-----------|')
+    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
     for card in turn_card:
         card.show()
 
-    sort_card = []
-    sort_card.append(turn_card[0])  # 第一张卡先放到list中
+    sort_cards = []
+    sort_cards.append(turn_card[0])  # 第一张卡先放到list中
 
     for curr_card in turn_card[1:]:
         # print('curr_card', curr_card)
-        for i in range(len(sort_card)):
+        for i in range(len(sort_cards)):
             comp_card = turn_card[i]
             if card_priority(curr_card) > card_priority(comp_card):
-                sort_card.insert(i, curr_card)
+                sort_cards.insert(i, curr_card)
                 break
-            elif i == len(sort_card) - 1:
-                sort_card.append(curr_card)
+            elif i == len(sort_cards) - 1:
+                sort_cards.append(curr_card)
                 break
             else:
                 pass
 
-    print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] SORT A')
-    for card in sort_card:
+    print('@SORT / CARD PRIORITY')
+    print('|-----|---------|-------|------|------|-----------|')
+    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+    for card in sort_cards:
         card.show()
 
     if eval(rd_global('set_default_chain')):
 
-        if extra_chain(sort_card) != -1:
-            sort_card = extra_chain(sort_card)
+        up_sort_cards = svt_idx_update(sort_cards)
 
-            print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] SORT B (EXTRA CHAIN)')
-            for card in sort_card:
+        if extra_chain(up_sort_cards) != -1:
+            sort_cards = extra_chain(sort_cards)
+
+            print('@SORT / EXTRE CHAIN')
+            print('|-----|---------|-------|------|------|-----------|')
+            print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+            for card in sort_cards:
                 card.show()
 
-        elif color_chain(sort_card) != -1:
-            sort_card = color_chain(sort_card)
+        elif color_chain(up_sort_cards) != -1:
+            sort_cards = color_chain(sort_cards)
 
-            print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] SORT C (COLOR CHAIN)')
-            for card in sort_card:
+            print('@SORT / COLOR CHAIN')
+            print('|-----|---------|-------|------|------|-----------|')
+            print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+            for card in sort_cards:
                 card.show()
 
         else:
@@ -261,20 +281,21 @@ def turn_sorted(turn_card):
     # 如果chain中有，也是不能够正常启动 chain的
     lst_normal = []
     lst_cantmove = []
-    for i in range(len(sort_card)):
-        if sort_card[i].buff == -2:
-            lst_cantmove.append(sort_card[i])
+    for i in range(len(sort_cards)):
+        if sort_cards[i].buff == -2:
+            lst_cantmove.append(sort_cards[i])
         else:
-            lst_normal.append(sort_card[i])
+            lst_normal.append(sort_cards[i])
 
-    sort_card = lst_normal + lst_cantmove
+    sort_cards = lst_normal + lst_cantmove
 
-
-    print('**@**@**@**@**@**@**@**@**@**@**@**@**@**[ X ] SORT D (CHANGE BUFF = -2)')
-    for card in sort_card:
+    print('@SORT / MODIFY BUFF')
+    print('|-----|---------|-------|------|------|-----------|')
+    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+    for card in sort_cards:
         card.show()
 
-    return sort_card
+    return sort_cards
 
 
 def tap_crd(cards, n):
@@ -289,6 +310,12 @@ def tap_crd(cards, n):
             else:
                 swap_card = tap_cards.pop(2)
             tap_cards.insert(0, swap_card)
+
+    print('@SORT / FINALLY  / TAP CARDS')
+    print('|-----|---------|-------|------|------|-----------|')
+    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+    for card in tap_cards:
+        card.show()
 
     return tap_cards
 
@@ -314,13 +341,13 @@ def attack():
 
     # 获取当前 round 数
     round = curr_round()
-    # print('round', round)
-
 
     # 获取当前回合数，并更新， +=1 是因为文件内是从 0 开始计算的，需要转换一下
     turn = eval(rd_global('turn'))
     turn += 1
     wt_global('turn', turn)
+
+    print('@BATTLE -> ROUND : %1d, TURN : %-2d' %(round, turn))
 
     # 获取设定某些回合技能输入
     default_skill = rd_global('set_default_skill')

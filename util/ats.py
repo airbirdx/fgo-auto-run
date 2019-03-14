@@ -3,6 +3,7 @@ import random
 import time
 import datetime
 import cv2
+import subprocess
 import numpy as np
 from util.default import screenshot_path
 from util.cvs import position
@@ -49,8 +50,11 @@ def tap(x, y, error=10):
 
 
 def screenshot():
-    os.system('adb shell screencap -p /sdcard/tst1.png')
-    os.system('adb pull /sdcard/tst1.png ' + screenshot_path)
+    tmp_png = 'tst1.png'
+    retcode = subprocess.call(f'adb shell screencap -p /sdcard/{tmp_png}', shell=True)
+    retcode = subprocess.call(f'adb pull /sdcard/{tmp_png} {screenshot_path}', shell=True, stdout=None)
+    # os.system(f'adb shell screencap -p /sdcard/{tmp_png}')
+    # os.system(f'adb pull /sdcard/{tmp_png} {screenshot_path}')
     # inv-clockwise dir
     if default_rotation:
         img = cv2.imread(screenshot_path, 1)  # 1 is color, 0 is gray

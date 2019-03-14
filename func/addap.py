@@ -20,11 +20,10 @@ def addap0():
     screenshot()
     time.sleep(1)
 
-    print('set_run_num', set_run_num, type(set_run_num))
-    print('cur_run_num', cur_run_num, type(cur_run_num))
-    print('set_clr_lst', set_clr_lst)
-    print(color)
-    # exit()
+    # print('set_run_num', set_run_num, type(set_run_num))
+    # print('cur_run_num', cur_run_num, type(cur_run_num))
+    # print('set_clr_lst', set_clr_lst)
+    # print(color)
 
     if set_run_num[2] != -1:
         set_num = set_run_num[2][1]
@@ -33,13 +32,13 @@ def addap0():
             pass
         else:
             wt_global('RUN_FLAG', 'False')
-            print('?????? RUN TIMES DONE')
+            print('/---/ DONE --> USE APPLE ')
             exit()
 
     # thd = 0.85
     if picture_tap(addap_path + '/apple' + color + '.png'):
 
-        print('!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        # print('!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         # 根据点击苹果，进行自加
         if set_run_num[2] != -1:
             cur_run_num[2][1] += 1

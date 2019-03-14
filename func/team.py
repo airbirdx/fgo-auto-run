@@ -19,7 +19,7 @@ def team_confirm():
 
     if cur_run_num[0] > set_run_num[0]:
         wt_global('RUN_FLAG', 'False')
-        print('Force Exit')
+        print('/---/ DONE --> RUN TIMES')
         exit()
 
     # thd = 0.85

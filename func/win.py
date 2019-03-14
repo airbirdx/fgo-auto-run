@@ -26,6 +26,7 @@ def judge():
 
         if cur_run_num[1] >= set_run_num[1]:
             wt_global('RUN_FLAG', 'False')
+            print('/---/ DONE --> RUN MATERIAL')
 
 
 def win_and_next(scene):

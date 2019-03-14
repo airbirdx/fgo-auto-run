@@ -25,5 +25,5 @@ def current_scene():
         if analyze(sh, tmp, thd):
             name, extension = os.path.splitext(file)
             return name
-    return 'PROCESS...'
+    return 'None'
 

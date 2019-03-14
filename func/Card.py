@@ -22,6 +22,7 @@ class Card:
         self.crit = -1     # ok
         self.px = -1       # ok
         self.py = -1       # ok
+        self.issup = 0     # ok
 
     def analyze(self):
         if self.idx == -1:
@@ -31,6 +32,16 @@ class Card:
             self.get_color_and_psn()
             self.get_buff()
             self.get_crit()
+            self.get_issup()
+
+    def get_issup(self):
+        card = self.__card
+        tmp = cv2.imread(battle_path + '/sup.png', 0)
+        thd = 0.85
+        if analyze(card, tmp, thd):
+            self.issup = 1
+        else:
+            self.issup = 0
 
     def set_idx(self, n):
         self.idx = n
