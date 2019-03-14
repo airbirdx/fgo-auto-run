@@ -5,7 +5,7 @@ dbg_train = 0
 # rotation if needed
 default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 
-run_times = 2                            # How many times do you want to run
+run_times = 5                            # How many times do you want to run
 # run_materials = 5                        # How many materials do you want to get
 # run_apples = ['Cu', 1]                   # How many apple do you want to eat, only support 'Au' and 'Ag' apple
 # default_servant_priority = [0, 1, 3, 2]  # servant priority # high(left) -> low(right)

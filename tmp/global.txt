@@ -1,9 +1,9 @@
 RUN_FLAG=True
-round=0
-turn=0
+round=3
+turn=5
 set_color_priority=RBG
 set_apple_priority=['Cu','Ag','Au']
-set_run_parm=[2,-1,-1]
+set_run_parm=[5,-1,-1]
 run_parm=[2,0,0]
 set_servant_priority=[]
 set_default_chain=1
