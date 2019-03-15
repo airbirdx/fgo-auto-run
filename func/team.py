@@ -34,3 +34,13 @@ def team_confirm():
         # name, ext = os.path.splitext(file)
         if 'servant' in file and not svt_priority:
             os.remove(cfg_path + '/' + file)
+
+    # 获取 skill 和 final ..并转换为新的变量
+    default_skill = rd_global('set_default_skill')
+    skill_lst = cfgstr2lst(default_skill)
+    wt_global('tmp_skl_lst', skill_lst)
+
+    default_final = rd_global('set_default_final')
+    final_lst = cfgstr2lst(default_final)
+    wt_global('tmp_fnl_lst', final_lst)
+

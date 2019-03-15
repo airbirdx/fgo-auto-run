@@ -332,10 +332,6 @@ def curr_round():
     return -1
 
 
-
-
-
-
 def attack():
     psn = PSN()
 
@@ -347,13 +343,21 @@ def attack():
     turn += 1
     wt_global('turn', turn)
 
-    print('@BATTLE -> ROUND : %1d, TURN : %-2d' %(round, turn))
+    print('@BATTLE -> ROUND : %1d, TURN : %-2d' % (round, turn))
+
+    # 获取 turn / round 参数
+    op_unit = rd_global('set_default_final_unit')  # round / turn
+    if op_unit == 'round':
+        td_idx = round  # turn_round_idx
+    else:
+        td_idx = turn
 
     # 获取设定某些回合技能输入
-    default_skill = rd_global('set_default_skill')
-    skill_lst = cfgstr2lst(default_skill)
-    if turn <= len(skill_lst):
-        turn_skill(skill_lst[turn - 1])
+    skill_lst = eval(rd_global('tmp_skl_lst'))
+    if td_idx <= len(skill_lst):
+        turn_skill(skill_lst[td_idx - 1])
+        skill_lst[td_idx - 1] = ''
+        wt_global('tmp_skl_lst', skill_lst)
 
     # 点击 ATTACK 按钮，更新截图
     psn.ATK()
@@ -363,46 +367,23 @@ def attack():
     # 获取指令卡属性
     cards_attr = turn_attribute()
     cards_sort = turn_sorted(cards_attr)
-    # cards_tap  = tap_crd(cards_sort, n) #####
 
-    default_final = rd_global('set_default_final')
-    final_lst = cfgstr2lst(default_final)
-
-
-    # 这里有段重复，应该可以后期简化
     # 这里可以控制前面的输出来进行简化
-
-    final_unit = rd_global('set_default_final_unit') # round / turn
-    if final_unit == 'round':
-        td_idx = round  # turn_round_idx
-    else:
-        td_idx = turn
-
-
-    if td_idx <= len(final_lst):
-        ins = final_lst[td_idx-1].upper()
-
-        if ins != 'XXX' and ins != '':
-        #     lst = tap_lst(turn_sort, 3)
-        #     for crd in lst:
-        #         tap(crd[7], crd[8])
-        #         time.sleep(1)
-        # else: #说明有一张是宝具
-            lst = tap_crd(cards_sort, 2)
-            idx = 0
-            for char in ins:
-                if char == 'X':
-                    crd = lst[idx]
-                    tap(crd.px, crd.py)
-                    time.sleep(1)
-                    idx += 1
-                else:
-                    eval('psn.E%s()' % char)
-        else:
-            lst = tap_crd(cards_sort, 3)
-            for crd in lst:
+    final_lst = eval(rd_global('tmp_fnl_lst'))
+    ins = final_lst[td_idx - 1].upper()
+    if td_idx <= len(final_lst) and ins != 'XXX' and ins != '':
+        lst = tap_crd(cards_sort, 2)
+        idx = 0
+        for char in ins:
+            if char == 'X':
+                crd = lst[idx]
                 tap(crd.px, crd.py)
                 time.sleep(1)
+                idx += 1
+            else:
+                eval('psn.E%s()' % char)
+                final_lst[td_idx - 1] = ''
+                wt_global('tmp_fnl_lst', final_lst)
     else:
         lst = tap_crd(cards_sort, 3)
         for crd in lst:
@@ -410,26 +391,21 @@ def attack():
             time.sleep(1)
 
 
-
-
-
-
-
-
-
 def tst_class_Card():
-    from func.similar.similar import similar_image2
+    attack()
 
-    for i in range(5):
-        for j in range(5):
-            if i < j:
-                file1 = f'./cfg/servant_{i}.png'
-                file2 = f'./cfg/servant_{j}.png'
-                print('i = %d, j = %d' % (i, j), end = ' -->')
-                print(bool(similar_image2(file1, file2)))
-
-                # im1 = Image.open(f'./cfg/servant_{i}.png')
-                # im2 = Image.open(f'./cfg/servant_{j}.png')
-                # print('i = %d, j = %d' % (i, j), simliar_image(im1, im2))
+    # from func.similar.similar import similar_image2
+    #
+    # for i in range(5):
+    #     for j in range(5):
+    #         if i < j:
+    #             file1 = f'./cfg/servant_{i}.png'
+    #             file2 = f'./cfg/servant_{j}.png'
+    #             print('i = %d, j = %d' % (i, j), end = ' -->')
+    #             print(bool(similar_image2(file1, file2)))
+    #
+    #             # im1 = Image.open(f'./cfg/servant_{i}.png')
+    #             # im2 = Image.open(f'./cfg/servant_{j}.png')
+    #             # print('i = %d, j = %d' % (i, j), simliar_image(im1, im2))
 
 

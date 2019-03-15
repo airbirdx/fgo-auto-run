@@ -73,10 +73,11 @@ def select_support():
         psn = PSN()
         psn.SUPPREF()
         if refresh:
-            print('Can not find the support...')
+            print('Can not find the setting support...')
             exit()
         else:
             refresh = True
+            return True
 
     sizea = [support_sel_size_1, support_sel_size_2]
 

@@ -6,6 +6,11 @@ from util.ats import screenshot
 from util.initmp import init_tmp
 
 
+# from func.battle import tst_class_Card
+# tst_class_Card()
+# exit()
+
+
 if dbg_shoot:
     screenshot()
     exit()

@@ -1,5 +1,6 @@
 from util.default import *
 from config import *
+from psn.psfunc import *
 
 
 def init_global():
@@ -93,6 +94,8 @@ def init_global():
         set_default_support = ['', '', '']
 
     wt_global('set_default_support', set_default_support)
+
+
 
 
 

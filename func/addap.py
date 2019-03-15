@@ -39,10 +39,11 @@ def addap0():
     if picture_tap(addap_path + '/apple' + color + '.png'):
 
         # print('!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        # print('set_run_num', set_run_num)
         # 根据点击苹果，进行自加
         if set_run_num[2] != -1:
             cur_run_num[2][1] += 1
-            print(cur_run_num)
+            # print(cur_run_num)
             wt_global('g_cur_run_parm', cur_run_num)
 
         # 点击苹果，1s后获取截图
@@ -59,11 +60,13 @@ def addap0():
             # 如果是其他两种刷多少次或者多少个材料的形式，当前优先级颜色 pop 出 list ，顺位查找下一个优先级
             else:
                 set_clr_lst.pop(0)
+                print('set_clr_lst', set_clr_lst)
                 # 如果已经全部出栈，表示已经没有可以选择的，退出执行
-                if set_clr_lst:
+                if not set_clr_lst:
                     wt_global('RUN_FLAG', 'False')
                 else:
-                    wt_global('g_set_clr_list', set_clr_lst)
+                    wt_global('set_apple_priority', set_clr_lst)
+                return True
         else:
             pass
 
