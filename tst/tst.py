@@ -2,7 +2,6 @@
 
 import cv2
 import numpy as np
-import random
 
 def mathc_img(image,Target,value):
 
@@ -32,12 +31,10 @@ def mathc_img(image,Target,value):
     cv2.destroyAllWindows()
 
 
-    # self.crd = [x, y]
 
-
-image=('79' + '.png')
-Target=('round2' + '.png')
-value=0.55
+image =(r'111' + '.png')
+Target=('win2' + '.png')
+value=0.85
 mathc_img(image,Target,value)
 # print('adsdasfdsad')
 

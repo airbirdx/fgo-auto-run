@@ -1,3 +1,4 @@
+import time
 from func.support import select_support
 from func.team import team_confirm
 from util.scene import current_scene
@@ -12,8 +13,6 @@ from func.addap import addap0
 
 def scene_operation():
     scene = current_scene()
-
-    print('「 CURRENT SCENE 」', scene)
 
     if 'addap' in scene:
         addap0()
@@ -35,3 +34,5 @@ def scene_operation():
         make_friend()
     else:
         pass
+
+    time.sleep(1)

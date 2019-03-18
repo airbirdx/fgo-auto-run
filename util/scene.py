@@ -24,6 +24,7 @@ def current_scene():
         thd = 0.85
         if analyze(sh, tmp, thd):
             name, extension = os.path.splitext(file)
+            print('「 CURRENT SCENE 」', name)
             return name
-    return 'None'
+    return 'none'
 

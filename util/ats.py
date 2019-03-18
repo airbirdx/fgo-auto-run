@@ -12,12 +12,13 @@ from config import *
 
 
 def click(x, y):
-    cmd_tap = 'adb shell input tap {x0} {y0}'.format(
+    cmd_click = 'adb shell input tap {x0} {y0}'.format(
         x0=x,
         y0=y
     )
-    print(cmd_tap)
-    os.system(cmd_tap)
+    # print(cmd_click)
+    # subprocess.call(cmd_tap, shell=True, stdout=None)
+    os.system(cmd_click)
 
 
 def swipe(x0, y0, x1, y1, delay0):
@@ -28,7 +29,8 @@ def swipe(x0, y0, x1, y1, delay0):
         y3=y1,
         delay1=delay0
     )
-    print(cmd_swipe)
+    # print(cmd_swipe)
+    # subprocess.call(cmd_swipe, shell=True, stdout=None)
     os.system(cmd_swipe)
 
 
@@ -50,9 +52,9 @@ def tap(x, y, error=10):
 
 
 def screenshot():
-    tmp_png = 'tst1.png'
-    retcode = subprocess.call(f'adb shell screencap -p /sdcard/{tmp_png}', shell=True)
-    retcode = subprocess.call(f'adb pull /sdcard/{tmp_png} {screenshot_path}', shell=True, stdout=None)
+    tmp_png = 'ts1t.png'
+    retcode = subprocess.call(f'adb shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
+    retcode = subprocess.call(f'adb pull /sdcard/{tmp_png} {screenshot_path} | grep FGO', shell=True, stdout=None)
     # os.system(f'adb shell screencap -p /sdcard/{tmp_png}')
     # os.system(f'adb pull /sdcard/{tmp_png} {screenshot_path}')
     # inv-clockwise dir

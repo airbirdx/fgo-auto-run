@@ -228,6 +228,7 @@ def turn_sorted(turn_card):
     print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
     for card in turn_card:
         card.show()
+    print('|-----|---------|-------|------|------|-----------|')
 
     sort_cards = []
     sort_cards.append(turn_card[0])  # 第一张卡先放到list中
@@ -250,6 +251,7 @@ def turn_sorted(turn_card):
     print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
     for card in sort_cards:
         card.show()
+    print('|-----|---------|-------|------|------|-----------|')
 
     if eval(rd_global('set_default_chain')):
 
@@ -263,6 +265,7 @@ def turn_sorted(turn_card):
             print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
             for card in sort_cards:
                 card.show()
+            print('|-----|---------|-------|------|------|-----------|')
 
         elif color_chain(up_sort_cards) != -1:
             sort_cards = color_chain(sort_cards)
@@ -272,6 +275,7 @@ def turn_sorted(turn_card):
             print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
             for card in sort_cards:
                 card.show()
+            print('|-----|---------|-------|------|------|-----------|')
 
         else:
             pass
@@ -294,6 +298,7 @@ def turn_sorted(turn_card):
     print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
     for card in sort_cards:
         card.show()
+    print('|-----|---------|-------|------|------|-----------|')
 
     return sort_cards
 
@@ -316,6 +321,7 @@ def tap_crd(cards, n):
     print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
     for card in tap_cards:
         card.show()
+    print('|-----|---------|-------|------|------|-----------|')
 
     return tap_cards
 
@@ -328,7 +334,16 @@ def curr_round():
         thd = 0.85
         if analyze(sh, tmp, thd):
             wt_global('round', i + 1)
-            return i+1
+            return i + 1
+
+    # 两次校验，防止某些图，一种方法不能采集成功
+    for i in range(3):
+        tmp = cv2.imread(round_path + f'/twice/round{i + 1}.png', 0)
+        thd = 0.85
+        if analyze(sh, tmp, thd):
+            wt_global('round', i + 1)
+            return i + 1
+
     return -1
 
 
@@ -370,7 +385,11 @@ def attack():
 
     # 这里可以控制前面的输出来进行简化
     final_lst = eval(rd_global('tmp_fnl_lst'))
-    ins = final_lst[td_idx - 1].upper()
+    if td_idx <= len(final_lst):
+        ins = final_lst[td_idx - 1].upper()
+    else:
+        ins = ''
+
     if td_idx <= len(final_lst) and ins != 'XXX' and ins != '':
         lst = tap_crd(cards_sort, 2)
         idx = 0
