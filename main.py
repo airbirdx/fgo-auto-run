@@ -7,6 +7,7 @@ from func.operation import scene_operation
 from util.ats import screenshot
 from util.initmp import init_tmp
 
+
 script_path = os.path.abspath(sys.argv[0])
 script_name = os.path.basename(sys.argv[0]).split('.')[0] + '.py'
 folder_path = script_path.replace(script_name, '')

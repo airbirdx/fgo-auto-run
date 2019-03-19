@@ -1,6 +1,6 @@
 from util.default import *
 from config import *
-from psn.psfunc import *
+# from psn.psfunc import *
 
 
 def init_global():
@@ -144,3 +144,12 @@ def defined_var(var):
         return False
     else:
         return True
+
+
+def speed():
+    if defined_var('speed_ratio'):
+        spd = 1 / speed_ratio
+    else:
+        spd = 1
+    # print(spd)
+    return spd

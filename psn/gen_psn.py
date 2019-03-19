@@ -63,7 +63,7 @@ __metaclass__ = type
 
 import time
 from util.ats import tap
-from psn.psfunc import speed
+from util.global0 import speed
 
 
 class PSN:

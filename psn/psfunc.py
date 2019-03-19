@@ -95,9 +95,3 @@ def turn_skill(string=None):
         skill(skl)
 
 
-def speed():
-    if defined_var('speed_ratio'):
-        spd = 1 / speed_ratio
-    else:
-        spd = 1
-    return spd
