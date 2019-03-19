@@ -89,14 +89,11 @@ def init_global():
 
     # --> default_final
     if defined_var('default_support'):
-        set_default_support = default_support
+        set_default_support = ['support', 'skill', 'craft']
     else:
         set_default_support = ['', '', '']
 
     wt_global('set_default_support', set_default_support)
-
-
-
 
 
 def rd_global(parm):

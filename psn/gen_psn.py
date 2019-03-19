@@ -54,7 +54,7 @@ for i in range(len(basic_func_name)):
 	print('+-----+------------+-----------+------------+---+')
 	print('| %3d | %-10s | %4d,%4d | %7d ms | %1d |' % (i, basic_func_name[i], basic_func_calx[i], basic_func_caly[i], basic_func_slpt[i], basic_func_skil[i]))
 
-	if i==len(basic_func_name)-1:
+	if i == len(basic_func_name) - 1:
 		print('+-----+------------+-----------+------------+---+')
 
 # generate fgo_psn.js file
@@ -63,6 +63,7 @@ __metaclass__ = type
 
 import time
 from util.ats import tap
+from psn.psfunc import speed
 
 
 class PSN:
@@ -77,6 +78,7 @@ for i in range(len(basic_func_name)):
 	fgo_psn.write('    def %s(self, duration=None):\n' % basic_func_name[i])
 	fgo_psn.write('        if duration is None:\n')
 	fgo_psn.write('            duration = %s\n' % str(int(basic_func_slpt[i])/1000))
+	fgo_psn.write('        duration = duration * speed()\n')
 	fgo_psn.write('        tap(%s, %s)\n' % (str(basic_func_calx[i]), str(basic_func_caly[i])))
 	fgo_psn.write('        time.sleep(duration)\n\n')
 

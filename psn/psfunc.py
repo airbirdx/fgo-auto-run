@@ -1,7 +1,7 @@
 import os
 import time
 from psn.PSN import *
-
+from util.global0 import defined_var
 
 # convert the config skill string to list
 # in  : string : (1)abc(2)opq31(4)ijk
@@ -93,3 +93,11 @@ def turn_skill(string=None):
     lst = split_turn_seq(string)
     for skl in lst:
         skill(skl)
+
+
+def speed():
+    if defined_var('speed_ratio'):
+        spd = 1 / speed_ratio
+    else:
+        spd = 1
+    return spd

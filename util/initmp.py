@@ -39,7 +39,15 @@ def create(path):
 
 def cpcfg2lib():
     lst = png_lst(cfg_path)
-    # svt_priority = eval(rd_global('set_servant_priority'))
+    support = eval(rd_global('set_default_support'))
+
+    # copy support to the support_path
+    for comp in support:
+        for file in lst:
+            name, ext = os.path.splitext(file)
+            if comp in name:
+                shutil.copyfile(cfg_path + f'/{file}', support_path + f'/{file}')
+
     for file in lst:
         name, ext = os.path.splitext(file)
         if name == 'task':
@@ -51,9 +59,10 @@ def cpcfg2lib():
 
 # 初始化, 清空 tmp 文件夹, 并创建临时 txt 文件
 def init_tmp():
-    cpcfg2lib()
     clean(tmp_path)
+    # clean(task_path)
     create(tmp_path)
     init_global()
+    cpcfg2lib()
 
 
