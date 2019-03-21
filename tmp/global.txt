@@ -1,0 +1,16 @@
+RUN_FLAG=False
+round=3
+turn=10
+set_color_priority=RBG
+set_apple_priority=['Cu','Ag','Au']
+set_run_parm=[2,-1,-1]
+run_parm=[2,0,0]
+set_servant_priority=[]
+set_default_chain=1
+set_default_skill=(1)p(3)abc32iko32q
+set_default_final=(3)bxx
+set_default_final_unit=round
+set_default_support=['','','craft']
+set_default_craft_manpo=2
+tmp_skl_lst=['','','']
+tmp_fnl_lst=['','','']

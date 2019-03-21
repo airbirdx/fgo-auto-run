@@ -10,8 +10,8 @@
 
 /tst/*.png
 
-/cfg
-/tmp
+cfg/*.png
+tmp/*.png
 /sh.png
 
 /scenes/task.png
