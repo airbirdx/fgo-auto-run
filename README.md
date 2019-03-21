@@ -20,6 +20,6 @@
 
 # 详细文档
 
-建议阅读完以下文档后再尝试运行。​
+建议阅读完以下文档后再尝试运行
 
 :one: [如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md) → :two: [参数详解](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/parameter.md) → :three: [刷图示例](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/example.md) → :four: [配置环境](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/environment.md) → :five: [文件架构](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/architecture.md) → :one: ​[如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md) 

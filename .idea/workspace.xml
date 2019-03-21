@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="869f6b89-aa76-483b-b660-12ed0cbac3ed" name="Default Changelist" comment="sync form win" />
+    <list default="true" id="869f6b89-aa76-483b-b660-12ed0cbac3ed" name="Default Changelist" comment="sync form win">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wiki/draft/architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/wiki/draft/architecture.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wiki/draft/environment.md" beforeDir="false" afterPath="$PROJECT_DIR$/wiki/draft/environment.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wiki/draft/example.md" beforeDir="false" afterPath="$PROJECT_DIR$/wiki/draft/example.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wiki/draft/howtorun.md" beforeDir="false" afterPath="$PROJECT_DIR$/wiki/draft/howtorun.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wiki/draft/parameter.md" beforeDir="false" afterPath="$PROJECT_DIR$/wiki/draft/parameter.md" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +19,7 @@
     <session id="-1252540296">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.opened" value="2" />
@@ -110,7 +117,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="126" />
     <option name="y" value="23" />
     <option name="width" value="1482" />
@@ -186,7 +193,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="126" y="23" width="1482" height="1027" extended-state="1" />
+    <frame x="126" y="23" width="1482" height="1027" extended-state="0" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48493975" visible="true" weight="0.20260096" />
       <window_info id="Structure" order="1" sideWeight="0.51506025" side_tool="true" weight="0.275154" />
