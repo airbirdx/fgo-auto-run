@@ -1,12 +1,4 @@
-#!/usr/local/bin python3
-
-print('hello, world')
-
 import os, pangu
-
-
-file = 'example.md'
-
 
 
 def space_file(file):
@@ -15,12 +7,11 @@ def space_file(file):
     with open(file, 'r') as f:
         for line in f.readlines():
             tmp = line.strip()
+            tmp = tmp.replace('blob/debug', 'blob/master')
             new = pangu.spacing_text(tmp)
             nf.writelines(new + '\n')
             # print(new)
     nf.close()
-
-
 
 
 lst = os.listdir('./')  # list all files in this folder

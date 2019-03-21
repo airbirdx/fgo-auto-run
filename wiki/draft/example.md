@@ -8,7 +8,7 @@
 
 * 每日任务 / 40AP QP 本 / 刷图 3 次
 
-~~☀️ 每个例子均有 B 站视频链接，🌌 视频 → 暂无~~
+~~☀️ 每个例子均有 B 站视频链接→TODO🌌~~ 
 
 # 奥尔良 / 波尔多 / 刷图1次
 
@@ -18,7 +18,7 @@
 * 队伍礼装配好。不挑选特定助战
 * 示例队伍设定如下
 
-![example-1-team](![example-1-task](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex1_team.png))
+![example-1-team](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex1_team.png)
 
 * 全程序自动选卡，打开`chain`选卡功能，无技能，无宝具
 * 对应`config.py`文件如下
@@ -58,14 +58,14 @@ default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 * 队伍礼装配好。在此我们设定三回合刷图，挑选"梅林"作为助战
 * 示例队伍设定如下
 
-![example-2-team]()
+![example-2-team](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_team.png)
 
 * 技能释放文字说明如下，
   * 第一回合大英雄三技能自充，然后没良心赏烟花，触发自动换人，好友梅林加班
   * 第二回合梅林一技能群充，然后清姬烧烤
   * 第三回合玉藻喵宝具收尾，结束战斗
 
-| 从者1     | servant 2 | 从者3     | 御主礼装  | 换人 |
+| 从者1     | 从者 2    | 从者3     | 御主礼装  | 换人 |
 | --------- | --------- | --------- | --------- | ---- |
 | a / b / c | i / j / k | o / p / q | x / y / z | s    |
 
@@ -96,13 +96,13 @@ default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 
 * `./cfg`路径下文件
 
-| 文件名       | 内容                    |
-| ------------ | ----------------------- |
-| task.png     | ![example-2-task]()     |
-| material.png | ![example-2-material]() |
-| servant0.png | ![example-2-servant1]() |
-| servant1.png | ![example-2-servant2]() |
-| servant2.png | ![example-2-servant3]() |
+| 文件名       | 内容                                                         |
+| ------------ | ------------------------------------------------------------ |
+| task.png     | ![example-2-task](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_task.png) |
+| material.png | ![example-2-material](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_material.png) |
+| servant0.png | ![example-2-servant1](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant0.png) |
+| servant1.png | ![example-2-servant2](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant1.png) |
+| servant2.png | ![example-2-servant3](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant2.png) |
 
 表格中有三个`servant`是因为助战栏中梅林可能有三种不同的立绘。
 
@@ -112,14 +112,14 @@ default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 * 队伍礼装配好。在此我们设定三回合刷图，助战挑选"蒙娜丽莎"礼装
 * 示例队伍设定如下
 
-![example 3 team]()
+![example 3 team](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex3_team.png)
 
 * 技能释放文字说明如下，
   * 第一回合大英雄三技能自充，R姐自充，然后没良心赏烟花，触发自动换人，梅林加班
   * 第二回合直接宝具，R姐骑马打门
   * 第三回合梅林一技能，R呆毛宝具收尾
 
-| 从者1     | servant 2 | 从者3     | 御主礼装  | 换人 |
+| 从者1     | 从者 2    | 从者3     | 御主礼装  | 换人 |
 | --------- | --------- | --------- | --------- | ---- |
 | a / b / c | i / j / k | o / p / q | x / y / z | s    |
 
@@ -131,10 +131,10 @@ default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 
 * `./cfg`路径下文件
 
-| 文件名    | 内容                 |
-| --------- | -------------------- |
-| task.png  | ![example-3-task]()  |
-| craft.png | ![example-3-craft]() |
+| 文件名    | 内容                                                         |
+| --------- | ------------------------------------------------------------ |
+| task.png  | ![example-3-task](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex3_task.png) |
+| craft.png | ![example-3-craft](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex3_craft.png) |
 
 
 

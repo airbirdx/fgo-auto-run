@@ -59,7 +59,7 @@ run_times = 1             # How many times do you want to run
 
 `default_skill`为技能释放相关参数，一共`abc/ijk/opq/xyz/s`共十三个技能代码。
 
-| 从者1     | servant 2 | 从者3     | 御主礼装  | 换人 |
+| 从者1     | 从者 2    | 从者3     | 御主礼装  | 换人 |
 | --------- | --------- | --------- | --------- | ---- |
 | a / b / c | i / j / k | o / p / q | x / y / z | s    |
 
