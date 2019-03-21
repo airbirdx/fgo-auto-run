@@ -18,7 +18,7 @@
 * 队伍礼装配好。不挑选特定助战
 * 示例队伍设定如下
 
-![example-1-team]()
+![example-1-team](![example-1-task](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex1_team.png))
 
 * 全程序自动选卡，打开`chain`选卡功能，无技能，无宝具
 * 对应`config.py`文件如下
@@ -48,7 +48,7 @@ default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 
 | 文件名   | 内容                |
 | -------- | ------------------- |
-| task.png | ![example-1-task]() |
+| task.png | ![example-1-task](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex1_task.png) |
 
 # 冬木 / 未确认坐标X-G / 刷图5次(或刷取5个凶骨)
 
