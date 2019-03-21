@@ -102,9 +102,9 @@ default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 | ------------ | ------------------------------------------------------------ |
 | task.png     | ![example-2-task](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_task.png) |
 | material.png | ![example-2-material](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_material.png) |
-| servant0.png | ![example-2-servant1](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant0.png) |
-| servant1.png | ![example-2-servant2](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant1.png) |
-| servant2.png | ![example-2-servant3](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant2.png) |
+| servant1.png | ![example-2-servant1](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant1.png) |
+| servant2.png | ![example-2-servant2](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant2.png) |
+| servant3.png | ![example-2-servant3](https://github.com/airbirdx/fgo-auto-run/blob/debug/wiki/media/ex2_servant3.png) |
 
 表格中有三个`servant`是因为助战栏中梅林可能有三种不同的立绘。
 
