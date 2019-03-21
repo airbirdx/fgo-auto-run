@@ -121,31 +121,49 @@ def buff_priority(crd):
     return crd.buff
 
 
-# update the servant index when has the same servant in one round
-def svt_idx_update(crd_lst):
-    res = []
-    for card in crd_lst:
-        if card.issup:
-            card.idx += 10
-        res.append(card)
-    return res
+# # update the servant index when has the same servant in one round
+# def svt_idx_update(crd_lst):
+#     res = []
+#     for card in crd_lst:
+#         if card.issup:
+#             card.idx += 10
+#         res.append(card)
+#     return res
 
 
 def extra_chain(crd_lst):
+    # 首先，将 support 从者的 card.servant += issup * 10
+    # update card_list
+    # 根据 issup 更新 servant ... 这里是 +=
+    update_lst = []
+    for card in crd_lst:
+        crd = Card()
+        crd.copy(card)
+        if crd.servant != -1:
+            crd.servant += crd.issup * 10
+        update_lst.append(crd)
+    crd_lst = update_lst
+
     # 如果有，返回chain的list，如果没有，返回-1
     # 如果不能识别的时候，输出false，默认使用color chain
     # 如果有 extra 的 chain, 输出 servant 编号
     # 然后与第一位 判断 该 servant 的从者优先级，注意仅仅判断从者优先级，如果从者优先级 >=，那么可以使用此，chain
     # 之后只需要把这一个 从者 的所有卡选出来即可
-    tmp = [0] * 6
+
+    # 获取最大的card.servant
+    lst_servant_num = []
     for card in crd_lst:
-        if card.servant == -1:
-           pass
-        else:
+        lst_servant_num.append(card.servant)
+
+    tmp = [0] * (max(lst_servant_num)+1)
+
+    for card in crd_lst:
+        if card.servant != -1:
             tmp[card.servant] += 1
-    # i = servant number
+
     extra_svt = -1
-    for i in tmp:
+
+    for i in range(len(tmp)):
         if tmp[i] >= 3:
             extra_svt = i
             break
@@ -161,6 +179,17 @@ def extra_chain(crd_lst):
         else:
             tmp_lst1.append(card)
     tmp_lst = tmp_lst0 + tmp_lst1
+
+    # 根据 issup 更新 servant ... 这里是 -=
+    update_lst = []
+    for card in crd_lst:
+        crd = Card()
+        crd.copy(card)
+        if crd.servant != -1:
+            crd.servant -= crd.issup * 10
+        update_lst.append(crd)
+    tmp_lst = update_lst
+
     # 如果 chain 中 从者的优先级比 list 中第一个低的话
     # 那么就不执行这个 chain
     # 直接考虑 color chain 或者 平砍 三 张卡
@@ -224,11 +253,11 @@ def color_chain(crd_lst):
 def turn_sorted(turn_card):
 
     print('@SORT / ORIGINAL')
-    print('|-----|---------|-------|------|------|-----------|')
-    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+    print('|-----|---------|-------|------|------|-----------|-----|')
+    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
     for card in turn_card:
         card.show()
-    print('|-----|---------|-------|------|------|-----------|')
+    print('|-----|---------|-------|------|------|-----------|-----|')
 
     sort_cards = []
     sort_cards.append(turn_card[0])  # 第一张卡先放到list中
@@ -247,35 +276,33 @@ def turn_sorted(turn_card):
                 pass
 
     print('@SORT / CARD PRIORITY')
-    print('|-----|---------|-------|------|------|-----------|')
-    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+    print('|-----|---------|-------|------|------|-----------|-----|')
+    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
     for card in sort_cards:
         card.show()
-    print('|-----|---------|-------|------|------|-----------|')
+    print('|-----|---------|-------|------|------|-----------|-----|')
 
     if eval(rd_global('set_default_chain')):
 
-        up_sort_cards = svt_idx_update(sort_cards)
-
-        if extra_chain(up_sort_cards) != -1:
+        if extra_chain(sort_cards) != -1:
             sort_cards = extra_chain(sort_cards)
 
             print('@SORT / EXTRE CHAIN')
-            print('|-----|---------|-------|------|------|-----------|')
-            print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+            print('|-----|---------|-------|------|------|-----------|-----|')
+            print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
             for card in sort_cards:
                 card.show()
-            print('|-----|---------|-------|------|------|-----------|')
+            print('|-----|---------|-------|------|------|-----------|-----|')
 
-        elif color_chain(up_sort_cards) != -1:
+        elif color_chain(sort_cards) != -1:
             sort_cards = color_chain(sort_cards)
 
             print('@SORT / COLOR CHAIN')
-            print('|-----|---------|-------|------|------|-----------|')
-            print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+            print('|-----|---------|-------|------|------|-----------|-----|')
+            print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
             for card in sort_cards:
                 card.show()
-            print('|-----|---------|-------|------|------|-----------|')
+            print('|-----|---------|-------|------|------|-----------|-----|')
 
         else:
             pass
@@ -294,11 +321,11 @@ def turn_sorted(turn_card):
     sort_cards = lst_normal + lst_cantmove
 
     print('@SORT / MODIFY BUFF')
-    print('|-----|---------|-------|------|------|-----------|')
-    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+    print('|-----|---------|-------|------|------|-----------|-----|')
+    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
     for card in sort_cards:
         card.show()
-    print('|-----|---------|-------|------|------|-----------|')
+    print('|-----|---------|-------|------|------|-----------|-----|')
 
     return sort_cards
 
@@ -317,11 +344,11 @@ def tap_crd(cards, n):
             tap_cards.insert(0, swap_card)
 
     print('@SORT / FINALLY / TAP CARDS')
-    print('|-----|---------|-------|------|------|-----------|')
-    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  |')
+    print('|-----|---------|-------|------|------|-----------|-----|')
+    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
     for card in tap_cards:
         card.show()
-    print('|-----|---------|-------|------|------|-----------|')
+    print('|-----|---------|-------|------|------|-----------|-----|')
 
     return tap_cards
 
@@ -411,20 +438,4 @@ def attack():
 
 
 def tst_class_Card():
-    attack()
-
-    # from func.similar.similar import similar_image2
-    #
-    # for i in range(5):
-    #     for j in range(5):
-    #         if i < j:
-    #             file1 = f'./cfg/servant_{i}.png'
-    #             file2 = f'./cfg/servant_{j}.png'
-    #             print('i = %d, j = %d' % (i, j), end = ' -->')
-    #             print(bool(similar_image2(file1, file2)))
-    #
-    #             # im1 = Image.open(f'./cfg/servant_{i}.png')
-    #             # im2 = Image.open(f'./cfg/servant_{j}.png')
-    #             # print('i = %d, j = %d' % (i, j), simliar_image(im1, im2))
-
-
+    pass

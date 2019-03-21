@@ -5,7 +5,7 @@ from util.default import cfg_path
 from util.scene import png_lst
 from util.ats import picture_tap
 from util.global0 import *
-
+from psn.psfunc import cfgstr2lst
 
 def team_confirm():
     # run_times++ if needed

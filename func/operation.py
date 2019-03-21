@@ -9,6 +9,7 @@ from func.fail import withdrawn
 from func.task import task_select
 from func.battle import attack
 from func.addap import addap0
+from func.disconnect import retry_connection
 
 
 def scene_operation():
@@ -32,6 +33,8 @@ def scene_operation():
         withdrawn()
     elif 'friend' in scene:
         make_friend()
+    elif 'disconnect' in scene:
+        retry_connection()
     else:
         pass
 

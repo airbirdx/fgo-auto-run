@@ -1,6 +1,7 @@
 import os
 import operator
 import cv2
+import math
 
 from util.ats import tap
 from util.ats import swipe
@@ -13,14 +14,20 @@ from util.default import *
 from psn.PSN import *
 
 
-def update_match(match, name, support, px, py):
+def update_match(match, name, support, px, py, flg):
     for i in range(len(support)):
         # 加if保证改变后面的时候，前面已经更改过的的不变
-        if support[i] is not None and support[i] in name:
+        if support[i] is not '' and support[i] in name:
             match[i] = int(support[i] in name)
-            if i == 0:
-                match.append(px)
-                match.append(py)
+            # if i == 0:
+            #     match.append(px)
+            #     match.append(py)
+    match.append(px)
+    match.append(py)
+
+    if flg is not None:
+        match.append(flg)
+
     return match
 
 
@@ -39,18 +46,33 @@ def match_support(size, support):
         thd = 0.85
         if analyze(im, tmp, thd):
             ps = position(im, tmp, thd)
-            px = ps[0][0] + x1
-            py = ps[0][1] + y1
-            match = update_match(match, name, support, px, py)
+            # px = ps[0][0] + x1
+            # py = ps[0][1] + y1
+            px = (x1 + x2) // 2  # 点击位置点为中心区域
+            py = (y1 + y2) // 2
+
+            manpo_flg = None
+            if name == 'craft':
+                w, h = tmp.shape[::-1]
+                craft_im = sh[y1+int(0.6*(y2-y1)):y2, x1:x2]
+                manpo_im = cv2.imread(support_path + '/manpo/manpo.png', 0)
+                if analyze(craft_im, manpo_im, 0.85):
+                    manpo_flg = 1
+
+            match = update_match(match, name, support, px, py, manpo_flg)
+    # match = ['servant', 'skill', 'craft', 'px', 'py']
     return match
 
 
 def select_support():
+    # para 1/2/3 in support -> servant/skill/craft
     support = eval(rd_global('set_default_support'))
     sh = cv2.imread(screenshot_path, 0)
-    # confirm = cv2.imread(support_path + '/confirm.png', 0)
     end = cv2.imread(support_path + '/end.png', 0)
     refresh = False
+
+    manpo_flg = eval(rd_global('set_default_craft_manpo'))
+    # print(manpo_flg)
 
     if support[0] + support[1] + support[2] == '':
         w, h = sh.shape[::-1]
@@ -59,16 +81,51 @@ def select_support():
 
     # thd = 0.85
     if picture_tap(support_path + '/confirm.png'):    # 如果有确认刷新按键，点击
-        pass
+        return False
 
     sp = []
     for tmp in support:
-        sp.append(int(tmp is not None))
+        sp.append(int(tmp != ''))
 
     thd = 0.9
     if analyze(sh, end, thd):  # 设定为只刷新一次
         # 读取文件遍历一遍，看是否有低优先级合适的，没有的话再二次更新
-        print('already check all ....')
+
+        if manpo_flg == 2:   # 如果模式设定为 2
+            pass
+            swipe(1860, 1045, 1860, 120, 1500)   # 滑动到最上面
+            f = open(tmp_support, 'r')
+            lines = f.readlines()
+            line_num = 0
+            for i in range(len(lines)):
+                line = lines[i]
+                line.replace('\n', '')
+                # print(line)
+                line_match = eval(line)
+                if operator.eq(sp, line_match[:3]):
+                    if line_match[2]:
+                        line_num = i + 1
+                        break
+            f.close()
+
+
+            for i in range(math.ceil(line_num / 2)-1):
+                x0, y0, x1, y1, d0 = support_swipe_parm
+                swipe(x0, y0, x1, y1, d0)
+                time.sleep(0.1)
+
+            if i % 2:
+                y1, y2, x1, x2 = support_sel_size_1
+            else:
+                y1, y2, x1, x2 = support_sel_size_2
+
+            px = (x1 + x2) // 2  # 点击位置点为中心区域
+            py = (y1 + y2) // 2
+
+            tap(px, py)
+            return True
+
+        print('support list one has been checked... now refresh it...')
         # press refresh button
         psn = PSN()
         psn.SUPPREF()
@@ -88,12 +145,13 @@ def select_support():
         f.close()
 
         if operator.eq(sp, match[:3]):
-            tap(match[3], match[4])
-            return True
+            if manpo_flg:   # ( == 1 or == 2 都可以触发)
+                if len(match) > 5:
+                    tap(match[3], match[4])
+                    return True
+            else:
+                tap(match[3], match[4])
+                return True
 
-    x0 = support_swipe_parm[0]
-    y0 = support_swipe_parm[1]
-    x1 = support_swipe_parm[2]
-    y1 = support_swipe_parm[3]
-    d0 = support_swipe_parm[4]
+    x0, y0, x1, y1, d0 = support_swipe_parm
     swipe(x0, y0, x1, y1, d0)

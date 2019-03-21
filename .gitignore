@@ -1,0 +1,7 @@
+# git ignore
+
+/cfg
+/tmp
+/__pycache__/
+.DS_Store
+

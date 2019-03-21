@@ -32,8 +32,11 @@ def mathc_img(image,Target,value):
 
 
 
-image =(r'111' + '.png')
-Target=('win2' + '.png')
+image =('meilin1' + '.png')
+
+# yanzuo_lizhuang_manpo
+
+Target=('manpo0' + '.png')
 value=0.85
 mathc_img(image,Target,value)
 # print('adsdasfdsad')

@@ -24,6 +24,16 @@ class Card:
         self.py = -1       # ok
         self.issup = 0     # ok
 
+    def copy(self, card):
+        self.idx = card.idx
+        self.servant = card.servant
+        self.color = card.color
+        self.buff = card.buff
+        self.crit = card.crit
+        self.px = card.px
+        self.py = card.py
+        self.issup = card.issup
+
     def analyze(self):
         if self.idx == -1:
             print('ERROR IN CLASS CARD')
@@ -118,17 +128,9 @@ class Card:
         return num
 
     def show(self):
-        # print('CARD - INDEX   = %d' % self.idx)
-        # print('CARD - SERVANT = %d' % self.servant)
-        # print('CARD - COLOR   = %s' % self.color)
-        # print('CARD - BUFF    = %d' % self.buff)
-        # print('CARD - CRIT    = %d' % self.crit)
-        # print('CARD - PX      = %d' % self.px)
-        # print('CARD - PY      = %d' % self.py)
-        # print('+-----+---------+-------+------+------+-----------+')
-        # print('| IDX | SERVANT | COLOR | BUFF | CRIT |  POSITION |')
-        print('| %2d  | %3d     | %2s    | %-3d  | %-4d | %4d, %-4d|' % (self.idx, self.servant, self.color, self.buff, self.crit, self.px, self.py))
-        # print('+-----+---------+-------+------+------+-----------+')
+        print('| %2d  | %3d     | %2s    | %-3d  | %-4d | %4d, %-4d| %-3d |' \
+              % (self.idx, self.servant, self.color, self.buff, self.crit, \
+                 self.px, self.py, self.issup))
 
     # Get the current servant logo under cfg_path
     # Used in analyzing the screenshot before auto-run

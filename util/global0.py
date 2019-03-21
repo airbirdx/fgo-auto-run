@@ -95,6 +95,15 @@ def init_global():
 
     wt_global('set_default_support', set_default_support)
 
+    # --> default_craft_manpo
+    if defined_var('default_craft_manpo'):
+        set_default_craft_manpo = default_craft_manpo
+    else:
+        set_default_craft_manpo = 0
+
+    wt_global('set_default_craft_manpo', set_default_craft_manpo)
+
+
 
 def rd_global(parm):
     f = open(tmp_global, 'r')
