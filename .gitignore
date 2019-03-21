@@ -1,7 +1,19 @@
 # git ignore
 
-/cfg
-/tmp
+/.idea
 __pycache__/
 .DS_Store
+
+/tst/*.png
+
+/cfg
+/tmp
+/sh.png
+
+/scenes/task*.png
+/lib/task/task*.png
+/lib/support/servant*.png
+/lib/support/skill*.png
+/lib/support/craft*.png
+/win/material*.png
 

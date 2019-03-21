@@ -85,7 +85,10 @@ def picture_tap(pic, thd=None):
 
     if analyze(sh, tmp, thd):
         ps = position(sh, tmp, thd)
-        tap(ps[0][0], ps[0][1])
+        w, h = tmp.shape[::-1]
+        px = ps[0][0] + w // 2
+        py = ps[0][1] + h // 2
+        tap(px, py, error=int(0.4 * min(w, h)))  # +/- -> 0.8
         return True
     else:
         return False

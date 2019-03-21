@@ -63,7 +63,7 @@ def cpcfg2lib():
         comp = support[i]
         for file in lst:
             name, ext = os.path.splitext(file)
-            if comp in name:
+            if comp is not '' and comp in name:
                 shutil.copyfile(cfg_path + f'/{file}', support_path + f'/{file}')
                 flg[i] = 1
     # 根据图片调整设定的support选项
