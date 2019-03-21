@@ -1,7 +1,11 @@
 # git ignore
 
-/.idea
-__pycache__/
+*.log
+*.bak
+
+.idea/
+**/__pycache__/
+*.pyc
 .DS_Store
 
 /tst/*.png
@@ -10,10 +14,10 @@ __pycache__/
 /tmp
 /sh.png
 
-/scenes/task*.png
-/lib/task/task*.png
-/lib/support/servant*.png
-/lib/support/skill*.png
-/lib/support/craft*.png
-/win/material*.png
+/scenes/task.png
+/lib/task/task.png
+/lib/support/servant?.png
+/lib/support/skill.png
+/lib/support/craft.png
+/win/material.png
 
