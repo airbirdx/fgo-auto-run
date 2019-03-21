@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="869f6b89-aa76-483b-b660-12ed0cbac3ed" name="Default Changelist" comment="sync form win">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wiki/doc/architecture.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wiki/doc/environment.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wiki/doc/example.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wiki/doc/howtorun.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wiki/doc/parameter.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wiki/doc/space.py" beforeDir="false" />
-    </list>
+    <list default="true" id="869f6b89-aa76-483b-b660-12ed0cbac3ed" name="Default Changelist" comment="sync form win" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,8 +54,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wiki/draft/space_master.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="336">
+              <caret line="16" column="55" lean-forward="true" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -194,8 +186,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="98" y="59" width="1482" height="1027" extended-state="0" />
-    <editor active="true" />
+    <frame x="126" y="23" width="1482" height="1027" extended-state="1" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48493975" visible="true" weight="0.20260096" />
       <window_info id="Structure" order="1" sideWeight="0.51506025" side_tool="true" weight="0.275154" />
@@ -460,8 +451,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wiki/draft/space_master.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="336">
+          <caret line="16" column="55" lean-forward="true" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
         </state>
       </provider>
     </entry>

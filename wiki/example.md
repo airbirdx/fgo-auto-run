@@ -126,7 +126,24 @@ default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 * 对应 `config.py` 文件如下
 
 ```python
+# CONFIG PARAMETER
+run_times = 3
+# run_materials = 5
+# run_apples = ['Ag', 1]
 
+default_support = 1
+default_craft_manpo = 1
+
+# default_servant_priority = [0, 1, 3, 2] 
+default_color_priority = 'RBG'
+default_skill = '(1)qc(3)o'
+default_final = '(1)cxx(2)axx(3)bxx'
+default_final_unit = 'round'
+# speed_ratio = 1   # normal(=1), faster(>1), slower(<1)
+default_chain = 1
+
+# rotation if needed
+default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone
 ```
 
 * `./cfg` 路径下文件
