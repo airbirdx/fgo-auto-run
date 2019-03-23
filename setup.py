@@ -25,7 +25,7 @@ setup(
     # packages=['fgo-auto-run'],
     description='fgo-auto-run',
     long_description=long_description,
-    author='airbirdx',
+    author='fgo-auto-run',
     install_requires=requirements,
 )
 

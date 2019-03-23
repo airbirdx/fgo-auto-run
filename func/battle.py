@@ -65,62 +65,11 @@ def turn_attribute():
     crd.servant_logo()  # ####################
 
     for i in range(5):
-        # print(i)
         crd = Card()
         crd.set_idx(i)
         crd.analyze()
-        # crd.show()
-        # attr = [crd.idx, crd.servant, crd.color, crd.buff, crd.crit, crd.px, crd.py]
-        # res.append(attr)
         res.append(crd)
-    # for i in range(5):
-    #     crd = res[i]
-    #     print([crd.idx, crd.servant, crd.color, crd.buff, crd.crit, crd.px, crd.py])
     return res
-
-
-def card_priority(crd):
-    a = servant_priority(crd)  # 十进制：1位
-    b = buff_priority(crd)     # 十进制：1位
-    c = color_priority(crd)    # 十进制：1位
-    d = crit_priority(crd)     # 十进制：2位
-    # 几个参数中优先级，a > b > c > d
-    #       servant > buff > color > crit
-    if a == -1:
-        a = 0
-    res = a * 1e4 + b * 1e3 + c * 1e2 + d
-    return int(res)
-
-
-def servant_priority(crd):
-    svt_prior = eval(rd_global('set_servant_priority'))
-    # 输出，优先级从高到低，5/4/3/2/1/0
-    for i in range(len(svt_prior)):
-        if crd.servant == svt_prior[i]:
-            return 5 - i
-
-    # 如果定义为空，一样的返回 -1
-    return -1
-
-
-def color_priority(crd):
-    clr_prior = rd_global('set_color_priority')
-    clr_prior = clr_prior.upper()
-    for i in range(3):
-        if clr_prior[i] == crd.color:
-            return 3-i
-        else:
-            pass
-
-    return -1
-
-
-def crit_priority(crd):
-    return crd.crit // 10
-
-
-def buff_priority(crd):
-    return crd.buff
 
 
 def extra_chain(crd_lst):
@@ -185,12 +134,12 @@ def extra_chain(crd_lst):
     # 如果 chain 中 从者的优先级比 list 中第一个低的话
     # 那么就不执行这个 chain
     # 直接考虑 color chain 或者 平砍 三 张卡
-    if servant_priority(tmp_lst[0]) == -1:
-        tmpchn_prior = buff_priority(tmp_lst[0])   # tmp chain
-        sortop_prior = buff_priority(crd_lst[0])   # sort top
+    if tmp_lst[0].servant_priority() == -1:
+        tmpchn_prior = tmp_lst[0].buff_priority()   # tmp chain
+        sortop_prior = crd_lst[0].buff_priority()   # sort top
     else:
-        tmpchn_prior = servant_priority(tmp_lst[0])
-        sortop_prior = servant_priority(crd_lst[0])
+        tmpchn_prior = tmp_lst[0].servant_priority()
+        sortop_prior = crd_lst[0].servant_priority()
 
     if tmpchn_prior < sortop_prior:
         return -1
@@ -229,12 +178,12 @@ def color_chain(crd_lst):
     # 如果 chain 中 从者的优先级比 list 中第一个低的话
     # 那么就不执行这个 chain
     # 直接考虑 color chain 或者 平砍 三 张卡
-    if servant_priority(tmp_lst[0]) == -1:
-        tmpchn_prior = buff_priority(tmp_lst[0])   # tmp chain
-        sortop_prior = buff_priority(crd_lst[0])   # sort top
+    if tmp_lst[0].servant_priority() == -1:
+        tmpchn_prior = tmp_lst[0].buff_priority()   # tmp chain
+        sortop_prior = crd_lst[0].buff_priority()   # sort top
     else:
-        tmpchn_prior = servant_priority(tmp_lst[0])
-        sortop_prior = servant_priority(crd_lst[0])
+        tmpchn_prior = tmp_lst[0].servant_priority()
+        sortop_prior = crd_lst[0].servant_priority()
 
     if tmpchn_prior < sortop_prior:
         return -1
@@ -244,84 +193,35 @@ def color_chain(crd_lst):
 
 def turn_sorted(turn_card):
 
-    print('@SORT / ORIGINAL')
-    print('|-----|---------|-------|------|------|-----------|-----|')
-    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
-    for card in turn_card:
-        card.show()
-    print('|-----|---------|-------|------|------|-----------|-----|')
-    for card in turn_card:
-        print(card_priority(card))
-    print('|-----|---------|-------|------|------|-----------|-----|')
+    show_cards(turn_card, '@INFO/ ORIGINAL')
 
     sort_cards = []
     sort_cards.append(turn_card[0])  # 第一张卡先放到list中
 
-    for curr_card in turn_card[1:]:  # 打印看一下输出，每一步#############
-
-        print('@ TST / curr_card')
-        print('|-----|---------|-------|------|------|-----------|-----|')
-        print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
-        curr_card.show()
-        print('|-----|---------|-------|------|------|-----------|-----|')
-
+    for curr_card in turn_card[1:]:
         for i in range(len(sort_cards)):
-            comp_card = turn_card[i]
-
-            print('@ TST / curr_card_priority : %d, curr_card_priority : %d ')
-
-            if card_priority(curr_card) > card_priority(comp_card):
+            comp_card = sort_cards[i]
+            if curr_card.weight > comp_card.weight:
                 sort_cards.insert(i, curr_card)
-                print(' > ')
                 break
-            elif i == len(sort_cards) - 1: #############
+            elif i == len(sort_cards) - 1:
                 sort_cards.append(curr_card)
-                print(' last one ')
                 break
             else:
                 pass
 
-        print('@ TST / step in sort_cards')
-        print('|-----|---------|-------|------|------|-----------|-----|')
-        print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
-        for card in sort_cards:
-            card.show()
-        print('|-----|---------|-------|------|------|-----------|-----|')
-
-
-    print('@SORT / CARD PRIORITY')
-    print('|-----|---------|-------|------|------|-----------|-----|')
-    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
-    for card in sort_cards:
-        card.show()
-    print('|-----|---------|-------|------|------|-----------|-----|')
-    for card in sort_cards:
-        print(card_priority(card))
-    print('|-----|---------|-------|------|------|-----------|-----|')
-
+    show_cards(sort_cards, '@SORT/ INITIAL')
 
     if eval(rd_global('set_default_chain')):
 
         if extra_chain(sort_cards) != -1:
             sort_cards = extra_chain(sort_cards)
 
-            print('@SORT / EXTRE CHAIN')
-            print('|-----|---------|-------|------|------|-----------|-----|')
-            print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
-            for card in sort_cards:
-                card.show()
-            print('|-----|---------|-------|------|------|-----------|-----|')
-
+            show_cards(sort_cards, '@SORT/ EXTRE CHAIN')
         elif color_chain(sort_cards) != -1:
             sort_cards = color_chain(sort_cards)
 
-            print('@SORT / COLOR CHAIN')
-            print('|-----|---------|-------|------|------|-----------|-----|')
-            print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
-            for card in sort_cards:
-                card.show()
-            print('|-----|---------|-------|------|------|-----------|-----|')
-
+            show_cards(sort_cards, '@SORT/ COLOR CHAIN')
         else:
             pass
 
@@ -338,12 +238,7 @@ def turn_sorted(turn_card):
 
     sort_cards = lst_normal + lst_cantmove
 
-    print('@SORT / MODIFY BUFF')
-    print('|-----|---------|-------|------|------|-----------|-----|')
-    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
-    for card in sort_cards:
-        card.show()
-    print('|-----|---------|-------|------|------|-----------|-----|')
+    show_cards(sort_cards, '@SORT/ MODIFY BUFF')
 
     return sort_cards
 
@@ -361,14 +256,20 @@ def tap_crd(cards, n):
                 swap_card = tap_cards.pop(2)
             tap_cards.insert(0, swap_card)
 
-    print('@SORT / FINALLY / TAP CARDS')
-    print('|-----|---------|-------|------|------|-----------|-----|')
-    print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
-    for card in tap_cards:
-        card.show()
-    print('|-----|---------|-------|------|------|-----------|-----|')
+    show_cards(tap_cards, '@SORT/ FINALLY / TAP CARDS')
 
     return tap_cards
+
+
+
+def show_cards(cards, info):
+    print(info)
+    print('|----|---------|-------|------|------|-----------|-----|--------|')
+    print('| ID | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP | WEIGHT |')
+    for card in cards:
+        card.show()
+    print('|----|---------|-------|------|------|-----------|-----|--------|')
+
 
 
 # 返回当前 round, 如果没有识别到，返回-1
@@ -412,21 +313,24 @@ def attack():
     else:
         td_idx = turn
 
-    # 获取设定某些回合技能输入
-    skill_lst = eval(rd_global('tmp_skl_lst'))
-    if td_idx <= len(skill_lst):
-        turn_skill(skill_lst[td_idx - 1])
-        skill_lst[td_idx - 1] = ''
-        wt_global('tmp_skl_lst', skill_lst)
-
-    # 点击 ATTACK 按钮，更新截图
-    psn.ATK()
-    time.sleep(1)
-    screenshot()
+    # # 获取设定某些回合技能输入
+    # skill_lst = eval(rd_global('tmp_skl_lst'))
+    # if td_idx <= len(skill_lst):
+    #     turn_skill(skill_lst[td_idx - 1])
+    #     skill_lst[td_idx - 1] = ''
+    #     wt_global('tmp_skl_lst', skill_lst)
+    #
+    # # 点击 ATTACK 按钮，更新截图
+    # psn.ATK()
+    # time.sleep(1)
+    # screenshot()
 
     # 获取指令卡属性
     cards_attr = turn_attribute()
     cards_sort = turn_sorted(cards_attr)
+
+    toast('END SCRIPT [ DEBUG MODE ]')
+    exit()
 
     # 这里可以控制前面的输出来进行简化
     final_lst = eval(rd_global('tmp_fnl_lst'))

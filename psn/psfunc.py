@@ -62,13 +62,21 @@ def skill(parm, duration=None):
 
     nlst = []      # 去除非技能参数，增加鲁棒性
     for char in lst:
-        if char in 'ABCIJKOPQXYZS0123456':
+        if char in 'ABCIJKOPQXYZSV0123456':
             nlst.append(char)
     lst = nlst
 
     if lst == []:
         # print('No skill in this turn...')
         return False
+
+    if lst[0] == 'V':
+        if len(lst) == 2:
+            eval('psn.DR%s()' % lst[1])
+        elif len(lst) == 1:
+            pass
+        else:
+            print('enemy sel num in skill input format error')
 
     # switch servant
     if lst[0] == 'S':

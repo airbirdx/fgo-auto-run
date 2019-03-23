@@ -23,6 +23,7 @@ class Card:
         self.px = -1       # ok
         self.py = -1       # ok
         self.issup = 0     # ok
+        self.weight = 0
 
     def copy(self, card):
         self.idx = card.idx
@@ -33,6 +34,51 @@ class Card:
         self.px = card.px
         self.py = card.py
         self.issup = card.issup
+        self.weight = card.weight
+
+    def get_weight(self):
+        a = self.servant_priority()  # 十进制：1位
+        b = self.buff_priority()  # 十进制：1位
+        c = self.color_priority()  # 十进制：1位
+        d = self.crit_priority()  # 十进制：2位
+        # 几个参数中优先级，a > b > c > d
+        #       servant > buff > color > crit
+        if a == -1:
+            a = 0
+        res = a * 1e4 + b * 1e3 + c * 1e2 + d
+        self.weight = int(res)
+
+    def servant_priority(self):
+        svt_prior = eval(rd_global('set_servant_priority'))
+        # 输出，优先级从高到低，5/4/3/2/1/0
+        for i in range(len(svt_prior)):
+            if self.servant == svt_prior[i]:
+                return 5 - i
+
+        # 如果定义为空，一样的返回 -1
+        return -1
+
+    def color_priority(self):
+        clr_prior = rd_global('set_color_priority')
+        clr_prior = clr_prior.upper()
+        for i in range(3):
+            if clr_prior[i] == self.color:
+                return 3 - i
+            else:
+                pass
+
+        return -1
+
+    def crit_priority(self):
+        return self.crit // 10
+
+
+    def buff_priority(self):
+        return self.buff
+
+
+
+
 
     def analyze(self):
         if self.idx == -1:
@@ -43,6 +89,7 @@ class Card:
             self.get_buff()
             self.get_crit()
             self.get_issup()
+            self.get_weight()
 
     def get_issup(self):
         card = self.__card
@@ -128,9 +175,9 @@ class Card:
         return num
 
     def show(self):
-        print('| %2d  | %3d     | %2s    | %-3d  | %-4d | %4d, %-4d| %-3d |' \
+        print('| %-2d | %4d    | %3s   | %3d  | %3d  | %4d, %-4d| %2d  | %-6d |' \
               % (self.idx, self.servant, self.color, self.buff, self.crit, \
-                 self.px, self.py, self.issup))
+                 self.px, self.py, self.issup, self.weight))
 
     # Get the current servant logo under cfg_path
     # Used in analyzing the screenshot before auto-run

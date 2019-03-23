@@ -105,9 +105,16 @@ def wt_parm_support():
 
     # --> default_support_rank
     if defined_var('default_support_rank'):
-        set_default_support_rank = str(default_support_rank)
+        tmp_str = ''
+        for char in str(default_support_rank):
+            if char not in tmp_str:
+                tmp_str += char
+        tmp_str = tmp_str.replace('0', '')  # remove zero
+        if len(tmp_str) == 0:
+            tmp_str = '0'
+        set_default_support_rank = tmp_str
     else:
-        set_default_support_rank = ''
+        set_default_support_rank = 0
 
     wt_global('set_default_support_rank', set_default_support_rank)
 
@@ -118,7 +125,7 @@ def wt_parm_support():
     else:
         set_default_support_refresh = 1
 
-    wt_global('set_default_support_refresh', default_support_refresh)
+    wt_global('set_default_support_refresh', set_default_support_refresh)
 
 
 def init_global():
@@ -139,12 +146,13 @@ def rd_global(parm):
         idx = string.find('=')
         if idx != -1 and string[:idx] == parm:
             res = string[idx + 1:]
+            # print(parm, res, type(res))
             return res
     return False
 
 
 def wt_global(parm, value):
-    print('--> wt parm @ %-30s, value @ %-30s' % (parm, str(value)))
+    # print('--> wt parm @ %-30s, value @ %-30s' % (parm, str(value)))
     if rd_global(parm):
         f = open(tmp_global, 'r')
         lines = f.readlines()

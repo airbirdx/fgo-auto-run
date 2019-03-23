@@ -8,9 +8,13 @@ from util.initmp import init_tmp
 
 
 def tst():
-    from util.global0 import toast
-    toast('You can see me now.')
-    return True
+    from func.support import select_support0
+    init_tmp()
+    select_support0()
+
+    # from util.global0 import toast
+    # toast('You can see me now.')
+    # return True
 
 
 def main():
