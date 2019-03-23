@@ -4,7 +4,7 @@
 
 :exclamation:`本脚本仅支持python3，不支持python2`
 
-# Mac
+# MacOS
 
 使用Homebrew工具安装python和adb.
 
@@ -31,20 +31,19 @@ brew cask install android-platform-tools
 adb devices
 ```
 
-* 安装 tesseract
-  
-```
-brew install tesseract
-```
+* 安装脚本运行所需要的其他库
 
-* 使用 pip 安装脚本运行所需要的库
+```
+python setup.py install
+```
+当然你可以可以使用使用 pip 手动安装脚本运行所需要的库
 
 ```
 pip install pillow
 pip install openpyxl
 pip install opencv-python
 pip install numpy
-pip install pytesseract
+pip install pangu
 ```
 
 * 安装 ImageMagick 来对png图片进行标准化，减少程序运行的warning (非必需)
@@ -61,3 +60,12 @@ brew install imagemagick
 * 下载adb的服务并添加PATH变量，[adb shell](http://adbshell.com/downloads)，[配置adb环境变量](https://www.cnblogs.com/cnwutianhao/p/6557571.html)
 
 * 使用 pip 安装脚本运行所需要的库 (同上)
+
+# ADB
+
+* 链接虚拟机(如果使用)(以网易MuMu为例)
+
+```
+adb connect 127.0.0.1:7555     # win
+adb connect 127.0.0.1          # mac
+```

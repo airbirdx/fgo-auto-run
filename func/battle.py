@@ -86,8 +86,10 @@ def card_priority(crd):
     d = crit_priority(crd)     # 十进制：2位
     # 几个参数中优先级，a > b > c > d
     #       servant > buff > color > crit
+    if a == -1:
+        a = 0
     res = a * 1e4 + b * 1e3 + c * 1e2 + d
-    return res
+    return int(res)
 
 
 def servant_priority(crd):
@@ -119,16 +121,6 @@ def crit_priority(crd):
 
 def buff_priority(crd):
     return crd.buff
-
-
-# # update the servant index when has the same servant in one round
-# def svt_idx_update(crd_lst):
-#     res = []
-#     for card in crd_lst:
-#         if card.issup:
-#             card.idx += 10
-#         res.append(card)
-#     return res
 
 
 def extra_chain(crd_lst):
@@ -258,22 +250,44 @@ def turn_sorted(turn_card):
     for card in turn_card:
         card.show()
     print('|-----|---------|-------|------|------|-----------|-----|')
+    for card in turn_card:
+        print(card_priority(card))
+    print('|-----|---------|-------|------|------|-----------|-----|')
 
     sort_cards = []
     sort_cards.append(turn_card[0])  # 第一张卡先放到list中
 
-    for curr_card in turn_card[1:]:
-        # print('curr_card', curr_card)
+    for curr_card in turn_card[1:]:  # 打印看一下输出，每一步#############
+
+        print('@ TST / curr_card')
+        print('|-----|---------|-------|------|------|-----------|-----|')
+        print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
+        curr_card.show()
+        print('|-----|---------|-------|------|------|-----------|-----|')
+
         for i in range(len(sort_cards)):
             comp_card = turn_card[i]
+
+            print('@ TST / curr_card_priority : %d, curr_card_priority : %d ')
+
             if card_priority(curr_card) > card_priority(comp_card):
                 sort_cards.insert(i, curr_card)
+                print(' > ')
                 break
-            elif i == len(sort_cards) - 1:
+            elif i == len(sort_cards) - 1: #############
                 sort_cards.append(curr_card)
+                print(' last one ')
                 break
             else:
                 pass
+
+        print('@ TST / step in sort_cards')
+        print('|-----|---------|-------|------|------|-----------|-----|')
+        print('| ID  | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP |')
+        for card in sort_cards:
+            card.show()
+        print('|-----|---------|-------|------|------|-----------|-----|')
+
 
     print('@SORT / CARD PRIORITY')
     print('|-----|---------|-------|------|------|-----------|-----|')
@@ -281,6 +295,10 @@ def turn_sorted(turn_card):
     for card in sort_cards:
         card.show()
     print('|-----|---------|-------|------|------|-----------|-----|')
+    for card in sort_cards:
+        print(card_priority(card))
+    print('|-----|---------|-------|------|------|-----------|-----|')
+
 
     if eval(rd_global('set_default_chain')):
 

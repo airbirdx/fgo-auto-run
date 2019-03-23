@@ -4,6 +4,7 @@ import time
 import datetime
 import cv2
 import subprocess
+import platform
 import numpy as np
 from util.default import screenshot_path
 from util.cvs import position
@@ -53,8 +54,13 @@ def tap(x, y, error=10):
 
 def screenshot():
     tmp_png = 'ts1t.png'
-    retcode = subprocess.call(f'adb shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
-    retcode = subprocess.call(f'adb pull /sdcard/{tmp_png} {screenshot_path} | grep FGO', shell=True, stdout=None)
+
+    filter_str = ''
+    if platform.system() == 'Darwin':
+        filter_str = '| grep FGO'
+
+    subprocess.call(f'adb shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
+    subprocess.call(f'adb pull /sdcard/{tmp_png} {screenshot_path} {filter_str}', shell=True, stdout=None)
     # os.system(f'adb shell screencap -p /sdcard/{tmp_png}')
     # os.system(f'adb pull /sdcard/{tmp_png} {screenshot_path}')
     # inv-clockwise dir

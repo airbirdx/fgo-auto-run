@@ -1,5 +1,9 @@
 # git ignore
 
+/*.egg-info
+/dist
+/build
+
 *.log
 *.bak
 
@@ -11,6 +15,7 @@
 /tst/*.png
 
 cfg/*.png
+cfg/tmp/*.png
 tmp/*.png
 /sh.png
 
@@ -19,5 +24,6 @@ tmp/*.png
 /lib/support/servant?.png
 /lib/support/skill.png
 /lib/support/craft.png
+/lib/support/craft?.png
 /win/material.png
 

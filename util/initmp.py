@@ -92,9 +92,9 @@ def init_tmp():
 
     clean(task_path)
 
-    clean_str_file(support_path, 'servant.png')
-    clean_str_file(support_path, 'skill.png')
-    clean_str_file(support_path, 'craft.png')
+    clean_str_file(support_path, 'servant')
+    clean_str_file(support_path, 'skill')
+    clean_str_file(support_path, 'craft')
 
     create(tmp_path)
 

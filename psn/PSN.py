@@ -161,7 +161,7 @@ class PSN:
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(70, 60)
+        tap(800, 60)
         time.sleep(duration)
 
     def DR2(self, duration=None):
@@ -175,7 +175,7 @@ class PSN:
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(800, 60)
+        tap(70, 60)
         time.sleep(duration)
 
     def SEL0(self, duration=None):
