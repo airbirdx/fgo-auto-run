@@ -2,6 +2,8 @@
 
 1️⃣ [如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md) → 2️⃣ [参数详解](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/parameter.md) → 📙 [刷图示例](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/example.md) → :four: [配置环境](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/environment.md) → :five: [文件架构](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/architecture.md) → 1️⃣ [如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md)
 
+---
+
 # 示例总览
 
 | 编号 | 简介                                                | 视频链接 | 备注            |
@@ -9,7 +11,7 @@
 | 1    | 奥尔良 / 波尔多 / 刷图 1 次                         | ~~暂无~~ | 无技能，无宝具  |
 | 2    | 冬木 / 未确认坐标 X-G / 刷图 5 次 (或刷取 5 个凶骨) | ~~暂无~~      | 有技能，有宝具  |
 | 3    | 每日任务 / 40AP QP 本 / 刷图 3 次                   | ~~暂无~~      | 挑选特定助战    |
-|      |                                                     |          | 有技能，you宝具 |
+|      |                                                     |          | 有技能，有宝具 |
 
 # 模式设定参考
 
