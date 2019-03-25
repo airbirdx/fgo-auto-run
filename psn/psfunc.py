@@ -77,6 +77,7 @@ def skill(parm, duration=None):
             pass
         else:
             print('enemy sel num in skill input format error')
+        return True
 
     # switch servant
     if lst[0] == 'S':
@@ -108,6 +109,8 @@ def skill(parm, duration=None):
     else:
         print('skill input format error')
         pass
+
+    return True
 
 
 def turn_skill(string=None):

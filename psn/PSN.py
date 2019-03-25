@@ -353,7 +353,7 @@ class PSN:
         tap(1255, 193)
         time.sleep(duration)
 
-    def ZHIJIE0(self, duration=None):
+    def ZHIJIE8(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
@@ -409,7 +409,7 @@ class PSN:
         tap(850, 193)
         time.sleep(duration)
 
-    def ZHIJIE8(self, duration=None):
+    def ZHIJIE9(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()

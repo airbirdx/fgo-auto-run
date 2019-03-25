@@ -1,9 +1,11 @@
-import time
+import cv2, time
 from util.ats import picture_tap
+from util.cvs import analyze
 from util.ats import screenshot
 from util.ats import swipe
 from util.default import *
 from util.global0 import *
+
 
 def addap0():
     # set_clr_lst
@@ -15,10 +17,6 @@ def addap0():
         color = set_run_num[2][0]
     else:
         color = set_clr_lst[0]
-
-    swipe(1920 // 2, 780, 1920 // 2, 200, 1000)
-    screenshot()
-    time.sleep(1)
 
     # print('set_run_num', set_run_num, type(set_run_num))
     # print('cur_run_num', cur_run_num, type(cur_run_num))
@@ -35,8 +33,12 @@ def addap0():
             print('/---/ DONE --> USE APPLE ')
             exit()
 
+    swipe(1920 // 2, 780, 1920 // 2, 200, 1000)
+    time.sleep(1)
+    screenshot()
+
     # thd = 0.85
-    if picture_tap(addap_path + '/apple' + color + '.png'):
+    if picture_tap(f'{addap_path}/apple{color}.png'):
 
         # print('!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         # print('set_run_num', set_run_num)
@@ -46,18 +48,20 @@ def addap0():
             # print(cur_run_num)
             wt_global('g_cur_run_parm', cur_run_num)
 
-        # 点击苹果，1s后获取截图
+        # 点击苹果了之后，1s后获取截图
         time.sleep(1)
         screenshot()
 
-        # 如果还能点击苹果，说明此颜色苹果已经消耗完
-        # ！！！以下部分需要调试！！！
-        if picture_tap(addap_path + '/apple' + color + '.png'):
+        sh = cv2.imread(screenshot_path, 0)
+        tmp = cv2.imread(f'{addap_path}/apple{color}.png', 0)
+        thd = 0.85
+        # 如果仍然在苹果界面
+
+        if analyze(sh, tmp, thd):
             # 如果是配置了刷一定量颜色的苹果，那么已经无法再继续进行
             if set_run_num[2] != -1:
                 print('There are no %s apple you can use' % color)
                 wt_global('RUN_FLAG', 'False')
-            # 如果是其他两种刷多少次或者多少个材料的形式，当前优先级颜色 pop 出 list ，顺位查找下一个优先级
             else:
                 set_clr_lst.pop(0)
                 print('set_clr_lst', set_clr_lst)
@@ -66,12 +70,6 @@ def addap0():
                     wt_global('RUN_FLAG', 'False')
                 else:
                     wt_global('set_apple_priority', set_clr_lst)
-                return True
-        else:
-            pass
-
-
-
 
     # thd = 0.85
     if picture_tap(addap_path + '/confirm.png'):

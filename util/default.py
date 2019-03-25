@@ -22,7 +22,7 @@ tmp_support = './tmp/support.txt'
 tmp_battle = './tmp/battle.txt'
 tmp_global = './tmp/global.txt'
 
-#                     y1, y2,   x1,  x2
+#                     x1, x2,   y1,  y2
 support_sel_size_1 = [50, 1820, 250, 590]
 support_sel_size_2 = [50, 1820, 560, 890]
 #                     x0,   y0,  x1,   y1,        delay0(unit:ms)

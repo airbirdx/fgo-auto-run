@@ -63,61 +63,34 @@ def select_support():
     rank, flag = tmp_sup_rank
 
     if flag == 1:       # 说明当前的扫描完了，需要切换下一个
+
         # 判断一下是不是最后一个了
         # 如果是，直接退出选择以及脚本
-        if list(sup_rank).index(rank) == len(sup_rank) - 1:
+        if len(rank) == len(sup_rank):
             print('NONONONONO SUPPORT~~~!!!')
             toast('NONONONONO SUPPORT~~~!!!')
+            picture_tap(f'{support_path}/back.png')
             exit()
         # 如果不是，那么自动向后选择一个新的rank
         else:
-            new_rank = sup_rank[list(sup_rank).index(rank) + 1]
+
+            f = open(tmp_support, 'w')
+            f.write('')
+            f.close()
+
+            psn_rank = sup_rank[len(rank)]
+            new_rank = rank + psn_rank
             new_flag = 0
-
-            psn = PSN()
-            eval('psn.ZHIJIE%s()' % new_rank)
-
             wt_global('tmp_sup_rank', [new_rank, new_flag])
+
+            if psn_rank != '0':
+                psn = PSN()
+                eval('psn.ZHIJIE%s()' % psn_rank)
+
             return True
-    # 如果当前是第一个 rank
-    elif list(sup_rank).index(rank) == 0:
-        psn = PSN()
-        eval('psn.ZHIJIE%s()' % rank)
+    # 当前的没扫描完
+    else:
         pass
-    else: # 当前的没扫描完
-        pass
-
-
-
-
-
-
-
-
-
-    # 如果当前的 rank 小于所有的rank
-    if list(sup_rank).index(rank) < len(sup_rank):
-        # 如果是第一个rank
-        if list(sup_rank).index(rank) == 0:
-
-
-
-
-
-
-    # if list(sup_rank).index(tmp_sup_rank[10]) < len(sup_rank) - 1:
-    #     if not tmp_sup_rank[1]:
-    #         psn = PSN()
-    #         eval('psn.ZHIJIE%s()' % tmp_sup_rank[0])
-    #         return True
-    # elif list(sup_rank).index(tmp_sup_rank[10]) == len(sup_rank) - 1:
-    #     if not tmp_sup_rank[1]:
-    #         if tmp_sup_rank[1] != '0':
-    #             psn = PSN()
-    #             eval('psn.ZHIJIE%s()' % tmp_sup_rank[0])
-    #         return True
-    #     else:
-
 
     select_support0()
 
@@ -150,7 +123,7 @@ def select_support0():
 
         swipe(1860, 1045, 1860, 120, 1500)  # 滑动到最上面
 
-        if set_sup_mod > 1:   # 如果模式设定为 3 / 4
+        if support[2] == 'craft' and set_sup_mod > 1:   # 如果模式设定为 3
             # swipe(1860, 1045, 1860, 120, 1500)   # 滑动到最上面
             f = open(tmp_support, 'r')
             lines = f.readlines()
@@ -167,20 +140,19 @@ def select_support0():
 
                         # 点击非满破卡
                         for n in range(math.ceil(line_num / 2) - 1):
+                            # print('math.ceil(line_num / 2) - 1', math.ceil(line_num / 2) - 1)
                             x0, y0, x1, y1, d0 = support_swipe_parm
                             swipe(x0, y0, x1, y1, d0)
                             time.sleep(0.1)
 
                         if line_num % 2:
-                            y1, y2, x1, x2 = support_sel_size_1
+                            x1, x2, y1, y2 = support_sel_size_1
                         else:
-                            y1, y2, x1, x2 = support_sel_size_2
+                            x1, x2, y1, y2 = support_sel_size_2
 
                         px = (x1 + x2) // 2  # 点击位置点为中心区域
                         py = (y1 + y2) // 2
-
                         tap(px, py)
-
                         return True
 
         curr_refresh_num = eval(rd_global('tmp_sup_rfh'))
@@ -192,8 +164,13 @@ def select_support0():
             psn = PSN()
             psn.SUPPREF()
             wt_global('tmp_sup_rfh', curr_refresh_num + 1)
+
+            f = open(tmp_support, 'w')
+            f.write('')
+            f.close()
+
             return False
-        elif set_sup_mod == 3:   # 最后一次刷新，模式3需要选择第一张卡，那么点击第一个助战从者
+        elif support[2] == 'craft' and set_sup_mod == 3:   # 最后一次刷新，模式3需要选择第一张卡，那么点击第一个助战从者
             w, h = sh.shape[::-1]
             tap(w // 2, int(h * 0.4))  # choose the first one
             return True
@@ -212,14 +189,14 @@ def select_support0():
         f.writelines(str(match) + '\n')
         f.close()
 
-        if operator.eq(sp, match[:3]):
-            if set_sup_mod > 0:     # ( 1/2/3 都可以触发，只要有满破礼装)
-                if len(match) > 5:  # 满破礼装，len=6
+        if operator.eq(sp, match[:3]) and set_sup_mod > 0:   # ( 1/2/3 都可以触发，只要有满破礼装)
+            if support[2] == 'craft':      # 如果设定了礼装
+                if len(match) > 5:         # 如果有礼装，且满破，len=6
                     tap(match[3], match[4])
                     return True
-            # elif set_sup_mod == 1:
-            #     tap(match[3], match[4])
-            #     return True
+            else:
+                tap(match[3], match[4])
+                return True
 
     x0, y0, x1, y1, d0 = support_swipe_parm
     swipe(x0, y0, x1, y1, d0)

@@ -73,10 +73,6 @@ def cpcfg2lib():
     # print(support)
     wt_global('set_default_support', support)
 
-    # 如果 cfg 路径下没有礼装文件，就是说不筛选礼装的情况下
-    if support[2] == '':
-        wt_global('set_default_craft_manpo', 0)
-
     for file in lst:
         name, ext = os.path.splitext(file)
         if name == 'task':
@@ -95,6 +91,7 @@ def init_tmp():
     clean_str_file(support_path, 'servant')
     clean_str_file(support_path, 'skill')
     clean_str_file(support_path, 'craft')
+    clean_str_file(win_path, 'material')
 
     create(tmp_path)
 

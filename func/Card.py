@@ -107,7 +107,7 @@ class Card:
     def get_servant(self):  # servant and position
         card = self.__card
         for i in range(self.servant_num()):
-            servant = cv2.imread(cfg_path + f'/servant_{i}.png', 0)
+            servant = cv2.imread(cfg_path + f'/servant{i}.png', 0)
             thd = 0.85
             if analyze(card, servant, thd):
                 self.servant = i
@@ -189,13 +189,13 @@ class Card:
             else:
                 flg = 0
                 for j in range(self.servant_num()):
-                    file1 = tmp_path + f'/tmp_servant_{i}.png'
-                    file2 = cfg_path + f'/servant_{j}.png'
+                    file1 = tmp_path + f'/tmp_servant{i}.png'
+                    file2 = cfg_path + f'/servant{j}.png'
                     # im1 = cv2.imread(tmp_path + f'/tmp_servant_{i}.png', 0)
                     # im2 = cv2.imread(cfg_path + f'/servant_{j}.png', 0)
                     flg += int(similar_image2(file1, file2))
                 if not flg:
-                    new = cv2.imread(tmp_path + f'/tmp_servant_{i}.png')
-                    cv2.imwrite(cfg_path + f'/servant_{j+1}.png', new)
+                    new = cv2.imread(tmp_path + f'/tmp_servant{i}.png')
+                    cv2.imwrite(cfg_path + f'/servant{j+1}.png', new)
 
 

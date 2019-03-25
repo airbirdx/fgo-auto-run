@@ -144,6 +144,7 @@ def extra_chain(crd_lst):
     if tmpchn_prior < sortop_prior:
         return -1
     else:
+        show_cards(tmp_lst, '@SORT/ EXTRE CHAIN')
         return tmp_lst
 
 
@@ -188,6 +189,7 @@ def color_chain(crd_lst):
     if tmpchn_prior < sortop_prior:
         return -1
     else:
+        show_cards(tmp_lst, '@SORT/ COLOR CHAIN')
         return tmp_lst
 
 
@@ -214,17 +216,16 @@ def turn_sorted(turn_card):
 
     if eval(rd_global('set_default_chain')):
 
-        if extra_chain(sort_cards) != -1:
+        chain_mode = eval(rd_global('set_default_chain'))
+
+        if chain_mode == 1 and extra_chain(sort_cards) != -1:
             sort_cards = extra_chain(sort_cards)
-
-            show_cards(sort_cards, '@SORT/ EXTRE CHAIN')
-        elif color_chain(sort_cards) != -1:
+        elif chain_mode == 1 and color_chain(sort_cards) != -1:
             sort_cards = color_chain(sort_cards)
-
-            show_cards(sort_cards, '@SORT/ COLOR CHAIN')
-        else:
-            pass
-
+        elif chain_mode == 2 and extra_chain(sort_cards) != -1:
+            sort_cards = extra_chain(sort_cards)
+        elif chain_mode == 3 and color_chain(sort_cards) != -1:
+            sort_cards = color_chain(sort_cards)
 
     # 将不能移动的移动到最后，特殊情况
     # 如果chain中有，也是不能够正常启动 chain的
@@ -237,7 +238,6 @@ def turn_sorted(turn_card):
             lst_normal.append(sort_cards[i])
 
     sort_cards = lst_normal + lst_cantmove
-
     show_cards(sort_cards, '@SORT/ MODIFY BUFF')
 
     return sort_cards
@@ -263,6 +263,9 @@ def tap_crd(cards, n):
 
 
 def show_cards(cards, info):
+    show = 0
+    if not show:
+        return 0
     print(info)
     print('|----|---------|-------|------|------|-----------|-----|--------|')
     print('| ID | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP | WEIGHT |')
@@ -313,24 +316,21 @@ def attack():
     else:
         td_idx = turn
 
-    # # 获取设定某些回合技能输入
-    # skill_lst = eval(rd_global('tmp_skl_lst'))
-    # if td_idx <= len(skill_lst):
-    #     turn_skill(skill_lst[td_idx - 1])
-    #     skill_lst[td_idx - 1] = ''
-    #     wt_global('tmp_skl_lst', skill_lst)
-    #
-    # # 点击 ATTACK 按钮，更新截图
-    # psn.ATK()
-    # time.sleep(1)
-    # screenshot()
+    # 获取设定某些回合技能输入
+    skill_lst = eval(rd_global('tmp_skl_lst'))
+    if td_idx <= len(skill_lst):
+        turn_skill(skill_lst[td_idx - 1])
+        skill_lst[td_idx - 1] = ''
+        wt_global('tmp_skl_lst', skill_lst)
+
+    # 点击 ATTACK 按钮，更新截图
+    psn.ATK()
+    time.sleep(1)
+    screenshot()
 
     # 获取指令卡属性
     cards_attr = turn_attribute()
     cards_sort = turn_sorted(cards_attr)
-
-    toast('END SCRIPT [ DEBUG MODE ]')
-    exit()
 
     # 这里可以控制前面的输出来进行简化
     final_lst = eval(rd_global('tmp_fnl_lst'))
@@ -359,5 +359,3 @@ def attack():
             time.sleep(1)
 
 
-def tst_class_Card():
-    pass

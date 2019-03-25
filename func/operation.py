@@ -21,20 +21,20 @@ def scene_operation():
         task_select()
     elif 'support' in scene:
         select_support()
-    # elif 'team' in scene:
-    #     team_confirm()
-    # elif 'loading' in scene:
-    #     random_tap()
-    # elif 'attack' in scene:
-    #     attack()
-    # elif 'win' in scene:
-    #     win_and_next(scene)
-    # elif 'fail' in scene:
-    #     withdrawn()
-    # elif 'friend' in scene:
-    #     make_friend()
-    # elif 'disconnect' in scene:
-    #     retry_connection()
+    elif 'team' in scene:
+        team_confirm()
+    elif 'loading' in scene:
+        random_tap()
+    elif 'attack' in scene:
+        attack()
+    elif 'win' in scene:
+        win_and_next(scene)
+    elif 'fail' in scene:
+        withdrawn()
+    elif 'friend' in scene:
+        make_friend()
+    elif 'disconnect' in scene:
+        retry_connection()
     else:
         pass
 

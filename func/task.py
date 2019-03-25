@@ -24,10 +24,14 @@ def task_select():
 
     # 获取 rank 和 refresh ..并转换为新的变量
     tmp_sup_rank = rd_global('set_default_support_rank')
-    wt_global('tmp_sup_rank', [tmp_sup_rank[0], 0])
+    wt_global('tmp_sup_rank', ['', 1])
 
     tmp_sup_rfh = rd_global('set_default_support_refresh')
     wt_global('tmp_sup_rfh', 0)
+
+    # f = open(tmp_support, 'w')
+    # f.write('')
+    # f.close()
 
 
 
