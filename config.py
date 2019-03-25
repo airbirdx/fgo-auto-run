@@ -1,5 +1,5 @@
 # CONFIG PARAMETER
-run_times = 50
+run_times = 1
 # run_materials = 5
 # run_apples = ['Ag', 1]
 

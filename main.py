@@ -8,9 +8,9 @@ from util.initmp import init_tmp
 
 
 def tst():
-    from func.support import select_support0
+    from func.battle import attack
     init_tmp()
-    select_support0()
+    attack()
 
     # from util.global0 import toast
     # toast('You can see me now.')

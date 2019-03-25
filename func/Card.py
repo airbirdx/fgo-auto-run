@@ -185,17 +185,17 @@ class Card:
         for i in range(5):
             if not self.servant_num():
                 res = cv2.imread(tmp_path + '/tmp_servant_0.png')
-                cv2.imwrite(cfg_path + '/servant_0.png', res)
+                cv2.imwrite(cfg_path + '/servant0.png', res)
             else:
                 flg = 0
                 for j in range(self.servant_num()):
-                    file1 = tmp_path + f'/tmp_servant{i}.png'
+                    file1 = tmp_path + f'/tmp_servant_{i}.png'
                     file2 = cfg_path + f'/servant{j}.png'
                     # im1 = cv2.imread(tmp_path + f'/tmp_servant_{i}.png', 0)
                     # im2 = cv2.imread(cfg_path + f'/servant_{j}.png', 0)
                     flg += int(similar_image2(file1, file2))
                 if not flg:
-                    new = cv2.imread(tmp_path + f'/tmp_servant{i}.png')
+                    new = cv2.imread(tmp_path + f'/tmp_servant_{i}.png')
                     cv2.imwrite(cfg_path + f'/servant{j+1}.png', new)
 
 

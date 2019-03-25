@@ -26,6 +26,6 @@ tmp_global = './tmp/global.txt'
 support_sel_size_1 = [50, 1820, 250, 590]
 support_sel_size_2 = [50, 1820, 560, 890]
 #                     x0,   y0,  x1,   y1,        delay0(unit:ms)
-support_swipe_parm = [1024, 800, 1024, 800 - 539, 2000]
+support_swipe_parm = [1024, 800, 1024, 800 - 550, 2000]
 
 
