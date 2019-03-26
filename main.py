@@ -5,10 +5,12 @@ from util.global0 import *
 from func.operation import scene_operation
 from util.ats import screenshot
 from util.initmp import init_tmp
+from util.log import *
 
 
 def tst():
     from func.battle import attack
+    init_log()
     init_tmp()
     attack()
 
@@ -18,6 +20,12 @@ def tst():
 
 
 def main():
+
+    init_log()
+
+    sys_log('//-------------------------------------------------//')
+    sys_log('//------------  S  T  A  R  T  --------------------//')
+    sys_log('//-------------------------------------------------//')
 
     dbg_shoot = int(bool(len(sys.argv) > 1))
 
@@ -35,11 +43,11 @@ def main():
         screenshot()
         scene_operation()
 
-    print('//-------------------------------------------------//')
-    print('//------------   D  O  N  E    --------------------//')
-    print('//-------------------------------------------------//')
+    sys_log('//-------------------------------------------------//')
+    sys_log('//------------  D  O  N  E     --------------------//')
+    sys_log('//-------------------------------------------------//')
 
-    toast('All scripts done!')
+    toast('ALL DONE...')
 
     return True
 

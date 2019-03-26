@@ -2,8 +2,10 @@
 from util.ats import picture_tap
 from util.default import *
 from util.global0 import *
+from util.log import *
 
 
+# 判断当前刷新副本此时是否已经到达设定值
 def judge():
     set_run_num = eval(rd_global('set_run_parm'))
     cur_run_num = eval(rd_global('run_parm'))
@@ -13,25 +15,23 @@ def judge():
         if set_parm != -1 and isinstance(set_parm, int):
             if run_parm >= set_parm:
                 wt_global('RUN_FLAG', 'False')
-                print('/---/ DONE --> RUN TIMES')
-                exit()
+                sys_log('「 DONE 」 RUN TIMES')
+                return 1
+    return 0
 
 
 def task_select():
-    judge()
+
+    if judge():
+        return False
+
     # thd = 0.85
     picture_tap(task_path + '/task.png')
 
-    # 获取 rank 和 refresh ..并转换为新的变量
-    tmp_sup_rank = rd_global('set_default_support_rank')
+    # 给 rank 和 refresh 临时变量，并赋初值
     wt_global('tmp_sup_rank', ['', 1])
-
-    tmp_sup_rfh = rd_global('set_default_support_refresh')
     wt_global('tmp_sup_rfh', 0)
 
-    # f = open(tmp_support, 'w')
-    # f.write('')
-    # f.close()
 
 
 

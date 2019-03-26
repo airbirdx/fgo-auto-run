@@ -32,31 +32,24 @@ def clean_str_file(path, string):
 
 # 创建空白的 tmp 文件
 # support.txt -> 助战选择界面下记录助战从者、技能、以及礼装的属性列表
-#             -> 具体可以在 support 相关功能界面了解
-# battle.txt  -> 记录战斗中当前回合数
-# runtime.txt -> 记录当前 task 运行次数
-# apple.txt   -> 记录已经消耗的苹果数目
+# global.txt  -> 脚本运行全局变量
 def create(path):
     file_lst = [
         'support.txt',
         'global.txt'
-        # 'runtime.txt',
-        # 'apple.txt'
     ]
     for file in file_lst:
         f = open(path + '/' + file, 'w')
-        # if file is not 'support.txt':
-        # if file != 'support.txt':
-        #     f.write('0')
         f.close()
 
 
+# 将 cfg 中需要拷贝的文件，拷贝到想对应的路径下
+# task , material , support , craft , skill
 def cpcfg2lib():
     lst = png_lst(cfg_path)
     support = eval(rd_global('set_default_support'))
 
     # copy support to the support_path
-    support_wt = []
     flg = [0] * 3
     # for comp in support:
     for i in range(3):
@@ -70,7 +63,6 @@ def cpcfg2lib():
     for i in range(3):
         if not flg[i]:
             support[i] = ''
-    # print(support)
     wt_global('set_default_support', support)
 
     for file in lst:

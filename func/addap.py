@@ -5,6 +5,7 @@ from util.ats import screenshot
 from util.ats import swipe
 from util.default import *
 from util.global0 import *
+from util.log import *
 
 
 def addap0():
@@ -18,20 +19,13 @@ def addap0():
     else:
         color = set_clr_lst[0]
 
-    # print('set_run_num', set_run_num, type(set_run_num))
-    # print('cur_run_num', cur_run_num, type(cur_run_num))
-    # print('set_clr_lst', set_clr_lst)
-    # print(color)
-
     if set_run_num[2] != -1:
         set_num = set_run_num[2][1]
         run_num = cur_run_num[2][1]
-        if run_num < set_num:
-            pass
-        else:
+        if run_num >= set_num:
             wt_global('RUN_FLAG', 'False')
-            print('/---/ DONE --> USE APPLE ')
-            exit()
+            sys_log('「 DONE 」, RUN APPLES ')
+            return False
 
     swipe(1920 // 2, 780, 1920 // 2, 200, 1000)
     time.sleep(1)
@@ -40,12 +34,9 @@ def addap0():
     # thd = 0.85
     if picture_tap(f'{addap_path}/apple{color}.png'):
 
-        # print('!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        # print('set_run_num', set_run_num)
         # 根据点击苹果，进行自加
         if set_run_num[2] != -1:
             cur_run_num[2][1] += 1
-            # print(cur_run_num)
             wt_global('g_cur_run_parm', cur_run_num)
 
         # 点击苹果了之后，1s后获取截图
@@ -60,11 +51,12 @@ def addap0():
         if analyze(sh, tmp, thd):
             # 如果是配置了刷一定量颜色的苹果，那么已经无法再继续进行
             if set_run_num[2] != -1:
-                print('There are no %s apple you can use' % color)
+                sys_log('run out of %s color apple.' % color)
                 wt_global('RUN_FLAG', 'False')
+                return False
             else:
                 set_clr_lst.pop(0)
-                print('set_clr_lst', set_clr_lst)
+                sys_log('current apple color priority =', set_clr_lst)
                 # 如果已经全部出栈，表示已经没有可以选择的，退出执行
                 if not set_clr_lst:
                     wt_global('RUN_FLAG', 'False')

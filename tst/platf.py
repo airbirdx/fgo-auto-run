@@ -1,11 +1,3 @@
-#python platform
-
-#Author   :   Hongten
-#Mailto   :   hongtenzone@foxmail.com
-#Blog     :   http://www.cnblogs.com/hongten
-#QQ       :   648719819
-#Version  :   1.0
-#Create   :   2013-08-28
 
 import platform
 

@@ -17,8 +17,6 @@ def click(x, y):
         x0=x,
         y0=y
     )
-    # print(cmd_click)
-    # subprocess.call(cmd_tap, shell=True, stdout=None)
     os.system(cmd_click)
 
 
@@ -30,15 +28,13 @@ def swipe(x0, y0, x1, y1, delay0):
         y3=y1,
         delay1=delay0
     )
-    # print(cmd_swipe)
-    # subprocess.call(cmd_swipe, shell=True, stdout=None)
     os.system(cmd_swipe)
 
 
 # def long_tap(x, y):  # random length tap
-#     delay = random.randrange(5, 100)
-#     x0 = x + random.randrange(-10, 10)
-#     y0 = y + random.randrange(-10, 10)
+#     delay = random.randrange(200, 1000)
+#     x0 = x + random.randrange(-5, 5)
+#     y0 = y + random.randrange(-5, 5)
 #     swipe(x, y, x0, y0, delay)
 
 

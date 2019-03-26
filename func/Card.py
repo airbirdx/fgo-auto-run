@@ -9,7 +9,7 @@ from util.default import *
 from util.global0 import *
 from util.scene import png_lst
 from func.similar.similar import *
-
+from util.log import *
 
 class Card:
 
@@ -72,17 +72,12 @@ class Card:
     def crit_priority(self):
         return self.crit // 10
 
-
     def buff_priority(self):
         return self.buff
 
-
-
-
-
     def analyze(self):
         if self.idx == -1:
-            print('ERROR IN CLASS CARD')
+            sys_log('ERROR IN CLASS CARD INDEX PARM')
         else:
             self.get_servant()
             self.get_color_and_psn()
@@ -171,11 +166,12 @@ class Card:
             name, extension = os.path.splitext(pic_file)
             num += int('servant' in name)
 
-        # print('servant num = ', num)
         return num
 
-    def show(self):
-        print('| %-2d | %4d    | %3s   | %3d  | %3d  | %4d, %-4d| %2d  | %-6d |' \
+    def show(self, show=0):
+        if show:
+            sys_log('| ID | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP | WEIGHT |')
+        sys_log('| %-2d | %4d    | %3s   | %3d  | %3d  | %4d, %-4d| %2d  | %-6d |' \
               % (self.idx, self.servant, self.color, self.buff, self.crit, \
                  self.px, self.py, self.issup, self.weight))
 

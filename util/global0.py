@@ -1,7 +1,7 @@
 import platform
 from util.default import *
 from config import *
-
+from util.log import *
 
 def wt_parm_basic():
     wt_global('RUN_FLAG', 'True')  # --> RUN_FLAG
@@ -135,6 +135,7 @@ def init_global():
 
 
 def rd_global(parm):
+    sys_log('parm @ %-30s' % parm)
     f = open(tmp_global, 'r')
     lines = f.readlines()
     f.close()
@@ -152,14 +153,13 @@ def rd_global(parm):
 
 
 def wt_global(parm, value):
-    # print('--> wt parm @ %-30s, value @ %-30s' % (parm, str(value)))
+    sys_log('parm @ %-30s, value @ %-30s' % (parm, str(value)))
     if rd_global(parm):
         f = open(tmp_global, 'r')
         lines = f.readlines()
         f.close()
         f = open(tmp_global, 'w')
         for line in lines:
-            # print('line,,,', line)
             string = line
             string = string.replace('\n', '')
             string = string.replace(' ', '')
@@ -196,7 +196,9 @@ def speed():
 
 
 def toast(information):
-    string = '『 NOTE 』 ' + information
+    string = '『 TOAST 』 ' + information
+    sys_log(string)
+
     if platform.system() == 'Windows':
         from win10toast import ToastNotifier
         toaster = ToastNotifier()
@@ -207,12 +209,3 @@ def toast(information):
         cmd = 'display notification \"' + \
               string + '\" with title \"fgo-auto-run\"'
         call(['osascript', '-e', cmd])
-
-
-
-# def wt_parm_var(init_var, from_var):
-#     if defined_var(from_var):
-#         tmp = eval(from_var)
-#     else:
-#         tmp = 0
-#     wt_global(init_var, tmp)

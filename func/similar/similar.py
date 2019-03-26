@@ -34,7 +34,8 @@ def similar_image2(file1, file2):
 	im2 = cv2.imread(file2, 0)
 
 	w, h = im2.shape[::-1]
-	area = im2[h//4:h//4*3, w//4:w//4*3]  # 裁剪坐标为[y0:y1, x0:x1]
+	n = 5
+	area = im2[h // n:h // n * (n - 1), w // n:w // n * (n - 1)]  # 裁剪坐标为[y0:y1, x0:x1]
 
 	thd = 0.9
 	if analyze(im1, area, thd):

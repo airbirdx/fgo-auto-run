@@ -23,3 +23,10 @@
 建议阅读完以下文档后再尝试运行
 
 :one: [如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md) → :two: [参数详解](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/parameter.md) → :three: [刷图示例](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/example.md) → :four: [配置环境](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/environment.md) → :five: [文件架构](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/architecture.md) → :one: ​[如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md) 
+
+# 参考
+
+本文在设计上参考了 [Meowcolm024/FGO-One](https://github.com/Meowcolm024/FGO-One) 
+
+感谢各位曾经造的轮子
+

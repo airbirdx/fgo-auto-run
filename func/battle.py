@@ -11,7 +11,7 @@ from util.ats import screenshot
 from psn.psfunc import *
 from psn.PSN import *
 from func.Card import *
-
+from util.log import *
 
 # split the sh picture when it is under battle
 def split_in_battle(file):
@@ -72,7 +72,7 @@ def turn_attribute():
     return res
 
 
-def extra_chain(crd_lst):
+def extra_chain(crd_lst, show=1):
     # 首先，将 support 从者的 card.servant += issup * 10
     # update card_list
     # 根据 issup 更新 servant ... 这里是 +=
@@ -119,11 +119,12 @@ def extra_chain(crd_lst):
             tmp_lst0.append(card)
         else:
             tmp_lst1.append(card)
+
     tmp_lst = tmp_lst0 + tmp_lst1
 
     # 根据 issup 更新 servant ... 这里是 -=
     update_lst = []
-    for card in crd_lst:
+    for card in tmp_lst:
         crd = Card()
         crd.copy(card)
         if crd.servant != -1:
@@ -144,11 +145,11 @@ def extra_chain(crd_lst):
     if tmpchn_prior < sortop_prior:
         return -1
     else:
-        show_cards(tmp_lst, '@SORT/ EXTRE CHAIN')
+        show_cards(tmp_lst, '@SORT/ EXTRA CHAIN', show=show)
         return tmp_lst
 
 
-def color_chain(crd_lst):
+def color_chain(crd_lst, show=1):
     # 返回颜色的字符，如果没有，返回-1
     rgb = 'RGB'
     lst = [0] * 3
@@ -189,7 +190,7 @@ def color_chain(crd_lst):
     if tmpchn_prior < sortop_prior:
         return -1
     else:
-        show_cards(tmp_lst, '@SORT/ COLOR CHAIN')
+        show_cards(tmp_lst, '@SORT/ COLOR CHAIN', show=show)
         return tmp_lst
 
 
@@ -218,13 +219,13 @@ def turn_sorted(turn_card):
 
         chain_mode = eval(rd_global('set_default_chain'))
 
-        if chain_mode == 1 and extra_chain(sort_cards) != -1:
+        if chain_mode == 1 and extra_chain(sort_cards, show=0) != -1:
             sort_cards = extra_chain(sort_cards)
-        elif chain_mode == 1 and color_chain(sort_cards) != -1:
+        elif chain_mode == 1 and color_chain(sort_cards, show=0) != -1:
             sort_cards = color_chain(sort_cards)
-        elif chain_mode == 2 and extra_chain(sort_cards) != -1:
+        elif chain_mode == 2 and extra_chain(sort_cards, show=0) != -1:
             sort_cards = extra_chain(sort_cards)
-        elif chain_mode == 3 and color_chain(sort_cards) != -1:
+        elif chain_mode == 3 and color_chain(sort_cards, show=0) != -1:
             sort_cards = color_chain(sort_cards)
 
     # 将不能移动的移动到最后，特殊情况
@@ -261,17 +262,15 @@ def tap_crd(cards, n):
     return tap_cards
 
 
-
-def show_cards(cards, info):
-    show = 0
+def show_cards(cards, info, show=1):
     if not show:
         return 0
-    print(info)
-    print('|----|---------|-------|------|------|-----------|-----|--------|')
-    print('| ID | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP | WEIGHT |')
+    sys_log(info)
+    sys_log('|----|---------|-------|------|------|-----------|-----|--------|')
+    sys_log('| ID | SERVANT | COLOR | BUFF | CRIT | POSITION  | SUP | WEIGHT |')
     for card in cards:
         card.show()
-    print('|----|---------|-------|------|------|-----------|-----|--------|')
+    sys_log('|----|---------|-------|------|------|-----------|-----|--------|')
 
 
 
@@ -307,7 +306,7 @@ def attack():
     turn += 1
     wt_global('turn', turn)
 
-    print('@BATTLE -> ROUND : %1d, TURN : %-2d' % (round, turn))
+    sys_log('current @ round : %1d, turn : %-2d' % (round, turn))
 
     # 获取 turn / round 参数
     op_unit = rd_global('set_default_final_unit')  # round / turn

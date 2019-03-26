@@ -3,7 +3,7 @@ import os
 
 from util.cvs import analyze
 from util.default import *
-
+from util.log import *
 
 def png_lst(path):
     res = []
@@ -24,7 +24,7 @@ def current_scene():
         thd = 0.85
         if analyze(sh, tmp, thd):
             name, extension = os.path.splitext(file)
-            print('「 CURRENT SCENE 」', name)
+            sys_log('「 CURRENT SCENE 」', name)
             return name
     return 'none'
 

@@ -4,10 +4,7 @@ from util.ats import random_tap
 from util.ats import picture_tap
 from util.ats import analyze
 from util.global0 import *
-
-
-
-
+from util.log import *
 
 
 def judge():
@@ -22,11 +19,10 @@ def judge():
         if set_run_num[1] != -1:
             cur_run_num[1] += 1
             wt_global('run_parm', cur_run_num)
-            # print(rd_global('run_parm'))
 
         if cur_run_num[1] >= set_run_num[1]:
             wt_global('RUN_FLAG', 'False')
-            print('/---/ DONE --> RUN MATERIAL')
+            sys_log('「 DONE 」RUN MATERIALS')
 
 
 def win_and_next(scene):

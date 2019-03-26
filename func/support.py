@@ -12,6 +12,7 @@ from util.global0 import *
 from util.scene import png_lst
 from util.default import *
 from psn.PSN import *
+from util.log import *
 
 
 def update_match(match, name, support, px, py, flg):
@@ -67,10 +68,11 @@ def select_support():
         # 判断一下是不是最后一个了
         # 如果是，直接退出选择以及脚本
         if len(rank) == len(sup_rank):
-            print('NONONONONO SUPPORT~~~!!!')
-            toast('NONONONONO SUPPORT~~~!!!')
+            toast('NO SUITABLE SUPPORT CAN BE SELECTED')
             picture_tap(f'{support_path}/back.png')
-            exit()
+            wt_global('RUN_FLAG', 'False')
+            return False
+
         # 如果不是，那么自动向后选择一个新的rank
         else:
 
@@ -88,10 +90,8 @@ def select_support():
                 eval('psn.ZHIJIE%s()' % psn_rank)
 
             return True
-    # 当前的没扫描完
-    else:
-        pass
 
+    # 当前的没扫描完
     select_support0()
 
 
@@ -118,21 +118,20 @@ def select_support0():
         sp.append(int(tmp != ''))
 
     thd = 0.9
-    if analyze(sh, end, thd):  # 设定为只刷新一次
+    if analyze(sh, end, thd):
         # 读取文件遍历一遍，看是否有低优先级合适的，没有的话再二次更新
 
         swipe(1860, 1045, 1860, 120, 1500)  # 滑动到最上面
 
-        if support[2] == 'craft' and set_sup_mod > 1:   # 如果模式设定为 3
-            # swipe(1860, 1045, 1860, 120, 1500)   # 滑动到最上面
+        if support[2] == 'craft' and set_sup_mod > 1:   # 如果模式设定为 2/3
             f = open(tmp_support, 'r')
             lines = f.readlines()
             f.close()
-            # line_num = 0
+
             for i in range(len(lines)):
                 line = lines[i]
-                line.replace('\n', '')
-                # print(line)
+                line = line.replace('\n', '')
+
                 line_match = eval(line)
                 if operator.eq(sp, line_match[:3]):
                     if line_match[2]:
@@ -140,7 +139,6 @@ def select_support0():
 
                         # 点击非满破卡
                         for n in range(math.ceil(line_num / 2) - 1):
-                            # print('math.ceil(line_num / 2) - 1', math.ceil(line_num / 2) - 1)
                             x0, y0, x1, y1, d0 = support_swipe_parm
                             swipe(x0, y0, x1, y1, d0)
                             time.sleep(0.1)
@@ -159,7 +157,7 @@ def select_support0():
         set_refresh_num = eval(rd_global('set_default_support_refresh'))
 
         if curr_refresh_num < set_refresh_num:
-            print('support list one has been checked... now refresh it...')
+            sys_log('refreshing current rank support list ')
             # press refresh button
             psn = PSN()
             psn.SUPPREF()
@@ -170,12 +168,14 @@ def select_support0():
             f.close()
 
             return False
+
         elif support[2] == 'craft' and set_sup_mod == 3:   # 最后一次刷新，模式3需要选择第一张卡，那么点击第一个助战从者
             w, h = sh.shape[::-1]
             tap(w // 2, int(h * 0.4))  # choose the first one
             return True
+
         else:
-            print('No suitable [SUPPORT] option in this rank')
+            sys_log('no suitable support in this rank')
             tmp_sup_rank = eval(rd_global('tmp_sup_rank'))  # rank, flag
             tmp_sup_rank[1] = 1
             wt_global('tmp_sup_rank', tmp_sup_rank)
