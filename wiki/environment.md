@@ -1,4 +1,4 @@
-📙 [配置环境](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/environment.md) → :house: **[返回主页面](https://github.com/airbirdx/fgo-auto-run)**
+📙 [配置环境](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/environment.md) → :house: **[返回主页](https://github.com/airbirdx/fgo-auto-run)**
 
 1️⃣ [如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md) → 2️⃣ [参数详解](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/parameter.md) → 3️⃣ [刷图示例](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/example.md) → 📙 [配置环境](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/environment.md) → :five: [文件架构](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/architecture.md) → 1️⃣ [如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md)
 
@@ -65,7 +65,13 @@ brew install imagemagick
 
 # ADB
 
+* 连接手机
+  * 手机打开「开发者模式」
+  * 使用 USB 线材连接电脑与手机
+  * 手机同意调试
 * 连接虚拟机 `( 如果使用 )`
+  * 虚拟机打开「开发者模式」
+  * 输入以下命令进行连接
 
 ```
                                # 以网易 MuMu 为例

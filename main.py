@@ -21,18 +21,18 @@ def tst():
 
 def main():
 
-    init_log()
-
-    sys_log('//-------------------------------------------------//')
-    sys_log('//------------  S  T  A  R  T  --------------------//')
-    sys_log('//-------------------------------------------------//')
-
     dbg_shoot = int(bool(len(sys.argv) > 1))
 
     script_path = os.path.abspath(sys.argv[0])
     script_name = os.path.basename(sys.argv[0]).split('.')[0] + '.py'
     folder_path = script_path.replace(script_name, '')
     os.chdir(folder_path)
+
+    init_log()
+
+    sys_log('//-------------------------------------------------//')
+    sys_log('//------------  S  T  A  R  T  --------------------//')
+    sys_log('//-------------------------------------------------//')
 
     if dbg_shoot:
         screenshot()

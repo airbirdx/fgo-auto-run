@@ -1,5 +1,5 @@
 # CONFIG PARAMETER
-run_times = 1
+run_times = 7
 # run_materials = 5
 # run_apples = ['Ag', 1]
 
@@ -13,7 +13,7 @@ default_skill = '(3)v2oqy33'
 default_final = '(3)cxx'
 default_final_unit = 'round'
 # speed_ratio = 1   # normal(=1), faster(>1), slower(<1)
-default_chain = 1
+# default_chain = 1
 
 # rotation if needed
 default_rotation = 0   # range : 0/1/2/3, 1 for meizu phone

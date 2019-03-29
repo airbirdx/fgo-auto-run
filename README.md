@@ -24,6 +24,21 @@
 
 :one: [如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md) → :two: [参数详解](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/parameter.md) → :three: [刷图示例](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/example.md) → :four: [配置环境](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/environment.md) → :five: [文件架构](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/architecture.md) → :one: ​[如何运行](https://github.com/airbirdx/fgo-auto-run/blob/master/wiki/howtorun.md) 
 
+# 使用场景
+
+以下为作者曾经使用过的场景，在此记录一下。
+
+脚本适用范围包括但不仅限于这些。
+
+* 周常
+  * 刷狗粮 / 刷 QP / 刷技能石
+* 刷素材
+  * 凶骨 / 羽毛 / ...
+* 复刻：达芬奇与七位赝作英灵 轻量版
+  * 图书馆刷心脏
+* 复刻版：空之境界/the Garden of Order -Revival-
+  * 停车场刷 QP
+
 # 参考
 
 本文在设计上参考了 [Meowcolm024/FGO-One](https://github.com/Meowcolm024/FGO-One) 
