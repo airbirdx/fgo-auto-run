@@ -41,12 +41,12 @@ def mathc_img(image,Target,value):
 
 
 
-image =('tmp_servant_0' + '.png')
+image =('sh' + '.png')
 
 # yanzuo_lizhuang_manpo
 
-Target=('servant0' + '.png')
-value=0.9
+Target=('confirm' + '.png')
+value=0.85
 mathc_img(image,Target,value)
 # print('adsdasfdsad')
 
