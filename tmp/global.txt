@@ -1,6 +1,6 @@
-RUN_FLAG=False
+RUN_FLAG=True
 set_run_parm=[9,-1,-1]
-run_parm=[9,0,0]
+run_parm=[1,0,0]
 round=3
 turn=3
 set_color_priority=RBG
@@ -17,4 +17,4 @@ set_default_support_refresh=1
 tmp_sup_rank=['8',0]
 tmp_sup_rfh=0
 tmp_skl_lst=['','','']
-tmp_fnl_lst=['','','']
+tmp_fnl_lst=['', '', '']
