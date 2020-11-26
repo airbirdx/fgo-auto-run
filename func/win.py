@@ -2,34 +2,38 @@ import cv2
 from util.default import *
 from util.ats import random_tap
 from util.ats import picture_tap
-from util.ats import analyze
+from util.cvs import *
 from util.global0 import *
 from util.log import *
 
 
-def judge():
-    sh = cv2.imread(screenshot_path, 0)
-    tmp = cv2.imread(win_path + '/material.png', 0)
-    thd = 0.85
-    if analyze(sh, tmp, thd):
-        # run_materials++ if needed
-        set_run_num = eval(rd_global('set_run_parm'))
-        cur_run_num = eval(rd_global('run_parm'))
-
-        if set_run_num[1] != -1:
-            cur_run_num[1] += 1
-            wt_global('run_parm', cur_run_num)
-
-        if cur_run_num[1] >= set_run_num[1]:
-            wt_global('RUN_FLAG', 'False')
-            sys_log('「 DONE 」RUN MATERIALS')
+def win_judge():
+    """
+    判断是否了 times 或者 material 设定，并写入当前脚本已经跑了的次数
+    :return:
+    """
+    if rd_tmp_ini('run', 'parm') == 'apples':
+        config_num = int(get_cfg('run', rd_tmp_ini('run', 'parm')).split(',')[-1])
+    else:
+        config_num = int(get_cfg('run', rd_tmp_ini('run', 'parm')))
+    current_num = int(rd_tmp_ini('run', 'num'))
+    
+    if rd_tmp_ini('run', 'parm') == 'materials' and pic_in_sh(win_path + '/material.png'):
+        current_num += 1
+    
+    wt_tmp_ini('run', 'num', str(current_num))
+    
+    dbg_log('run_parm_num --> %s@%s' % (rd_tmp_ini('run', 'parm'), current_num))
 
 
 def win_and_next(scene):
-
-    set_run_num = eval(rd_global('set_run_parm'))
-    if scene == 'win2' and set_run_num[1] != -1:
-        judge()
+    """
+    获胜并进行下一步
+    :param scene:
+    :return:
+    """
+    if scene == 'win2':
+        win_judge()
 
     # thd = 0.85
     if picture_tap(win_path + '/next.png'):

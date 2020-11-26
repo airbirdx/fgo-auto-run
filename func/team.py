@@ -9,35 +9,27 @@ from psn.psfunc import cfgstr2lst
 
 
 def team_confirm():
-    # run_times++ if needed
-    set_run_num = eval(rd_global('set_run_parm'))
-    cur_run_num = eval(rd_global('run_parm'))
+    
+    # if rd_tmp_ini('run', 'parm') == 'apples':
+    #     config_num = int(get_cfg('run', rd_tmp_ini('run', 'parm')).split(',')[-1])
+    # else:
+    #     config_num = int(get_cfg('run', rd_tmp_ini('run', 'parm')))
+    current_num = int(rd_tmp_ini('run', 'num'))
 
-    if set_run_num[0] != -1:
-        cur_run_num[0] += 1
-        wt_global('run_parm', cur_run_num)
+    if rd_tmp_ini('run', 'parm') == 'times':
+        current_num += 1
+
+    wt_tmp_ini('run', 'num', str(current_num))
+
+    dbg_log('run_parm_num --> %s@%s' % (rd_tmp_ini('run', 'parm'), current_num))
 
     # thd = 0.85
     picture_tap(team_path + '/start.png')
 
-    wt_global('round', 0)
-    wt_global('turn', 0)
 
-    lst = png_lst(cfg_path)
-    svt_priority = eval(rd_global('set_servant_priority'))
-    for file in lst:
-        # name, ext = os.path.splitext(file)
-        if 'servant' in file and not svt_priority:
-            os.remove(cfg_path + '/' + file)
+def team_confirm0():
 
-    # 获取 skill 和 final ..并转换为新的变量
-    # tmp = rd_global('set_default_skill')
-    # skill_lst = cfgstr2lst(tmp)
-    # wt_global('tmp_skl_lst', skill_lst)
-    #
-    # tmp = rd_global('set_default_final')
-    # final_lst = cfgstr2lst(tmp)
-    # wt_global('tmp_fnl_lst', final_lst)
-    wt_global('tmp_skl_lst', cfgstr2lst(rd_global('set_default_skill')))
-    wt_global('tmp_fnl_lst', cfgstr2lst(rd_global('set_default_final')))
+    # thd = 0.85
+    picture_tap(team_path + '/start.png')
 
+    

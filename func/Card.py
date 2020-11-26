@@ -49,7 +49,7 @@ class Card:
         self.weight = int(res)
 
     def servant_priority(self):
-        svt_prior = eval(rd_global('set_servant_priority'))
+        svt_prior = get_cfg('priority', 'servant')
         # 输出，优先级从高到低，5/4/3/2/1/0
         for i in range(len(svt_prior)):
             if self.servant == svt_prior[i]:
@@ -59,7 +59,7 @@ class Card:
         return -1
 
     def color_priority(self):
-        clr_prior = rd_global('set_color_priority')
+        clr_prior = get_cfg('priority', 'color')
         clr_prior = clr_prior.upper()
         for i in range(3):
             if clr_prior[i] == self.color:
@@ -122,7 +122,7 @@ class Card:
                 sh = cv2.imread(screenshot_path, 0)
                 w, h = sh.shape[::-1]
                 self.px = ps[0][0] + w // 5 * self.idx
-                self.py = ps[0][1] + h // 2
+                self.py = ps[0][1] + 220
                 break
 
     def get_buff(self):

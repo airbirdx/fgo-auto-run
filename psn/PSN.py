@@ -350,70 +350,77 @@ class PSN:
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(1255, 193)
+        tap(1277, 193)
         time.sleep(duration)
 
-    def ZHIJIE8(self, duration=None):
+    def ZHIJIE0(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(150, 193)
+        tap(140, 195)
         time.sleep(duration)
 
     def ZHIJIE1(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(250, 193)
+        tap(241, 195)
         time.sleep(duration)
 
     def ZHIJIE2(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(350, 193)
+        tap(342, 195)
         time.sleep(duration)
 
     def ZHIJIE3(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(450, 193)
+        tap(443, 195)
         time.sleep(duration)
 
     def ZHIJIE4(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(550, 193)
+        tap(544, 195)
         time.sleep(duration)
 
     def ZHIJIE5(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(650, 193)
+        tap(645, 195)
         time.sleep(duration)
 
     def ZHIJIE6(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(750, 193)
+        tap(746, 195)
         time.sleep(duration)
 
     def ZHIJIE7(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(850, 193)
+        tap(847, 195)
+        time.sleep(duration)
+
+    def ZHIJIE8(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(948, 195)
         time.sleep(duration)
 
     def ZHIJIE9(self, duration=None):
         if duration is None:
             duration = 1.0
         duration = duration * speed()
-        tap(950, 193)
+        tap(1049, 195)
         time.sleep(duration)
 
     def SKIPS(self, duration=None):
@@ -463,5 +470,33 @@ class PSN:
             duration = 2.0
         duration = duration * speed()
         tap(660, 840)
+        time.sleep(duration)
+
+    def PYPONT(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1500, 100)
+        time.sleep(duration)
+
+    def ZOOM(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(40, 1015)
+        time.sleep(duration)
+
+    def STRSELECT(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(650, 350)
+        time.sleep(duration)
+
+    def CRAFTONE(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(210, 380)
         time.sleep(duration)
 

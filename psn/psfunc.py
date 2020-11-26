@@ -1,7 +1,6 @@
 import os
 import time
 from psn.PSN import *
-from util.global0 import defined_var
 
 # convert the config skill string to list
 # in  : string : (1)abc(2)opq31(4)ijk

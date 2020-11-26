@@ -13,6 +13,12 @@ from config import *
 
 
 def click(x, y):
+    '''
+    点击屏幕坐标 x,y
+    :param x:
+    :param y:
+    :return:
+    '''
     cmd_click = 'adb shell input tap {x0} {y0}'.format(
         x0=x,
         y0=y
@@ -21,6 +27,15 @@ def click(x, y):
 
 
 def swipe(x0, y0, x1, y1, delay0):
+    '''
+    从 x0,y0 滑动到 x1,y1
+    :param x0:
+    :param y0:
+    :param x1:
+    :param y1:
+    :param delay0:
+    :return:
+    '''
     cmd_swipe = 'adb shell input swipe {x2} {y2} {x3} {y3} {delay1}'.format(
         x2=x0,
         y2=y0,
@@ -29,6 +44,7 @@ def swipe(x0, y0, x1, y1, delay0):
         delay1=delay0
     )
     os.system(cmd_swipe)
+    time.sleep(1)
 
 
 # def long_tap(x, y):  # random length tap
@@ -40,15 +56,27 @@ def swipe(x0, y0, x1, y1, delay0):
 
 # tap on random location of the button
 def tap(x, y, error=10):
+    '''
+    点击坐标 x,y 引入一定范围随机性
+    :param x:
+    :param y:
+    :param error:
+    :return:
+    '''
     ct = datetime.datetime.now()            # current time
     cts = int(time.mktime(ct.timetuple()))  # current time timestamp
     random.seed(cts)
     x0 = x + random.randint(-error, error)
     y0 = y + random.randint(-error, error)
     click(x0, y0)
+    time.sleep(0.3)
 
 
 def screenshot():
+    '''
+    获取手机截图
+    :return:
+    '''
     tmp_png = 'ts1t.png'
 
     filter_str = ''
@@ -65,9 +93,14 @@ def screenshot():
         for i in range(default_rotation):
             img = np.rot90(img)
         cv2.imwrite(screenshot_path, img)
+    # time.sleep(1)
 
 
 def random_tap():
+    '''
+    在屏幕上随机点触
+    :return:
+    '''
     sh = cv2.imread(screenshot_path, 0)
     set = 5
     w, h = sh.shape[::-1]
@@ -77,9 +110,16 @@ def random_tap():
     x = random.randint(w // set, w // set * (set - 1))
     y = random.randint(h // set, h // set * (set - 1))
     tap(x, y)
+    
 
 
 def picture_tap(pic, thd=None):
+    '''
+    点击截图中图片部分
+    :param pic:
+    :param thd:
+    :return:
+    '''
     if thd is None:
         thd = 0.85
     sh = cv2.imread(screenshot_path, 0)
@@ -94,4 +134,4 @@ def picture_tap(pic, thd=None):
         return True
     else:
         return False
-
+    

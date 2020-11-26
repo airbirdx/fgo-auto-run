@@ -4,93 +4,100 @@ from util.scene import png_lst
 from util.global0 import *
 
 
-# 循环迭代删除路径文件夹下的所有文件
-def clean(path):
+def clean_path(path):
+    """
+    循环迭代删除路径文件夹下的所有文件
+    :param path:
+    :return:
+    """
     ls = os.listdir(path)
     for i in ls:
         c_path = os.path.join(path, i)
         # print(c_path)
         if os.path.isdir(c_path):
-            clean(c_path)
+            clean_path(c_path)
         else:
             os.remove(c_path)
 
 
-# 循环迭代删除路径文件夹下的所有含有目标字符串的文件
-def clean_str_file(path, string):
+def rm_file_in_path(path, string):
+    """
+    循环迭代删除路径文件夹下的所有含有目标字符串的文件
+    :param path:
+    :param string:
+    :return:
+    """
     ls = os.listdir(path)
     for i in ls:
         c_path = os.path.join(path, i)
         # print(c_path)
         if os.path.isdir(c_path):
-            clean_str_file(c_path, string)
+            rm_file_in_path(c_path, string)
         elif string in c_path:
             # print(c_path)
             os.remove(c_path)
 
 
-
-# 创建空白的 tmp 文件
-# support.txt -> 助战选择界面下记录助战从者、技能、以及礼装的属性列表
-# global.txt  -> 脚本运行全局变量
-def create(path):
-    file_lst = [
-        'support.txt',
-        'global.txt'
-    ]
-    for file in file_lst:
-        f = open(path + '/' + file, 'w')
-        f.close()
-
-
-# 将 cfg 中需要拷贝的文件，拷贝到想对应的路径下
-# task , material , support , craft , skill
-def cpcfg2lib():
+def cp_cfg_2_lib():
+    """
+    将 cfg 中 task/material/support/craft/skill 等需要拷贝的文件，拷贝到对应的路径
+    :return:
+    """
+    # TODO:add servant,craft,skill to lib
+    # supportx.png/craftx.png -> support_path
     lst = png_lst(cfg_path)
-    support = eval(rd_global('set_default_support'))
-
-    # copy support to the support_path
-    flg = [0] * 3
-    # for comp in support:
-    for i in range(3):
-        comp = support[i]
-        for file in lst:
-            name, ext = os.path.splitext(file)
-            if comp is not '' and comp in name:
-                shutil.copyfile(cfg_path + f'/{file}', support_path + f'/{file}')
-                flg[i] = 1
-    # 根据图片调整设定的support选项
-    for i in range(3):
-        if not flg[i]:
-            support[i] = ''
-    wt_global('set_default_support', support)
-
     for file in lst:
         name, ext = os.path.splitext(file)
-        if name == 'task':
+        if 'task' in name:
             shutil.copyfile(cfg_path + f'/{file}', task_path + f'/{file}')
             shutil.copyfile(cfg_path + f'/{file}', scenes_path + f'/{file}')
-        elif name == 'material':
+        elif 'material' in name:
             shutil.copyfile(cfg_path + f'/{file}', win_path + f'/{file}')
+        elif 'servant' in name or 'skill' in name or 'craft' in name or 'manpo' in name:
+            shutil.copyfile(cfg_path + f'/{file}', support_path + f'/{file}')
 
 
-# 初始化, 清空 tmp 文件夹, 并创建临时 txt 文件
-def init_tmp():
-    clean(tmp_path)
+def init_tmp_ini():
+    wt_tmp_ini('run', 'flag', 'True')
+    
+    set_run_times = int(get_cfg('run', 'times'))
+    set_run_materials = int(get_cfg('run', 'materials'))
+    set_run_apple = get_cfg('run', 'apples').split(',')
+    set_run_stones = int(get_cfg('run', 'stones'))
+    if set_run_times > 0:
+        wt_tmp_ini('run', 'parm', 'times')
+    elif set_run_materials > 0:
+        wt_tmp_ini('run', 'parm', 'materials')
+    elif set_run_apple[0] in ['Au', 'Ag', 'Cu'] and set_run_apple[1] > 0:
+        wt_tmp_ini('run', 'parm', 'apples')
+    elif set_run_stones > 0:
+        wt_tmp_ini('run', 'parm', 'stones')
+    else:
+        sys_log('RUN PARAMETER ERROR !!! please check config.ini')
+        toast('ERROR!!! EXIT SCRIPT!!!')
+        exit()
+        
+    wt_tmp_ini('run', 'num', 0)
 
-    clean(task_path)
 
-    clean_str_file(support_path, 'servant')
-    clean_str_file(support_path, 'skill')
-    clean_str_file(support_path, 'craft')
-    clean_str_file(win_path, 'material')
-
-    create(tmp_path)
-
-    init_global()
-
-    cpcfg2lib()
-
-
+def init_env():
+    """
+    初始化脚本的运行环境
+    :return:
+    """
+    init_log()
+    
+    clean_path(tmp_path)
+    rm_file_in_path(task_path, 'task')
+    rm_file_in_path(scenes_path, 'task')
+    rm_file_in_path(support_path, 'servant')
+    rm_file_in_path(support_path, 'skill')
+    rm_file_in_path(support_path, 'craft')
+    rm_file_in_path(win_path, 'material')
+    
+    cp_cfg_2_lib()
+    init_tmp_ini()
+    
+    
 
 

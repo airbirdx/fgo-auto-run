@@ -1,201 +1,20 @@
 import platform
+import configparser
 from util.default import *
 from config import *
 from util.log import *
 
-def wt_parm_basic():
-    wt_global('RUN_FLAG', 'True')  # --> RUN_FLAG
-
-    # --> set and curr run_times parm
-    if defined_var('run_times'):
-        run_t = run_times
-    else:
-        run_t = -1
-
-    if defined_var('run_materials'):
-        run_m = run_materials
-    else:
-        run_m = -1
-
-    if defined_var('run_apples'):
-        run_a = run_apples
-        crun_a = [''] * 2
-        crun_a[0] = run_apples[0]
-        crun_a[1] = 0
-    else:
-        run_a = -1
-        crun_a = 0
-
-    set_run_parm = [run_t, run_m, run_a]
-    curr_run_parm = [0, 0, crun_a]
-
-    wt_global('set_run_parm', set_run_parm)
-    wt_global('run_parm', curr_run_parm)
-
-
-def wt_parm_battle():
-    wt_global('round', 0)  # --> round in battle
-    wt_global('turn', 0)  # --> turn in battle
-    # --> default_color_priority, used in select cards in one turn.
-    if defined_var('default_color_priority'):
-        wt_global('set_color_priority', default_color_priority)
-    else:
-        wt_global('set_color_priority', 'RBG')
-
-    # --> apple_priority, set this for run_times and run_materials
-    apple_priority = ['Cu', 'Ag', 'Au']
-    wt_global('set_apple_priority', apple_priority)
-
-    # --> default_servant_priority, used in select cards in one turn.
-    if defined_var('default_servant_priority'):
-        set_servant_priority = default_servant_priority
-    else:
-        set_servant_priority = []
-
-    wt_global('set_servant_priority', set_servant_priority)
-
-    # --> default_chain, used in select cards in one turn.
-    if defined_var('default_chain'):
-        set_default_chain = default_chain
-    else:
-        set_default_chain = 0
-
-    wt_global('set_default_chain', set_default_chain)
-
-    # --> default_skill
-    if defined_var('default_skill'):
-        set_default_skill = default_skill
-    else:
-        set_default_skill = ''
-
-    wt_global('set_default_skill', set_default_skill)
-
-    # --> default_final
-    if defined_var('default_final'):
-        set_default_final = default_final
-    else:
-        set_default_final = ''
-
-    wt_global('set_default_final', set_default_final)
-
-    # --> default_final_unit
-    if defined_var('default_final_unit'):
-        if default_final_unit == 'round' or default_final_unit == 'turn':
-            set_default_final_unit = default_final_unit
-        else:
-            set_default_final_unit = 'round'
-    else:
-        set_default_final_unit = 'round'
-
-    wt_global('set_default_final_unit', set_default_final_unit)
-
-
-def wt_parm_support():
-    # --> default_final
-    if defined_var('default_support_mode'):
-        set_default_support = ['support', 'skill', 'craft']
-        set_default_support_mode = default_support_mode
-    else:
-        set_default_support = ['', '', '']
-        set_default_support_mode = 0
-
-    wt_global('set_default_support', set_default_support)
-    wt_global('set_default_support_mode', set_default_support_mode)
-
-
-    # --> default_support_rank
-    if defined_var('default_support_rank'):
-        tmp_str = ''
-        for char in str(default_support_rank):
-            if char not in tmp_str:
-                tmp_str += char
-        tmp_str = tmp_str.replace('0', '')  # remove zero
-        if len(tmp_str) == 0:
-            tmp_str = '0'
-        set_default_support_rank = tmp_str
-    else:
-        set_default_support_rank = 0
-
-    wt_global('set_default_support_rank', set_default_support_rank)
-
-
-    # --> default_support_rank
-    if defined_var('default_support_refresh'):
-        set_default_support_refresh = default_support_refresh
-    else:
-        set_default_support_refresh = 1
-
-    wt_global('set_default_support_refresh', set_default_support_refresh)
-
-
-def init_global():
-    wt_parm_basic()
-    wt_parm_battle()
-    wt_parm_support()
-
-
-def rd_global(parm):
-    sys_log('parm @ %-30s' % parm)
-    f = open(tmp_global, 'r')
-    lines = f.readlines()
-    f.close()
-    for line in lines:
-        # print('line -->', line)
-        string = line
-        string = string.replace('\n', '')
-        string = string.replace(' ', '')
-        idx = string.find('=')
-        if idx != -1 and string[:idx] == parm:
-            res = string[idx + 1:]
-            # print(parm, res, type(res))
-            return res
-    return False
-
-
-def wt_global(parm, value):
-    sys_log('parm @ %-30s, value @ %-30s' % (parm, str(value)))
-    if rd_global(parm):
-        f = open(tmp_global, 'r')
-        lines = f.readlines()
-        f.close()
-        f = open(tmp_global, 'w')
-        for line in lines:
-            string = line
-            string = string.replace('\n', '')
-            string = string.replace(' ', '')
-            wts = string
-            idx = string.find('=')
-            if idx != -1 and string[:idx] == parm:
-                wts = string[:idx] + '=' + str(value)
-            wts = wts.replace('\n', '')
-            f.writelines(wts + '\n')
-        f.close()
-    else:
-        f = open(tmp_global, 'a+')
-        wts = parm + '=' + str(value)
-        f.writelines(wts + '\n')
-        f.close()
-
-
-def defined_var(var):
-    try:
-        eval(var)
-    except NameError:
-        return False
-    else:
-        return True
-
 
 def speed():
-    if defined_var('speed_ratio'):
-        spd = 1 / speed_ratio
-    else:
-        spd = 1
-    # print(spd)
-    return spd
+    return 1;
 
 
 def toast(information):
+    '''
+    广播消息
+    :param information:
+    :return:
+    '''
     string = '『 TOAST 』 ' + information
     sys_log(string)
 
@@ -209,3 +28,136 @@ def toast(information):
         cmd = 'display notification \"' + \
               string + '\" with title \"fgo-auto-run\"'
         call(['osascript', '-e', cmd])
+
+
+def rd_ini(file, sec, key):
+    """
+    获取 ini 中内容
+    :param file:
+    :param sec:
+    :param key:
+    :return:
+    """
+    cf = configparser.ConfigParser()
+    cf.read(file)
+    secs = cf.sections()
+    if sec not in secs:
+        dbg_log('WARNING! dont have section:%s in file:%s' % (sec, file))
+        return False
+    options = cf.options(sec)
+    if key not in options:
+        dbg_log('WARNING! dont have key:%s in section:%s' % (key, sec))
+        return False
+    tmp = cf.get(sec, key)
+    return tmp.split(';')[0].strip()
+
+
+def wt_ini(file, sec, key, value):
+    """
+    写入内容到 ini 文件中
+    :param file:
+    :param sec:
+    :param key:
+    :param value:
+    :return:
+    """
+    if not os.path.exists(file):
+        f = open(file, 'w')
+        f.close()
+    cf = configparser.ConfigParser()
+    cf.read(file, encoding="utf-8")
+    secs = cf.sections()
+    if sec not in secs:
+        cf.add_section(sec)
+    cf.set(sec, key, str(value))
+    cf.write(open(file, "w", encoding="utf-8"))
+
+
+def rd_tmp_ini(sec, key):
+    """
+    获取 tmp.ini 中内容
+    :param sec:
+    :param key:
+    :return:
+    """
+    return rd_ini(f'{tmp_path}/tmp.ini', sec, key)
+
+
+
+
+def rm_tmp_ini(sec=None, key=None):
+    file = f'{tmp_path}/tmp.ini'
+    if not os.path.exists(file):
+        f = open(file, 'w')
+        f.close()
+    cf = configparser.ConfigParser()
+    cf.read(file, encoding="utf-8")
+
+    secs = cf.sections()
+    dbg_log(secs)
+    if sec is not None and key is not None:
+        secs = cf.sections()
+        if sec not in secs:
+            dbg_log('WARNING! dont have section:%s in file:%s' % (sec, file))
+            return False
+        options = cf.options(sec)
+        if key not in options:
+            dbg_log('WARNING! dont have key:%s in section:%s' % (key, sec))
+            return False
+        cf.remove_option(sec, key)
+    elif sec is not None and key is None:
+        secs = cf.sections()
+        if sec not in secs:
+            dbg_log('WARNING! dont have section:%s in file:%s' % (sec, file))
+            return False
+        cf.remove_section(sec)
+    cf.write(open(file, "w", encoding="utf-8"))
+    
+    
+
+
+def wt_tmp_ini(sec, key, value):
+    """
+    获取 tmp.ini 中内容
+    :param sec:
+    :param key:
+    :return:
+    """
+    wt_ini(f'{tmp_path}/tmp.ini', sec, key, value)
+
+
+def get_cfg(sec, key):
+    """
+    获取 config.ini 中内容
+    :param sec:
+    :param key:
+    :return:
+    """
+    return rd_ini('./config.ini', sec, key)
+
+
+def demo_1():
+    a = get_cfg('run', 'times')
+    print(a, type(a))
+    wt_tmp_ini('global', 'times', 1)
+    a = rd_tmp_ini('global', 'times')
+    print(a, type(a))
+
+
+def ini_cfg_rd_demo():
+    cf = configparser.ConfigParser()
+    cf.read('./config.ini')  # 读取配置文件，如果写文件的绝对路径，就可以不用os模块
+    
+    secs = cf.sections()        # 获取文件中所有的section(一个配置文件中可以有多个配置，如数据库相关的配置，邮箱相关的配置，每个section由[]包裹，即[section])，并以列表的形式返回
+    print(secs)
+    for sec in secs:
+        print(sec)
+        options = cf.options(sec)  # 获取某个section名为Mysql-Database所对应的键
+        print(options)
+        items = cf.items(sec)  # 获取section名为Mysql-Database所对应的全部键值对
+        print(items)
+    
+    tmp = cf.get("addap", "en_apple")  # 获取[apple]中type对应的值
+    vlu = tmp.split(';')[0].strip() # 去除注释
+    print(vlu)
+

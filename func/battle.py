@@ -15,8 +15,8 @@ from util.log import *
 
 # split the sh picture when it is under battle
 def split_in_battle(file):
-    # im = Image.open("./bufferpic/1.png")
-    cut_ratio = [0.5, 0.9] # in direction Y
+    # im = Image.open("./tmp/123.png")
+    cut_ratio = [0.3, 0.9] # in direction Y
     im = Image.open(file)
     img_size = im.size
     px = img_size[0]
@@ -39,8 +39,8 @@ def split_in_battle(file):
         im = Image.open(tmp_path + f'/card_{i}.png')
         w, h = im.size
 
-        up    = int(0.3 * h)
-        down  = (0.24 + 0.2) * h
+        up    = int(0.52 * h)
+        down  = int(0.62 * h)
         left  = w // 2 - 0.1 * w
         right = w // 2 + 0.1 * w
         region = im.crop((left, up, right, down))
@@ -215,9 +215,9 @@ def turn_sorted(turn_card):
 
     show_cards(sort_cards, '@SORT/ INITIAL')
 
-    if eval(rd_global('set_default_chain')):
+    if int(get_cfg('priority', 'chain')):
 
-        chain_mode = eval(rd_global('set_default_chain'))
+        chain_mode = int(get_cfg('priority', 'chain'))
 
         if chain_mode == 1 and extra_chain(sort_cards, show=0) != -1:
             sort_cards = extra_chain(sort_cards)
@@ -281,7 +281,7 @@ def curr_round():
         tmp = cv2.imread(round_path + f'/round{i+1}.png', 0)
         thd = 0.85
         if analyze(sh, tmp, thd):
-            wt_global('round', i + 1)
+            wt_tmp_ini('battle', 'round', i + 1)
             return i + 1
 
     # 两次校验，防止某些图，一种方法不能采集成功
@@ -289,38 +289,62 @@ def curr_round():
         tmp = cv2.imread(round_path + f'/twice/round{i + 1}.png', 0)
         thd = 0.85
         if analyze(sh, tmp, thd):
-            wt_global('round', i + 1)
+            wt_tmp_ini('battle', 'round', i + 1)
             return i + 1
 
     return -1
 
+def attack12132314():
+    time.sleep(10)
+    pass
 
 def attack():
+    
+    if not rd_tmp_ini('battle', 'round'):
+        wt_tmp_ini('battle', 'round', 0)
+    
+    if not rd_tmp_ini('battle', 'turn'):
+        wt_tmp_ini('battle', 'turn', 0)
+
+    lst = png_lst(cfg_path)
+    svt_priority = get_cfg('priority', 'servant')
+    for file in lst:
+        # name, ext = os.path.splitext(file)
+        if 'servant' in file and not svt_priority:
+            os.remove(cfg_path + '/' + file)
+
+    # 获取 skill 和 final ..并转换为新的变量
+    if not rd_tmp_ini('battle', 'skill_list'):
+        wt_tmp_ini('battle', 'skill_list', cfgstr2lst(get_cfg('skill', 'value')))
+    if not rd_tmp_ini('battle', 'ultimate_list'):
+        wt_tmp_ini('battle', 'ultimate_list', cfgstr2lst(get_cfg('ultimate', 'value')))
+
+    
     psn = PSN()
 
     # 获取当前 round 数
     round = curr_round()
 
     # 获取当前回合数，并更新， +=1 是因为文件内是从 0 开始计算的，需要转换一下
-    turn = eval(rd_global('turn'))
+    turn = int(rd_tmp_ini('battle', 'turn'))
     turn += 1
-    wt_global('turn', turn)
+    wt_tmp_ini('battle', 'turn', turn)
 
     sys_log('current @ round : %1d, turn : %-2d' % (round, turn))
 
     # 获取 turn / round 参数
-    op_unit = rd_global('set_default_final_unit')  # round / turn
+    op_unit = get_cfg('skill', 'unit')  # round / turn
     if op_unit == 'round':
         td_idx = round  # turn_round_idx
     else:
         td_idx = turn
 
-    # 获取设定某些回合技能输入
-    skill_lst = eval(rd_global('tmp_skl_lst'))
+    # 获取设定某些回合技能输入 20201117
+    skill_lst = eval(rd_tmp_ini('battle', 'skill_list'))
     if td_idx <= len(skill_lst):
         turn_skill(skill_lst[td_idx - 1])
         skill_lst[td_idx - 1] = ''
-        wt_global('tmp_skl_lst', skill_lst)
+        wt_tmp_ini('battle', 'skill_list', skill_lst)
 
     # 点击 ATTACK 按钮，更新截图
     psn.ATK()
@@ -332,13 +356,13 @@ def attack():
     cards_sort = turn_sorted(cards_attr)
 
     # 这里可以控制前面的输出来进行简化
-    final_lst = eval(rd_global('tmp_fnl_lst'))
-    if td_idx <= len(final_lst):
-        ins = final_lst[td_idx - 1].upper()
+    ultimate_list = eval(rd_tmp_ini('battle', 'ultimate_list'))
+    if td_idx <= len(ultimate_list):
+        ins = ultimate_list[td_idx - 1].upper()
     else:
         ins = ''
 
-    if td_idx <= len(final_lst) and ins != 'XXX' and ins != '':
+    if td_idx <= len(ultimate_list) and ins != 'XXX' and ins != '':
         lst = tap_crd(cards_sort, 2)
         idx = 0
         for char in ins:
@@ -349,8 +373,8 @@ def attack():
                 idx += 1
             else:
                 eval('psn.E%s()' % char)
-                final_lst[td_idx - 1] = ''
-                wt_global('tmp_fnl_lst', final_lst)
+                ultimate_list[td_idx - 1] = ''
+                wt_tmp_ini('battle', 'ultimate_list', ultimate_list)
     else:
         lst = tap_crd(cards_sort, 3)
         for crd in lst:

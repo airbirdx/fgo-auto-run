@@ -9,6 +9,10 @@ from util.log import *
 
 
 def addap0():
+    '''
+    使用[苹果]或者[圣晶石]增加体力 AP 数值
+    :return:
+    '''
     # set_clr_lst
     set_run_num = eval(rd_global('set_run_parm'))
     cur_run_num = eval(rd_global('run_parm'))
