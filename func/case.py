@@ -2,12 +2,14 @@ import cv2
 from util.default import *
 from util.ats import random_tap
 from util.ats import picture_tap
-from util.ats import analyze
+from util.cvs import *
 from util.global0 import *
 from util.log import *
 from util.scene import current_scene
 from psn.PSN import *
 from util.ats import screenshot
+from util.scene import png_lst
+
 
 def pypoint():
 
@@ -15,56 +17,54 @@ def pypoint():
 
     path = './lib/func/pypoint'
 
-    pyp = cv2.imread(f'{path}/pypoint.png', 0)
-    callx10 = cv2.imread(f'{path}/call_next.png', 0)
-    call_notice = cv2.imread(f'{path}/call_notice.png', 0)
-    call_confirm = cv2.imread(f'{path}/call_confirm.png', 0)
-    call_next = cv2.imread(f'{path}/call_next.png', 0)
-    full = cv2.imread(f'{path}/full.png', 0)
+    pyp          = f'{path}/pypoint.png'        # 友情点界面
+    callx10      = f'{path}/callx10.png'        # 召唤 x10 按钮
+    call_notice  = f'{path}/call_notice.png'    # 召唤提示
+    call_confirm = f'{path}/call_confirm.png'   # 召唤确认
+    call_next    = f'{path}/call_next.png'      # 继续十连召唤
+    full         = f'{path}/full.png'           # 召唤已经满了
 
+    num = 0
     while 1:
         screenshot()
-        sh = cv2.imread(screenshot_path, 0)
-        thd = 0.85
 
-        if analyze(sh, full, thd):
-            sys_log('PYPOINT FULL !')
+        if pic_in_sh(full):
+            sys_log('PY POINT MUSTER FULL !')
+            toast('PY POINT MUSTER FULL !')
             break
-
-        if analyze(sh, pyp, thd):
-
-            sys_log('Current scene : PY POINT')
-            if picture_tap(f'{path}/callx10.png'):
-
-                for idx in range(5):
-
-                    screenshot()
-                    time.sleep(0.2)
-                    # sh = cv2.imread(screenshot_path, 0)
-                    # if analyze(sh, call_notice, thd):
-                    #     picture_tap(f'{path}/call_confirm.png')
-                    if picture_tap(f'{path}/call_confirm.png'):
-
-                        for i in range(100):
-                            psn.PYPONT()
-                            screenshot()
-                            time.sleep(0.2)
-                            if picture_tap(f'{path}/call_next.png'):
-                                time.sleep(1.5)
-                                break
-
-                        break
-                    else:
-                        pass
-
-                    if idx == 4:
-                        sys_log('ERROR IN PYPOINT...')
-                        break
-
-
+        elif pic_in_sh(call_confirm):
+            num += 1
+            sys_log('PY POINT MUSTER CONFIRM @ %s' % num)
+            picture_tap(call_confirm)
+        elif pic_in_sh(call_next):
+            sys_log('PY POINT MUSTER CONTINUE')
+            picture_tap(call_next)
+        elif pic_in_sh(pyp):
+            sys_log('Current scene -> PY POINT')
+            picture_tap(callx10)
         else:
-            sys_log('NOT IN PYPOINT SCENE @@')
+            dbg_log('tap screen')
+            psn.PYPONT()
+            time.sleep(0.2)
+        
 
+def infinity_pool():
+    
+    psn = PSN()
+    path = './lib/func/infinity_pool'
+    
+    psn.INFI_M1()
+    time.sleep(1)
+    lst = png_lst(path)
+    
+    while 1:
+        screenshot()
+        for file in lst:
+            # thd = 0.85
+            flg = picture_tap(path + '/' + file)
+            if flg == 1:
+                print(file)
+                break
 
 
 def craftexp():

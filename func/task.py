@@ -17,7 +17,7 @@ def judge_parm_num():
     current_num = int(rd_tmp_ini('run', 'num'))
 
     sys_log('run_parm_num --> %s@%s' % (rd_tmp_ini('run', 'parm'), current_num))
-
+    
     if current_num >= config_num:
         wt_tmp_ini('run', 'flag', 'False')
         sys_log('「 DONE 」 RUN TIMES')

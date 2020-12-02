@@ -1,6 +1,6 @@
 import cv2, time
 from util.ats import picture_tap
-from util.cvs import analyze
+from util.cvs import *
 from util.ats import screenshot
 from util.ats import swipe
 from util.default import *
@@ -9,68 +9,65 @@ from util.log import *
 
 
 def addap0():
-    '''
+    """
     使用[苹果]或者[圣晶石]增加体力 AP 数值
     :return:
-    '''
+    """
     # set_clr_lst
-    set_run_num = eval(rd_global('set_run_parm'))
-    cur_run_num = eval(rd_global('run_parm'))
-    set_clr_lst = eval(rd_global('set_apple_priority'))
-
-    if set_run_num[2] != -1:
-        color = set_run_num[2][0]
-    else:
-        color = set_clr_lst[0]
-
-    if set_run_num[2] != -1:
-        set_num = set_run_num[2][1]
-        run_num = cur_run_num[2][1]
-        if run_num >= set_num:
-            wt_global('RUN_FLAG', 'False')
-            sys_log('「 DONE 」, RUN APPLES ')
-            return False
-
-    swipe(1920 // 2, 780, 1920 // 2, 200, 1000)
-    time.sleep(1)
-    screenshot()
-
-    # thd = 0.85
-    if picture_tap(f'{addap_path}/apple{color}.png'):
-
-        # 根据点击苹果，进行自加
-        if set_run_num[2] != -1:
-            cur_run_num[2][1] += 1
-            wt_global('g_cur_run_parm', cur_run_num)
-
-        # 点击苹果了之后，1s后获取截图
-        time.sleep(1)
+    # if rd_tmp_ini('run', 'parm') == 'apples':
+    #     config_num = int(get_cfg('run', rd_tmp_ini('run', 'parm')).split(',')[-1])
+    # else:
+    #     config_num = int(get_cfg('run', rd_tmp_ini('run', 'parm')))
+    current_num = int(rd_tmp_ini('run', 'num'))
+    
+    if rd_tmp_ini('run', 'parm') == 'apples':
+        current_num += 1
+        wt_tmp_ini('run', 'num', str(current_num))
+        
+        color = get_cfg('run', rd_tmp_ini('run', 'parm')).split(',')[0]
+        if color != 'Cu':
+            picture_tap(addap_path + f'/apple{color}.png')
+            screenshot()
+            if not pic_in_sh(addap_path + '/confirm.png'):
+                sys_log('@@run out of apples/stones...1')
+                exit()
+    
+    elif rd_tmp_ini('run', 'parm') == 'stones':
+        current_num += 1
+        wt_tmp_ini('run', 'num', str(current_num))
+        picture_tap(addap_path + 'stone.png')
         screenshot()
-
-        sh = cv2.imread(screenshot_path, 0)
-        tmp = cv2.imread(f'{addap_path}/apple{color}.png', 0)
-        thd = 0.85
-        # 如果仍然在苹果界面
-
-        if analyze(sh, tmp, thd):
-            # 如果是配置了刷一定量颜色的苹果，那么已经无法再继续进行
-            if set_run_num[2] != -1:
-                sys_log('run out of %s color apple.' % color)
-                wt_global('RUN_FLAG', 'False')
-                return False
-            else:
-                set_clr_lst.pop(0)
-                sys_log('current apple color priority =', set_clr_lst)
-                # 如果已经全部出栈，表示已经没有可以选择的，退出执行
-                if not set_clr_lst:
-                    wt_global('RUN_FLAG', 'False')
-                else:
-                    wt_global('set_apple_priority', set_clr_lst)
+        if not pic_in_sh(addap_path + '/confirm.png'):
+            sys_log('@@run out of apples/stones...2')
+            exit()
+            
+    elif int(get_cfg('addap', 'en_apple')) or int(get_cfg('addap', 'en_stone')):
+        if int(get_cfg('addap', 'en_apple')):
+            tmp0 = ['appleAg.png', 'appleAu.png']
+        else:
+            tmp0 = []
+            
+        if int(get_cfg('addap', 'en_stone')):
+            tmp1 = ['stone.png']
+        else:
+            tmp1 = []
+            
+        auto_eat = tmp0 + tmp1
+        for item in auto_eat:
+            picture_tap(addap_path + '/' + item)
+            screenshot()
+            if pic_in_sh(addap_path + '/confirm.png'):
+                break
+        if not pic_in_sh(addap_path + '/confirm.png'):
+            sys_log('@@run out of apples/stones...3')
+            exit()
 
     # thd = 0.85
     if picture_tap(addap_path + '/confirm.png'):
         pass
-
+    
+    time.sleep(3)  # just in case....
+    
     # thd = 0.85
     if picture_tap(addap_path + '/close.png'):
         pass

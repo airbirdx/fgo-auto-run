@@ -2,6 +2,32 @@ import os
 import time
 from psn.PSN import *
 
+
+def skill_string_trans(string):
+    string = string.replace('a1', 'a')
+    string = string.replace('a2', 'b')
+    string = string.replace('a3', 'c')
+
+    string = string.replace('b1', 'i')
+    string = string.replace('b2', 'j')
+    string = string.replace('b3', 'k')
+
+    string = string.replace('c1', 'o')
+    string = string.replace('c2', 'p')
+    string = string.replace('c3', 'q')
+
+    string = string.replace('ms1', 'x')
+    string = string.replace('ms2', 'y')
+    string = string.replace('ms3', 'z')
+
+    string = string.replace('sw', 's')
+
+    string = string.replace('[', '')
+    string = string.replace(']', '')
+    
+    return string
+
+
 # convert the config skill string to list
 # in  : string : (1)abc(2)opq31(4)ijk
 # out : list   : ['abc', 'opq31', '', 'ijk']

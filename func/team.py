@@ -18,8 +18,7 @@ def team_confirm():
 
     if rd_tmp_ini('run', 'parm') == 'times':
         current_num += 1
-
-    wt_tmp_ini('run', 'num', str(current_num))
+        wt_tmp_ini('run', 'num', str(current_num))
 
     dbg_log('run_parm_num --> %s@%s' % (rd_tmp_ini('run', 'parm'), current_num))
 

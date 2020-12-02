@@ -315,7 +315,7 @@ def attack():
 
     # 获取 skill 和 final ..并转换为新的变量
     if not rd_tmp_ini('battle', 'skill_list'):
-        wt_tmp_ini('battle', 'skill_list', cfgstr2lst(get_cfg('skill', 'value')))
+        wt_tmp_ini('battle', 'skill_list', cfgstr2lst(skill_string_trans(get_cfg('skill', 'value'))))
     if not rd_tmp_ini('battle', 'ultimate_list'):
         wt_tmp_ini('battle', 'ultimate_list', cfgstr2lst(get_cfg('ultimate', 'value')))
 

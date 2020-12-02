@@ -50,7 +50,7 @@ def dbg_log(*objects, sep=' ', end='\n', file=sys.stdout, flush=False):
     :param flush:
     :return:
     '''
-    debug = 0
+    debug = 1
     tmp = traceback.extract_stack()
     func_n = tmp[-2][2]
     curr_t = datetime.datetime.now().strftime('%m/%d %H:%M:%S %p')

@@ -19,11 +19,6 @@ round_path      = './lib/battle/round'
 cfg_path        = './cfg'
 tmp_path        = './tmp'
 
-tmp_support     = './tmp/support.txt'
-tmp_battle      = './tmp/battle.txt'
-tmp_global      = './tmp/global.txt'
-
-
 #                     x1, y1,  x2,   y2
 support_sel_size_1 = [50, 260, 1820, 575]
 support_sel_size_2 = [50, 570, 1820, 890]

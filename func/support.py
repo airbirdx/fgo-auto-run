@@ -59,7 +59,10 @@ def get_support_item(img):
     servant = match_item(img, 'support')
     skill = match_item(img, 'skill')
     craft = match_item(img, 'craft')
-    manpo = match_item(img, 'manpo')
+
+    w, h = img.shape[::-1]
+    tmp = img[h*2//3:h-1, 0:w-1]
+    manpo = match_item(tmp, 'manpo')
     
     if servant == 0:
         skill = 0
@@ -98,30 +101,49 @@ def judge_support(mode):
                 time.sleep(1)
                 screenshot()
             index = 0
-            while not pic_in_sh(support_path + '/end.png'):
+            
+            if pic_in_sh(support_path + '/top1.png') or pic_in_sh(support_path + '/top2.png'):
+                # 存在助战数目 > 2
+                while not pic_in_sh(support_path + '/end.png'):
+                    sh = cv2.imread(screenshot_path, 0)
+                    for region in [support_sel_size_1, support_sel_size_2]:
+                        index += 1
+                        x1, y1, x2, y2 = region
+                        tmp = get_support_item(sh[y1:y2, x1:x2])
+                        # dbg_log([rank, index] + tmp) ###########
+                        dbg_log('rank=%s, index=%-2s, servant=%s, skill=%s, craft=%s, manpo=%s' % \
+                                (rank, index, tmp[0], tmp[1], tmp[2], tmp[3]))
+                        sup.append([rank, index] + tmp)
+                    x0, y0, x1, y1, d0 = support_swipe_parm
+                    swipe(x0, y0, x1, y1, d0)
+                    screenshot()
+                
+                index = 90
+                sh = cv2.imread(screenshot_path, 0)
+                for region in [support_sel_size_8, support_sel_size_9]:
+                    index += 1
+                    x1, y1, x2, y2 = region
+                    tmp = get_support_item(sh[y1:y2, x1:x2])
+                    # print([rank, index] + tmp)
+                    # dbg_log([rank, index] + tmp)  ###########
+                    dbg_log('rank=%s, index=%-2s, servant=%s, skill=%s, craft=%s, manpo=%s' % \
+                            (rank, index, tmp[0], tmp[1], tmp[2], tmp[3]))
+                    sup.append([rank, index] + tmp)
+                    screenshot()
+                
+                swipe(1860, 1045, 1860, 120, 1500)  # 滑动到最上面
+            else:
+                # 存在助战数目 <=2
                 sh = cv2.imread(screenshot_path, 0)
                 for region in [support_sel_size_1, support_sel_size_2]:
                     index += 1
                     x1, y1, x2, y2 = region
                     tmp = get_support_item(sh[y1:y2, x1:x2])
-                    dbg_log([rank, index] + tmp) ###########
+                    # dbg_log([rank, index] + tmp)  ###########
+                    dbg_log('rank=%s, index=%-2s, servant=%s, skill=%s, craft=%s, manpo=%s' % \
+                            (rank, index, tmp[0], tmp[1], tmp[2], tmp[3]))
                     sup.append([rank, index] + tmp)
-                x0, y0, x1, y1, d0 = support_swipe_parm
-                swipe(x0, y0, x1, y1, d0)
-                screenshot()
-            
-            index = 90
-            sh = cv2.imread(screenshot_path, 0)
-            for region in [support_sel_size_8, support_sel_size_9]:
-                index += 1
-                x1, y1, x2, y2 = region
-                tmp = get_support_item(sh[y1:y2, x1:x2])
-                # print([rank, index] + tmp)
-                dbg_log([rank, index] + tmp)  ###########
-                sup.append([rank, index] + tmp)
-                screenshot()
-            
-            swipe(1860, 1045, 1860, 120, 1500)  # 滑动到最上面
+                    # screenshot()
             
             weight = []
             for tmp in sup:
@@ -147,7 +169,7 @@ def judge_support(mode):
                             swipe(x0, y0, x1, y1, d0)
                         tap_support(2 - (index % 2))
                     sys_log('select the support')
-                    dbg_log('rank=%s, index=%s, servant=%s, skill=%s, craft=%s, manpo=%s' % \
+                    sys_log('rank=%s, index=%-2s, servant=%s, skill=%s, craft=%s, manpo=%s' % \
                             (sup[i][0], sup[i][1], sup[i][2], sup[i][3], sup[i][4], sup[i][5]))
                     return True
         

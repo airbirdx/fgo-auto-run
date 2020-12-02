@@ -500,3 +500,94 @@ class PSN:
         tap(210, 380)
         time.sleep(duration)
 
+    def A_SELECT(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1465, 192)
+        time.sleep(duration)
+
+    def A_SORT(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1690, 192)
+        time.sleep(duration)
+
+    def A_JUEDING(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1730, 1010)
+        time.sleep(duration)
+
+    def A_1ST_ONE(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(210, 380)
+        time.sleep(duration)
+
+    def A_xBACK(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(660, 660)
+        time.sleep(duration)
+
+    def A_x5(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(480, 420)
+        time.sleep(duration)
+
+    def A_x4(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(800, 420)
+        time.sleep(duration)
+
+    def A_x3(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1120, 420)
+        time.sleep(duration)
+
+    def A_xCONFIRM(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1255, 955)
+        time.sleep(duration)
+
+    def A_STRENGTHEN(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1650, 1020)
+        time.sleep(duration)
+
+    def INFI_M1(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1120, 210)
+        time.sleep(duration)
+
+    def INFI_M2(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(1675, 210)
+        time.sleep(duration)
+
+    def INFI_BTN(self, duration=None):
+        if duration is None:
+            duration = 1.0
+        duration = duration * speed()
+        tap(627, 210)
+        time.sleep(duration)
+

@@ -10,13 +10,10 @@ from util.log import *
 from func.battle import split_in_battle
 
 def tst():
-    from func.case import pypoint, craftexp
+    from func.case import pypoint
+    from func.case import infinity_pool
     # pypoint()
-    craftexp()
-
-    # from util.global0 import toast
-    # toast('You can see me now.')
-    # return True
+    infinity_pool()
 
 
 def main():
@@ -52,4 +49,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # demo_1()
+    # tst()
