@@ -32,6 +32,9 @@ def main():
 
     if dbg_shoot:
         screenshot()
+        from util.scene import current_scene
+        scene = current_scene()
+        print(scene)
         exit()
 
     while rd_tmp_ini('run', 'flag') == 'True':

@@ -78,3 +78,7 @@ brew install imagemagick
 adb connect 127.0.0.1:7555     # win
 adb connect 127.0.0.1          # mac
 ```
+
+# Q&A
+
+在使用 Mumu 时碰到连不上的问题，请尝试以下方法。

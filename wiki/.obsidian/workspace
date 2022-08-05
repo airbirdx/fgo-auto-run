@@ -1,0 +1,142 @@
+{
+  "main": {
+    "id": "f5ee9e589e61fa6c",
+    "type": "split",
+    "children": [
+      {
+        "id": "48764e14c9da0f94",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "howtorun.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "eba4a92e8911d57a",
+    "type": "split",
+    "children": [
+      {
+        "id": "5b50c08499f7cb96",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d64e753f49029a30",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "b4e0a1f7d792026d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "6b240d0c2c9ad3fa",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "31cf3fb64c06dddd",
+    "type": "split",
+    "children": [
+      {
+        "id": "5fbc264a8a3cd50f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c5cfae3be3d43782",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "howtorun.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "629a904eb4d95236",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "howtorun.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b407070945a8fe6a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "09b3d71bc1493520",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "howtorun.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "48764e14c9da0f94",
+  "lastOpenFiles": [
+    "parameter.md",
+    "howtorun.md",
+    "freqaskqa.md",
+    "example.md",
+    "environment.md",
+    "media/ex2_material.png",
+    "media/ex1_task.png"
+  ]
+}

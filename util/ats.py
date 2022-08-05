@@ -83,8 +83,12 @@ def screenshot():
     if platform.system() == 'Darwin':
         filter_str = '| grep FGO'
 
-    subprocess.call(f'adb shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
-    subprocess.call(f'adb pull /sdcard/{tmp_png} {screenshot_path} {filter_str}', shell=True, stdout=None)
+    # subprocess.call(f'adb shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
+    # subprocess.call(f'adb pull /sdcard/{tmp_png} {screenshot_path} {filter_str}', shell=True, stdout=None)
+
+    subprocess.call(f'adb -s 127.0.0.1:5555 shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
+    subprocess.call(f'adb -s 127.0.0.1:5555 pull /sdcard/{tmp_png} {screenshot_path} {filter_str}', shell=True, stdout=None)
+
     # os.system(f'adb shell screencap -p /sdcard/{tmp_png}')
     # os.system(f'adb pull /sdcard/{tmp_png} {screenshot_path}')
     # inv-clockwise dir

@@ -27,15 +27,18 @@ def rm_file_in_path(path, string):
     :param string:
     :return:
     """
-    ls = os.listdir(path)
-    for i in ls:
-        c_path = os.path.join(path, i)
-        # print(c_path)
-        if os.path.isdir(c_path):
-            rm_file_in_path(c_path, string)
-        elif string in c_path:
+    if os.path.exists(path):
+        ls = os.listdir(path)
+        for i in ls:
+            c_path = os.path.join(path, i)
             # print(c_path)
-            os.remove(c_path)
+            if os.path.isdir(c_path):
+                rm_file_in_path(c_path, string)
+            elif string in c_path:
+                # print(c_path)
+                os.remove(c_path)
+    else:
+        os.mkdir(path)
 
 
 def cp_cfg_2_lib():

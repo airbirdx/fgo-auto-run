@@ -1,8 +1,11 @@
 # 凶骨
 # CONFIG PARAMETER
-run_times = 9
+
+# au
+
+run_times = 2
 # run_materials = 5
-# run_apples = ['Ag', 1]
+# run_apples = ['Cu', 1]
 
 default_support_mode = 0
 default_support_rank = 89

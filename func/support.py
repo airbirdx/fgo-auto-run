@@ -88,7 +88,13 @@ def judge_support(mode):
         factor_servant = 10
         factor_craft = 10
     
-    set_refresh = int(get_cfg('support', 'refresh'))
+    set_refresh = get_cfg('support', 'refresh')
+    if not set_refresh:
+        set_refresh = 0
+    else:
+        set_refresh = int(set_refresh)
+    if set_refresh < 0:
+        set_refresh = 0
     for i in range(set_refresh + 1):
         
         sup = []

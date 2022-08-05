@@ -17,5 +17,5 @@
 | util/     | 脚本运行所需的基本函数                                 |
 | wiki/ | 脚本说明文档 |
 | sh.png    | 游戏界面截图                                                 |
-| config.py | 配置文件                                                     |
+| config.ini | 配置文件                                                     |
 | main.py   | 主程序                                                     |
