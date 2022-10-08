@@ -21,6 +21,13 @@ def team_confirm():
         wt_tmp_ini('run', 'num', str(current_num))
 
     dbg_log('run_parm_num --> %s@%s' % (rd_tmp_ini('run', 'parm'), current_num))
+    
+
+    total_counter = int(rd_tmp_ini('run', 'total'))
+    total_counter += 1
+    wt_tmp_ini('run', 'total', total_counter)   # for total counter
+    sys_log('#@#@# --- TOTAL : %s' % total_counter)
+    # exit()
 
     # thd = 0.85
     picture_tap(team_path + '/start.png')

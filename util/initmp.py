@@ -1,7 +1,9 @@
 import os
 import shutil
+import datetime
 from util.scene import png_lst
 from util.global0 import *
+from util.log import *
 
 
 def clean_path(path):
@@ -35,8 +37,10 @@ def rm_file_in_path(path, string):
             if os.path.isdir(c_path):
                 rm_file_in_path(c_path, string)
             elif string in c_path:
-                # print(c_path)
-                os.remove(c_path)
+                # print('remove', c_path)
+                if string in os.path.basename(c_path):
+                    # print('remove', c_path)
+                    os.remove(c_path)
     else:
         os.mkdir(path)
 
@@ -56,7 +60,7 @@ def cp_cfg_2_lib():
             shutil.copyfile(cfg_path + f'/{file}', scenes_path + f'/{file}')
         elif 'material' in name:
             shutil.copyfile(cfg_path + f'/{file}', win_path + f'/{file}')
-        elif 'servant' in name or 'skill' in name or 'craft' in name or 'manpo' in name:
+        elif 'support' in name or 'skill' in name or 'craft' in name or 'manpo' in name:
             shutil.copyfile(cfg_path + f'/{file}', support_path + f'/{file}')
 
 
@@ -67,13 +71,13 @@ def init_tmp_ini():
     set_run_materials = int(get_cfg('run', 'materials'))
     set_run_apple = get_cfg('run', 'apples').split(',')
     set_run_stones = int(get_cfg('run', 'stones'))
-    if set_run_times > 0:
+    if set_run_times >= 0:
         wt_tmp_ini('run', 'parm', 'times')
-    elif set_run_materials > 0:
+    elif set_run_materials >= 0:
         wt_tmp_ini('run', 'parm', 'materials')
-    elif set_run_apple[0] in ['Au', 'Ag', 'Cu'] and set_run_apple[1] > 0:
+    elif set_run_apple[0] in ['Au', 'Ag', 'Cu'] and int(set_run_apple[1]) >= 0:
         wt_tmp_ini('run', 'parm', 'apples')
-    elif set_run_stones > 0:
+    elif set_run_stones >= 0:
         wt_tmp_ini('run', 'parm', 'stones')
     else:
         sys_log('RUN PARAMETER ERROR !!! please check config.ini')
@@ -82,24 +86,45 @@ def init_tmp_ini():
         
     wt_tmp_ini('run', 'num', 0)
 
+    wt_tmp_ini('run', 'total', 0)   # for total counter
+
+
+    init_time = datetime.datetime.now().strftime('%y%m%d_%H%M%S%p')
+    wt_tmp_ini('date', 'time', init_time)
+
+
 
 def init_env():
     """
     初始化脚本的运行环境
     :return:
     """
+
+    script_path = os.path.abspath(sys.argv[0])
+    script_name = os.path.basename(sys.argv[0]).split('.')[0] + '.py'
+    folder_path = script_path.replace(script_name, '')
+    os.chdir(folder_path)
+
+    clean_path(tmp_path)
+    init_tmp_ini()
     init_log()
     
-    clean_path(tmp_path)
     rm_file_in_path(task_path, 'task')
     rm_file_in_path(scenes_path, 'task')
-    rm_file_in_path(support_path, 'servant')
+
+    rm_file_in_path(support_path, 'support')
     rm_file_in_path(support_path, 'skill')
     rm_file_in_path(support_path, 'craft')
+
     rm_file_in_path(win_path, 'material')
     
     cp_cfg_2_lib()
-    init_tmp_ini()
+    # init_tmp_ini()
+
+
+# def init_basement():
+#     init_tmp_ini()
+#     init_log()
     
     
 

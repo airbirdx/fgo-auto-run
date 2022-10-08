@@ -1,9 +1,9 @@
 import platform
 import configparser
+import os
 from util.default import *
 from config import *
 from util.log import *
-
 
 def speed():
     return 1;
@@ -16,7 +16,6 @@ def toast(information):
     :return:
     '''
     string = '『 TOAST 』 ' + information
-    sys_log(string)
 
     if platform.system() == 'Windows':
         from win10toast import ToastNotifier
@@ -25,6 +24,8 @@ def toast(information):
 
     elif platform.system() == 'Darwin':
         from subprocess import call
+        # cmd = 'display notification \"' + \
+        #       string + '\" with title \"fgo-auto-run\"'
         cmd = 'display notification \"' + \
               string + '\" with title \"fgo-auto-run\"'
         call(['osascript', '-e', cmd])
@@ -136,6 +137,12 @@ def get_cfg(sec, key):
     return rd_ini('./config.ini', sec, key)
 
 
+def wt_cfg(sec, key, value):
+    wt_ini('./config.ini', sec, key, value)
+
+
+
+
 def demo_1():
     a = get_cfg('run', 'times')
     print(a, type(a))
@@ -144,20 +151,28 @@ def demo_1():
     print(a, type(a))
 
 
-def ini_cfg_rd_demo():
+def ini_cfg_rd_demo(file='./config.ini'):
     cf = configparser.ConfigParser()
-    cf.read('./config.ini')  # 读取配置文件，如果写文件的绝对路径，就可以不用os模块
+    cf.read(file)  # 读取配置文件，如果写文件的绝对路径，就可以不用os模块
     
     secs = cf.sections()        # 获取文件中所有的section(一个配置文件中可以有多个配置，如数据库相关的配置，邮箱相关的配置，每个section由[]包裹，即[section])，并以列表的形式返回
-    print(secs)
+    # print(secs)
+    s = ''
+
     for sec in secs:
-        print(sec)
+        # print(sec)
+        s+='[%s]\n' % sec
         options = cf.options(sec)  # 获取某个section名为Mysql-Database所对应的键
-        print(options)
+        # print(options)
         items = cf.items(sec)  # 获取section名为Mysql-Database所对应的全部键值对
-        print(items)
-    
-    tmp = cf.get("addap", "en_apple")  # 获取[apple]中type对应的值
-    vlu = tmp.split(';')[0].strip() # 去除注释
-    print(vlu)
+        # print(items)
+        for key, value in items:
+            line = '%s=%s\n' % (key, value.split(';')[0].strip()) # 去除注释
+            s += line
+
+        s += '\n'
+    # tmp = cf.get("addap", "en_apple")  # 获取[apple]中type对应的值
+    # vlu = tmp.split(';')[0].strip() # 去除注释
+    # print(s)
+    return s
 

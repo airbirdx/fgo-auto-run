@@ -7,7 +7,9 @@ requirements = [
     'openpyxl',
     'opencv-python',
     'numpy',
-    'pangu'
+    'pangu',
+    'pytesseract',
+
 ]
 
 if platform.system() == 'Windows':

@@ -3,6 +3,8 @@
 /*.egg-info
 /dist
 /build
+/log
+/tmp
 
 *.log
 *.bak
@@ -21,7 +23,7 @@ tmp/*.png
 
 /scenes/task.png
 /lib/task/task.png
-/lib/support/servant?.png
+/lib/support/support?.png
 /lib/support/skill.png
 /lib/support/craft.png
 /lib/support/craft?.png

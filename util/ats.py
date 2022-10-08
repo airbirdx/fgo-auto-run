@@ -69,7 +69,8 @@ def tap(x, y, error=10):
     x0 = x + random.randint(-error, error)
     y0 = y + random.randint(-error, error)
     click(x0, y0)
-    time.sleep(0.3)
+    # time.sleep(0.3)  # 2022-08-17, speed-up
+    time.sleep(0.1)    # 2022-08-17, speed-up
 
 
 def screenshot():
@@ -97,7 +98,7 @@ def screenshot():
         for i in range(default_rotation):
             img = np.rot90(img)
         cv2.imwrite(screenshot_path, img)
-    # time.sleep(1)
+    # time.sleep(0.3)
 
 
 def random_tap():

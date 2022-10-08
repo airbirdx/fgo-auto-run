@@ -78,12 +78,21 @@ fgo_psn.write(header)
 fgo_psn.write('\n')
 
 for i in range(len(basic_func_name)):
-    fgo_psn.write('    def %s(self, duration=None):\n' % basic_func_name[i])
+    fgo_psn.write('    def %s(self, duration=None, skill_speedup=False):\n' % basic_func_name[i])
     fgo_psn.write('        if duration is None:\n')
     fgo_psn.write('            duration = %s\n' % str(int(basic_func_slpt[i])/1000))
     fgo_psn.write('        duration = duration * speed()\n')
     fgo_psn.write('        tap(%s, %s)\n' % (str(basic_func_calx[i]), str(basic_func_caly[i])))
+
+    fgo_psn.write('        if skill_speedup:\n')   # double tap to dpeed-up, 4x
+    fgo_psn.write('            self.SKILL_SPEEDUP()\n')
+
+    # if basic_func_name[i] in 'ABCIJKOPQ'.upper():  # double tap to dpeed-up, 4x
+    #     fgo_psn.write('        tap(%s, %s)\n' % (str(basic_func_calx[i]), str(basic_func_caly[i])))
+    
     fgo_psn.write('        time.sleep(duration)\n\n')
+    # fgo_psn.write('        print(\'>>> debug, psn, %s\')\n\n' % basic_func_name[i])
+
 
 fgo_psn.close()
 

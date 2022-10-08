@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from util.default import *
+from util.log import *
 
 
 def analyze(a, b, thd=0.85):
@@ -13,7 +14,9 @@ def analyze(a, b, thd=0.85):
     """
     res = cv2.matchTemplate(a, b, cv2.TM_CCOEFF_NORMED)
     if (res >= thd).any():
-        return 1
+        return True
+    else:
+        return False
 
 
 def pic_in_sh(pic, thd=0.85):
@@ -24,7 +27,12 @@ def pic_in_sh(pic, thd=0.85):
     :return:
     """
     img = cv2.imread(pic, 0)
-    return img_in_sh(img, thd)
+    bool_res = img_in_sh(img, thd)
+    # if bool_res:
+    if 1:
+        dbg_log('%10s|  %s' % (str(bool_res), pic))
+    return bool_res
+
 
 
 def img_in_sh(img, thd=0.85):

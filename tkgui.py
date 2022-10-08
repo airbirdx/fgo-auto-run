@@ -18,7 +18,7 @@ class TkDemo():
 
         # --------------------------------------------------------- #
 
-        title = Label(master, text='基于 Python3 + ADB 的国服 FGO 刷材料脚本', font='15', bg='white', fg='red')
+        title = Label(master, text='基于 Python3 + ADB 的国服 FGO 脚本', font='15', bg='white', fg='red')
         title.pack(fill=X)
 
         # --------------------------------------------------------- #

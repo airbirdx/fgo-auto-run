@@ -57,15 +57,15 @@ def training():
             crd.servant_logo()
 
 
-def turn_attribute():
+def turn_attribute(color_priority=None):
     res = []
     split_in_battle(screenshot_path)
-
-    crd = Card()        # ####################
+    # sys_log('color_priority : %s' % color_priority)
+    crd = Card(color_priority=color_priority)        # ####################
     crd.servant_logo()  # ####################
 
     for i in range(5):
-        crd = Card()
+        crd = Card(color_priority=color_priority)
         crd.set_idx(i)
         crd.analyze()
         res.append(crd)
@@ -298,6 +298,38 @@ def attack12132314():
     time.sleep(10)
     pass
 
+
+
+def get_color_priority(td_idx):
+    color_priority = get_cfg('priority', 'color')
+    skill_list = cfgstr2lst(skill_string_trans(get_cfg('skill', 'value'), color=1))  # unit:round/turn
+    color_list = []
+
+    for skill in skill_list:
+        if   'R' in skill:
+            color_list.append('R')
+        elif 'G' in skill:
+            color_list.append('G')
+        elif 'B' in skill:
+            color_list.append('B')
+        else:
+            color_list.append('')
+
+    color = color_list[td_idx - 1]  ###
+    if not color:
+        color_priority = None
+        return color_priority
+
+    elif color in 'RGB':
+        color_priority = color_priority.replace(color, '')
+        color_priority = color + color_priority
+        return color_priority
+
+    else:
+        sys_log('ERROR! EXIT, get_color_priority')
+        exit()
+
+
 def attack():
     
     if not rd_tmp_ini('battle', 'round'):
@@ -323,19 +355,19 @@ def attack():
     psn = PSN()
 
     # 获取当前 round 数
-    round = curr_round()
+    round0 = curr_round()
 
     # 获取当前回合数，并更新， +=1 是因为文件内是从 0 开始计算的，需要转换一下
     turn = int(rd_tmp_ini('battle', 'turn'))
     turn += 1
     wt_tmp_ini('battle', 'turn', turn)
 
-    sys_log('current @ round : %1d, turn : %-2d' % (round, turn))
+    sys_log('current @ round : %1d, turn : %-2d' % (round0, turn))
 
     # 获取 turn / round 参数
     op_unit = get_cfg('skill', 'unit')  # round / turn
     if op_unit == 'round':
-        td_idx = round  # turn_round_idx
+        td_idx = round0  # turn_round_idx
     else:
         td_idx = turn
 
@@ -348,11 +380,24 @@ def attack():
 
     # 点击 ATTACK 按钮，更新截图
     psn.ATK()
-    time.sleep(1)
+    time.sleep(2)
     screenshot()
+    
+    # for _ in range(5):
+    #     time.sleep(1)
+    #     screenshot()
+    #     if pic_in_sh(f'{battle_path}/speed.png'):
+    #         break
+    
+    # 获取指令卡色优先级
+    color_priority = get_color_priority(td_idx)
+    sys_log('color_priority : %s' % color_priority)
+    cards_attr = turn_attribute(color_priority=color_priority)   ### 2022-08-19
 
     # 获取指令卡属性
-    cards_attr = turn_attribute()
+    # cards_attr = turn_attribute()
+
+    # sort card
     cards_sort = turn_sorted(cards_attr)
 
     # 这里可以控制前面的输出来进行简化
@@ -369,7 +414,8 @@ def attack():
             if char == 'X':
                 crd = lst[idx]
                 tap(crd.px, crd.py)
-                time.sleep(1)
+                # time.sleep(1)   # 2022-08-17, for speed-up
+                time.sleep(0.1)   # 2022-08-17, for speed-up
                 idx += 1
             else:
                 eval('psn.E%s()' % char)
@@ -379,6 +425,7 @@ def attack():
         lst = tap_crd(cards_sort, 3)
         for crd in lst:
             tap(crd.px, crd.py)
-            time.sleep(1)
+            # time.sleep(1)    # 2022-08-17, for speed-up
+            # time.sleep(0.1)  # 2022-08-17, for speed-up
 
 

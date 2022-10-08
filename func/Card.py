@@ -11,9 +11,8 @@ from util.scene import png_lst
 from func.similar.similar import *
 from util.log import *
 
-class Card:
-
-    def __init__(self):
+class Card():
+    def __init__(self, color_priority=None):
         self.__card = -1   # ok
         self.idx = -1      # ok
         self.servant = -1  # ok
@@ -24,6 +23,11 @@ class Card:
         self.py = -1       # ok
         self.issup = 0     # ok
         self.weight = 0
+        # sys_log('color_priority:%s' % color_priority)
+        self.xcolor = color_priority  # for temp change in skill string
+        # sys_log('self.xcolor:%s' % self.xcolor)
+
+
 
     def copy(self, card):
         self.idx = card.idx
@@ -60,7 +64,16 @@ class Card:
 
     def color_priority(self):
         clr_prior = get_cfg('priority', 'color')
+
+        # sys_log('self.xcolor=%s' % self.xcolor)
+
+        if self.xcolor is not None:
+            clr_prior = self.xcolor
+
         clr_prior = clr_prior.upper()
+
+        # sys_log('clr_prior=%s' % clr_prior)
+
         for i in range(3):
             if clr_prior[i] == self.color:
                 return 3 - i

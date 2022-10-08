@@ -3,7 +3,7 @@ import time
 from psn.PSN import *
 
 
-def skill_string_trans(string):
+def skill_string_trans(string, color=0):
     string = string.replace('a1', 'a')
     string = string.replace('a2', 'b')
     string = string.replace('a3', 'c')
@@ -24,6 +24,12 @@ def skill_string_trans(string):
 
     string = string.replace('[', '')
     string = string.replace(']', '')
+
+    #2022-08-19 for temp color priority change in round/turn
+    if color == 0:
+        string = string.replace('R', '')
+        string = string.replace('G', '')
+        string = string.replace('B', '')
     
     return string
 
@@ -82,6 +88,10 @@ def split_turn_seq(string=None):
 # psn means position
 # skill('a') -> psn.A()
 def skill(parm, duration=None):
+
+    flag_skill_speedup = True
+
+
     psn = PSN()
     lst = list(parm.upper())
 
@@ -104,9 +114,10 @@ def skill(parm, duration=None):
             print('enemy sel num in skill input format error')
         return True
 
-    # switch servant
+    # switch servant     # 2022-09-22 只有一种衣服，单独适配
     if lst[0] == 'S':
         if len(lst) == 3:
+            time.sleep(1)
             psn.MS()
             psn.Z()
             eval('psn.S%s()' % lst[1])
@@ -124,13 +135,20 @@ def skill(parm, duration=None):
 
     # if lst[0] == 'X' or lst[0] == 'Y' or lst[0] == 'Z':
     if lst[0] in 'XYZ':
+        time.sleep(1)
         psn.MS()
 
     if len(lst) == 3:
         eval('psn.%s()' % lst[0])
-        eval('psn.SEL%s%s()' % (lst[1], lst[2]))
+        if flag_skill_speedup:
+            eval('psn.SEL%s%s(skill_speedup=True)' % (lst[1], lst[2]))
+        else:
+            eval('psn.SEL%s%s()' % (lst[1], lst[2]))
     elif len(lst) == 1:
-        eval('psn.%s()' % lst[0])
+        if flag_skill_speedup:
+            eval('psn.%s(skill_speedup=True)' % lst[0])
+        else:
+            eval('psn.%s()' % lst[0])
     else:
         print('skill input format error')
         pass

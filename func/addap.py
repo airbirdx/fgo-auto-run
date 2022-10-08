@@ -25,6 +25,7 @@ def addap0():
         wt_tmp_ini('run', 'num', str(current_num))
         
         color = get_cfg('run', rd_tmp_ini('run', 'parm')).split(',')[0]
+        sys_log('addap,,, color:%s' % color)
         if color != 'Cu':
             picture_tap(addap_path + f'/apple{color}.png')
             screenshot()
