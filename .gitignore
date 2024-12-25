@@ -20,6 +20,7 @@
 cfg/*.png
 cfg/tmp/*.png
 tmp/*.png
+tmp/*.ini
 /sh.png
 
 /scenes/task.png
