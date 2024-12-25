@@ -1,10 +1,7 @@
-
-
 import cv2
 import numpy as np
 
 def mathc_img(image,Target,value):
-
 
     img_rgb = cv2.imread(image)
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
@@ -17,7 +14,6 @@ def mathc_img(image,Target,value):
     # area = template[h//n:h//n*(n-1), w//n:w//n*(n-1)]  # 裁剪坐标为[y0:y1, x0:x1]
     # # area = template[h // 4:h // 4 * 3, w // 4:w // 4 * 3]  # 裁剪坐标为[y0:y1, x0:x1]
     # w, h = area.shape[::-1]
-
 
     print(area.shape)
     print(w, h)
@@ -37,7 +33,7 @@ def mathc_img(image,Target,value):
     cv2.startWindowThread()
     cv2.imshow('Detected',img_rgb)
     cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.destroyAllWindows()
 
 
 
@@ -45,8 +41,8 @@ image =('sh' + '.png')
 
 # yanzuo_lizhuang_manpo
 
-Target=('confirm' + '.png')
-value=0.85
+Target=('db1' + '.png')
+value=0.55
 mathc_img(image,Target,value)
 # print('adsdasfdsad')
 

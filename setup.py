@@ -10,6 +10,12 @@ requirements = [
     'pangu',
     'pytesseract',
 
+    'PySide6',
+    'Pillow',
+    'opencv-python',
+    '',
+    '',
+
 ]
 
 if platform.system() == 'Windows':

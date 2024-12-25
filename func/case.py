@@ -1,4 +1,4 @@
-from enum import Flag
+
 import re
 import cv2
 from util.default import *
@@ -12,16 +12,15 @@ from psn.PSN import *
 from util.ats import screenshot
 from util.scene import png_lst
 from func.operation import *
+from PIL import Image
 
 
 
-
-def py_craft(loop=3):
+def py_craft(loop=5):
     for _ in range(loop):
         pypoint()
         craftexp()
-
-
+        sell_servant()
 
 
 def pypoint():
@@ -140,9 +139,9 @@ def pypoint():
 
         else:
             dbg_log('tap screen to speed up')
-            psn.PYPONT()
-            psn.PYPONT()
-            psn.PYPONT()
+            psn.PYPONT(duration=0)
+            psn.PYPONT(duration=0)
+            psn.PYPONT(duration=0)
             # time.sleep(0.2)
     
     # return_home_page()
@@ -167,6 +166,7 @@ def infinity_pool():
                 print(file)
                 break
 
+
 def zoom_to_4x4():
     path = './lib/menu/craftexp'
     zoom2x2      = f'{path}/zoom2x2.png'
@@ -182,6 +182,24 @@ def zoom_to_4x4():
         elif pic_in_sh(zoom3x3):
             picture_tap(zoom3x3)
         time.sleep(0.3)
+
+
+def zoom_to_2x2():
+    path = './lib/menu/craftexp'
+    zoom2x2      = f'{path}/zoom2x2.png'
+    zoom3x3      = f'{path}/zoom3x3.png'
+    zoom4x4      = f'{path}/zoom4x4.png'
+    while 1:
+        screenshot()
+        if pic_in_sh(zoom2x2):
+            pass
+            break
+        elif pic_in_sh(zoom4x4):
+            picture_tap(zoom4x4)
+        elif pic_in_sh(zoom3x3):
+            picture_tap(zoom3x3)
+        time.sleep(0.3)
+
 
 def craftexp():
     # 搓丸子
@@ -234,6 +252,7 @@ def craftexp():
         time.sleep(1)
         # type = base, 被强化的礼装
         # type = None or 'food', 狗粮
+        cnt = 0
         for tmp_pos in all_pos[:24]:
             px, py = tmp_pos
             tap(px, py, 20)
@@ -245,6 +264,11 @@ def craftexp():
                 if pic_in_sh(strscene):
                     sys_log('Select CRAFT BASE done...')
                     break
+            cnt += 1
+            print(cnt, end=', ')
+        print()
+        sys_log('Select CRAFT Exp done...')
+        
     
 
     def enter_sub_menu():
@@ -325,7 +349,7 @@ def craftexp():
         for _ in range(100):
             for xxx in range(3):
                 psn.PYPONT()
-                time.sleep(0.3)
+                time.sleep(0.2)
             screenshot()
             if pic_in_sh(strscene):
                 break
@@ -341,8 +365,17 @@ def craftexp():
 def sell_servant(type='craft'):
     # 卖 1*, 2* 从者
 
+
+    path = './lib/menu/sell_servant'
+
+    btn_back  = './lib/menu/back.png'                   # 菜单按钮
+    btn_decide  = './lib/menu/sell_servant/decide.png'                   # 菜单按钮
+    btn_confirm  = './lib/menu/sell_servant/confirm.png'                   # 菜单按钮
+    btn_close  = './lib/menu/sell_servant/close.png'                   # 菜单按钮
+    
+
     def enter_sub_menu():
-        # 进入召唤界面
+        # 进入子界面
         path = './lib/menu'
         menu_open  = f'{path}/open.png'                    # 菜单按钮
         menu_close = f'{path}/close.png'                   # 菜单按钮
@@ -353,7 +386,7 @@ def sell_servant(type='craft'):
         while 1:
             screenshot()
             if pic_in_sh(menu_scene):
-                sys_log('Current scene -> strengthen')
+                sys_log('Current scene -> sell servant')
                 picture_tap(menu_scene)
                 picture_tap(menu_scene)
                 if pic_in_sh(btn_sub_menu):
@@ -368,6 +401,112 @@ def sell_servant(type='craft'):
                 picture_tap(menu_stren)
                 sys_log('click call in menu')
 
+
+    def analyze(a, b, thd=0.05):
+        """
+        重写，带有颜色判断
+        判断图像[a]中是否含有图像[b]
+        :param a:cv2.imread 图像
+        :param b:cv2.imread 图像
+        :param thd:阈值
+        :return:
+        """
+        res = cv2.matchTemplate(a, b, cv2.TM_SQDIFF_NORMED)
+        if (res <= thd).any():
+            return True
+        else:
+            return False
+
+
+    def bool_all_star_1_2():
+        debug = 1
+        screenshot()
+
+        im = Image.open(screenshot_path)
+        # img_size = im.size
+
+        all_star = []
+        
+        for region in all_regions:
+        # for region in [all_regions[0]]:
+            tmp = im.crop(region)
+            # region.show()
+            tmp.save(tmp_path + '/tmp_sell_servant.png')
+        
+            item = cv2.imread(tmp_path + '/tmp_sell_servant.png', 1)
+            for file in ranks_star1_2:
+                star = cv2.imread(file, 1)
+                bool_res = analyze(item, star, thd=0.09)
+                if debug:
+                    print(bool_res, file)
+                if bool_res:
+                    if debug:
+                        print('*')
+                    all_star.append(ranks_star1_2.index(file))
+                    break
+        
+        if debug:
+            print(all_star)
+        
+        if len(all_star) == 10:
+            return True
+        else:
+            return False
+
+
+    center0 = [(118+365)//2, (283+555)//2]
+    all_pos = []
+    all_regions = []
+    for row in range(2):
+        for col in range(5):
+            w, h = 282, 300
+
+            x = center0[0] + col * w
+            y = center0[1] + row * h
+            
+            all_pos.append([x, y])
+
+            a0 = x - w // 2
+            b0 = y - h // 2
+
+            a1 = x + w // 2
+            b1 = y + h // 2
+            all_regions.append([a0, b0, a1, b1])
+    
+    ranks_star1_2 = []
+    for i in range(7):
+        ranks_star1_2.append('%s/rank%s.png' % (path, i))
+
     return_home_page()
     enter_sub_menu()
     time.sleep(1)
+    zoom_to_2x2()
+    
+
+    while 1:
+        time.sleep(3)
+        # screenshot()
+        if bool_all_star_1_2():
+            time.sleep(1)
+            for tmp_pos in all_pos:
+                px, py = tmp_pos
+                tap(px, py, 20)
+
+            screenshot()
+            if pic_in_sh(btn_decide):
+                picture_tap(btn_decide)
+            
+            time.sleep(3)
+            screenshot()
+            if pic_in_sh(btn_confirm):
+                picture_tap(btn_confirm)
+
+            time.sleep(3)
+            screenshot()
+            if pic_in_sh(btn_close):
+                picture_tap(btn_close)
+
+        else:
+            picture_tap(btn_back)
+            break
+    

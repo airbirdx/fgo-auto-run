@@ -24,11 +24,9 @@ from util.initmp import init_env
 # pyside6-uic fgo.ui -o ui_fgo.py
 ##################################################
 
-#TODO 检测大小是否 1920x1080，如果不是则给出提示，并停止
-#TODO 清空配置
-#TODO add task 图片位置或者字符位置
-#TODO refresh 可以同时刷新助战或者礼装
-#TODO add total 副本数量 in log or tmp.ini
+#TODO 卖从者，需要再加筛选的一些选项
+#DONE 在获得战利品界面，把其保存下来到 log 文件夹下，这样方便后续统一获取材料图片
+
 
 ##################################################
 ### LOG FILE
@@ -103,7 +101,7 @@ class MyWidget(QtWidgets.QWidget):
         self.ui.pushButton_craftexp.clicked.connect(lambda: self.actived_btn(self.ui.pushButton_craftexp))
         self.ui.pushButton_py_craft.clicked.connect(lambda: self.actived_btn(self.ui.pushButton_py_craft))
 
-        self.ui.pushButton_task_refresh.clicked.connect(self.comboBox_task_refresh)
+        self.ui.pushButton_task_refresh.clicked.connect(self.get_combobox_items)
 
         self.ui.textBrowser_cfg.setFont(QtGui.QFont("SF Mono"))
         self.ui.textBrowser_log.setFont(QtGui.QFont("SF Mono", 12))
@@ -117,9 +115,44 @@ class MyWidget(QtWidgets.QWidget):
         自动读取当前数据库里的助战从者和礼装
         自动读取 task 列表
         '''
-        path = './db/b-supports'
+
         # self.ui.comboBox_servant.clear()
-        # self.ui.comboBox_servant.addItems(folder_lst(path))
+        # self.ui.comboBox_servant.addItem('无')
+        # path = './db/b-supports'
+        # self.ui.comboBox_servant.setIconSize(QSize(50, 40))
+        # folder_all = folder_lst(f'{path}')
+        # for folder in folder_all:
+        #     figure_list = png_lst(f'{path}/{folder}')
+        #     for filename in figure_list:
+        #         if 'support' in filename:
+        #             self.ui.comboBox_servant.addItem(QIcon(f'{path}/{folder}/{filename}'), folder)
+        #             break
+
+        # self.ui.comboBox_craft.clear()
+        # self.ui.comboBox_craft.addItem('无')
+        # path = './db/c-crafts'
+        # self.ui.comboBox_craft.setIconSize(QSize(80, 30))
+        # figure_list = png_lst(f'{path}')
+        # for filename in figure_list:
+        #     self.ui.comboBox_craft.addItem(QIcon(f'{path}/{filename}'), filename)
+
+        self.refresh_comboBox_servant()
+        self.refresh_comboBox_craft()
+        self.refresh_comboBox_task()
+
+
+    def refresh_comboBox_servant(self):
+        '''
+        刷新助战从者
+        '''
+        flag = False
+        if self.ui.comboBox_servant.count() != 0:
+            flag = True
+            current_text = self.ui.comboBox_servant.currentText()
+
+        self.ui.comboBox_servant.clear()
+        self.ui.comboBox_servant.addItem('无')
+        path = './db/b-supports'
         self.ui.comboBox_servant.setIconSize(QSize(50, 40))
         folder_all = folder_lst(f'{path}')
         for folder in folder_all:
@@ -128,28 +161,58 @@ class MyWidget(QtWidgets.QWidget):
                 if 'support' in filename:
                     self.ui.comboBox_servant.addItem(QIcon(f'{path}/{folder}/{filename}'), folder)
                     break
+        
+        if flag:
+            self.ui.comboBox_servant.setCurrentText(current_text)
 
 
+    def refresh_comboBox_craft(self):
+        '''
+        刷新助战礼装
+        '''
+        flag = False
+        if self.ui.comboBox_craft.count() != 0:
+            flag = True
+            current_text = self.ui.comboBox_craft.currentText()
+
+        self.ui.comboBox_craft.clear()
+        self.ui.comboBox_craft.addItem('无')
         path = './db/c-crafts'
-        # self.ui.comboBox_craft.clear()
-        # self.ui.comboBox_craft.addItems(png_lst(path))
         self.ui.comboBox_craft.setIconSize(QSize(80, 30))
         figure_list = png_lst(f'{path}')
         for filename in figure_list:
             self.ui.comboBox_craft.addItem(QIcon(f'{path}/{filename}'), filename)
+        
+        if flag:
+            self.ui.comboBox_craft.setCurrentText(current_text)
 
-        # path = './db/a-tasks'
-        # # self.ui.comboBox_craft.clear()
-        # # self.ui.comboBox_craft.addItems(png_lst(path))
-        # self.ui.comboBox_run_task.setIconSize(QSize(80, 30))
-        # figure_list = png_lst(f'{path}')
 
-        # if os.path.exists('./cfg/task.png'):
-        #     self.ui.comboBox_run_task.addItem(QIcon('./cfg/task.png'), '自定义')
+    def refresh_comboBox_task(self):
+        '''
+        刷新任务
+        '''
+        pass
+        flag = False
+        if self.ui.comboBox_run_task.count() != 0:
+            flag = True
+            current_text = self.ui.comboBox_run_task.currentText()
 
-        # for filename in figure_list:
-        #     self.ui.comboBox_run_task.addItem(QIcon(f'{path}/{filename}'), filename)
-        self.comboBox_task_refresh()
+        self.ui.comboBox_run_task.clear()
+
+        path = './db/a-tasks'
+        # self.ui.comboBox_craft.clear()
+        # self.ui.comboBox_craft.addItems(png_lst(path))
+        self.ui.comboBox_run_task.setIconSize(QSize(80, 30))
+        figure_list = png_lst(f'{path}')
+
+        if os.path.exists('./cfg/task.png'):
+            self.ui.comboBox_run_task.addItem(QIcon('./cfg/task.png'), '自定义')
+
+        for filename in figure_list:
+            self.ui.comboBox_run_task.addItem(QIcon(f'{path}/{filename}'), filename)
+
+        if flag:
+            self.ui.comboBox_run_task.setCurrentText(current_text)
 
 
 
@@ -181,6 +244,8 @@ class MyWidget(QtWidgets.QWidget):
                 apple_type = 'Ag'
             elif self.ui.comboBox_subtype.currentText() == '铜':
                 apple_type = 'Cu'
+            elif self.ui.comboBox_subtype.currentText() == '青铜':
+                apple_type = 'Xu'
             apple_num = self.ui.lineEdit_run_times.text()
             wt_cfg('run', 'apples', '%s,%s' % (apple_type, apple_num))
 
@@ -305,7 +370,8 @@ class MyWidget(QtWidgets.QWidget):
 
         self.disable_all_btn_except(btn=self.ui.pushButton_stop)
         
-        init_env()
+        if not btn == self.ui.pushButton_stop:
+            init_env()
 
         if btn == self.ui.pushButton_autobattle:
 
@@ -380,29 +446,9 @@ class MyWidget(QtWidgets.QWidget):
 
 
 
-    def comboBox_task_refresh(self):
-        pass
-        flag = False
-        if self.ui.comboBox_run_task.count() != 0:
-            flag = True
-            current_text = self.ui.comboBox_run_task.currentText()
+    
 
-        self.ui.comboBox_run_task.clear()
 
-        path = './db/a-tasks'
-        # self.ui.comboBox_craft.clear()
-        # self.ui.comboBox_craft.addItems(png_lst(path))
-        self.ui.comboBox_run_task.setIconSize(QSize(80, 30))
-        figure_list = png_lst(f'{path}')
-
-        if os.path.exists('./cfg/task.png'):
-            self.ui.comboBox_run_task.addItem(QIcon('./cfg/task.png'), '自定义')
-
-        for filename in figure_list:
-            self.ui.comboBox_run_task.addItem(QIcon(f'{path}/{filename}'), filename)
-
-        if flag:
-            self.ui.comboBox_run_task.setCurrentText(current_text)
 
 
     def save_cfg_to_file(self, file='./cfg/last.ini'):
@@ -513,6 +559,8 @@ class MyWidget(QtWidgets.QWidget):
                 self.ui.comboBox_subtype.setCurrentText('银')
             elif apple_setting[0] == 'Au':
                 self.ui.comboBox_subtype.setCurrentText('金')
+            elif apple_setting[0] == 'Xu':
+                self.ui.comboBox_subtype.setCurrentText('青铜')
             self.ui.lineEdit_run_times.setText(apple_setting[-1])
         elif int(get_cfg('run', 'stones')) >= 0:
             self.ui.comboBox_type.setCurrentIndex(3)   
@@ -639,7 +687,6 @@ class MyWidget(QtWidgets.QWidget):
     @QtCore.Slot()
     def cstm_cbobox_support_servant(self):
         '''
-        TODO
         槽函数：
         是否满破礼装
         '''
@@ -686,6 +733,7 @@ class MyWidget(QtWidgets.QWidget):
             self.ui.comboBox_subtype.addItem(QIcon(f'./lib/addap/appleCu'), '铜')
             self.ui.comboBox_subtype.addItem(QIcon(f'./lib/addap/appleAg'), '银')
             self.ui.comboBox_subtype.addItem(QIcon(f'./lib/addap/appleAu'), '金')
+            self.ui.comboBox_subtype.addItem(QIcon(f'./lib/addap/appleXu'), '青铜')
             self.ui.comboBox_subtype.setEnabled(True)
 
 

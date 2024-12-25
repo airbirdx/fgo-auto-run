@@ -75,7 +75,7 @@ def init_tmp_ini():
         wt_tmp_ini('run', 'parm', 'times')
     elif set_run_materials >= 0:
         wt_tmp_ini('run', 'parm', 'materials')
-    elif set_run_apple[0] in ['Au', 'Ag', 'Cu'] and int(set_run_apple[1]) >= 0:
+    elif set_run_apple[0] in ['Au', 'Ag', 'Cu', 'Xu'] and int(set_run_apple[1]) >= 0:
         wt_tmp_ini('run', 'parm', 'apples')
     elif set_run_stones >= 0:
         wt_tmp_ini('run', 'parm', 'stones')

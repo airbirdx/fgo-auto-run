@@ -26,17 +26,26 @@ def addap0():
         
         color = get_cfg('run', rd_tmp_ini('run', 'parm')).split(',')[0]
         sys_log('addap,,, color:%s' % color)
-        if color != 'Cu':
-            picture_tap(addap_path + f'/apple{color}.png')
+
+
+        # if color != 'Cu':
+        if color == 'Xu' or color == 'Cu':
+            x0, y0, x1, y1, d0 = addap_swipe_parm
+            swipe(x0, y0, x1, y1, d0)
             screenshot()
-            if not pic_in_sh(addap_path + '/confirm.png'):
-                sys_log('@@run out of apples/stones...1')
-                exit()
-    
+
+            # exit()##### debug
+        # print('color is %s' % color)
+        picture_tap(addap_path + f'/apple{color}.png')
+        screenshot()
+        if not pic_in_sh(addap_path + '/confirm.png'):
+            sys_log('@@run out of apples/stones...1')
+            # exit() # for debug
+
     elif rd_tmp_ini('run', 'parm') == 'stones':
         current_num += 1
         wt_tmp_ini('run', 'num', str(current_num))
-        picture_tap(addap_path + 'stone.png')
+        picture_tap(addap_path + '/stone.png')
         screenshot()
         if not pic_in_sh(addap_path + '/confirm.png'):
             sys_log('@@run out of apples/stones...2')
@@ -68,7 +77,7 @@ def addap0():
         pass
     
     time.sleep(3)  # just in case....
-    
+    screenshot()   # 这里加一个截图，放置直接点击，然后选择了助战
     # thd = 0.85
     if picture_tap(addap_path + '/close.png'):
         pass

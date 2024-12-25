@@ -17,12 +17,26 @@ from func.login import login0
 from func.disconnect import retry_connection
 from func.continuebat import close_continue
 
+
+##########################
+MAX_NA_COUNTER = 30    
+##########################
+na_sence_cnt = 0
+
 def scene_operation():
     '''
     判断当前场景，根据场景进行下一步操作
     :return:
     '''
     scene = current_scene()
+
+    global na_sence_cnt
+    if scene == 'none':
+        na_sence_cnt += 1
+        sys_log('N/A sence counter = %s' % na_sence_cnt)
+    else:
+        na_sence_cnt = 0
+    
     # print(scene)
     # exit()
     if 'fgo' in scene:
@@ -54,6 +68,11 @@ def scene_operation():
     else:
         pass
     
+    if na_sence_cnt >= MAX_NA_COUNTER:
+        na_sence_cnt = 0
+        sys_log('Do a random tap.')
+        random_tap()
+
     # time.sleep(random.random())   # [0,1)
 
 

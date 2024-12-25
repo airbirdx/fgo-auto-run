@@ -1,5 +1,6 @@
 import os
 import time
+import re
 from psn.PSN import *
 
 
@@ -20,7 +21,7 @@ def skill_string_trans(string, color=0):
     string = string.replace('ms2', 'y')
     string = string.replace('ms3', 'z')
 
-    string = string.replace('sw', 's')
+    string = string.replace('sw', 's')    ####
 
     string = string.replace('[', '')
     string = string.replace(']', '')
@@ -140,10 +141,16 @@ def skill(parm, duration=None):
 
     if len(lst) == 3:
         eval('psn.%s()' % lst[0])
-        if flag_skill_speedup:
-            eval('psn.SEL%s%s(skill_speedup=True)' % (lst[1], lst[2]))
-        else:
-            eval('psn.SEL%s%s()' % (lst[1], lst[2]))
+
+        if lst[1] in '456' or lst[2] in '456':  # 有换人操作
+            eval('psn.S%s()' % lst[1])
+            eval('psn.S%s()' % lst[2])
+            psn.S0(skill_speedup=flag_skill_speedup, duration=2)
+        else:   # 正常技能操作
+            if flag_skill_speedup:
+                eval('psn.SEL%s%s(skill_speedup=True)' % (lst[1], lst[2]))
+            else:
+                eval('psn.SEL%s%s()' % (lst[1], lst[2]))
     elif len(lst) == 1:
         if flag_skill_speedup:
             eval('psn.%s(skill_speedup=True)' % lst[0])

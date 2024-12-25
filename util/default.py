@@ -23,12 +23,17 @@ log_path        = './log'
 #                     x1, y1,  x2,   y2
 support_sel_size_1 = [50, 260, 1820, 575]
 support_sel_size_2 = [50, 570, 1820, 890]
-support_sel_size_8 = [50, 430, 1820, 740]
-support_sel_size_9 = [50, 730, 1820, 1060]
+support_sel_size_8 = [50, 430, 1820, 735]
+support_sel_size_9 = [50, 735, 1820, 1060]
 #                     x0,   y0,  x1,   y1,        delay0(unit:ms)
 # support_swipe_parm = [1024, 800, 1024, 800 - 585, 2000]
-support_swipe_parm = [1024, 800, 1024, 800 - 587, 2000]
+support_swipe_parm = [1024, 800, 1024, 800 - 595, 3000]
 support_swipe_top2bot = [1024, 800, 1024, 800 - 550, 2000]
 support_swipe_bot2top = [1024, 800, 1024, 800 - 550, 2000]
+#
+addap_swipe_parm = [1525, 203, 1525, 822, 2000]
+
+# add for screenshot size detection
+
 
 

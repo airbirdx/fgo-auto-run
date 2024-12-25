@@ -10,6 +10,7 @@ from util.default import screenshot_path
 from util.cvs import position
 from util.cvs import analyze
 from config import *
+from util.log import sys_log
 
 
 def click(x, y):
@@ -19,10 +20,11 @@ def click(x, y):
     :param y:
     :return:
     '''
-    cmd_click = 'adb shell input tap {x0} {y0}'.format(
+    cmd_click = 'adb -s 127.0.0.1:5555 shell input tap {x0} {y0}'.format(
         x0=x,
         y0=y
     )
+    # sys_log(cmd_click)
     os.system(cmd_click)
 
 
@@ -36,7 +38,7 @@ def swipe(x0, y0, x1, y1, delay0):
     :param delay0:
     :return:
     '''
-    cmd_swipe = 'adb shell input swipe {x2} {y2} {x3} {y3} {delay1}'.format(
+    cmd_swipe = 'adb -s 127.0.0.1:5555 shell input swipe {x2} {y2} {x3} {y3} {delay1}'.format(
         x2=x0,
         y2=y0,
         x3=x1,
@@ -69,6 +71,7 @@ def tap(x, y, error=10):
     x0 = x + random.randint(-error, error)
     y0 = y + random.randint(-error, error)
     click(x0, y0)
+    # sys_log(f'tap {x}, {y}')
     # time.sleep(0.3)  # 2022-08-17, speed-up
     time.sleep(0.1)    # 2022-08-17, speed-up
 
@@ -87,9 +90,21 @@ def screenshot():
     # subprocess.call(f'adb shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
     # subprocess.call(f'adb pull /sdcard/{tmp_png} {screenshot_path} {filter_str}', shell=True, stdout=None)
 
-    subprocess.call(f'adb -s 127.0.0.1:5555 shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
-    subprocess.call(f'adb -s 127.0.0.1:5555 pull /sdcard/{tmp_png} {screenshot_path} {filter_str}', shell=True, stdout=None)
+    while 1:
+        subprocess.call(f'adb -s 127.0.0.1:5555 shell screencap -p /sdcard/{tmp_png}', shell=True, stdout=None)
+        subprocess.call(f'adb -s 127.0.0.1:5555 pull /sdcard/{tmp_png} {screenshot_path} {filter_str}', shell=True, stdout=None)
+        
+        time.sleep(0.1)
+        if os.path.exists(screenshot_path):
+            break
+        else:
+            time.sleep(1)  # 留出来时间让图片保存好
+            if os.path.exists(screenshot_path):
+                break
+            else:
+                pass
 
+    
     # os.system(f'adb shell screencap -p /sdcard/{tmp_png}')
     # os.system(f'adb pull /sdcard/{tmp_png} {screenshot_path}')
     # inv-clockwise dir
@@ -99,6 +114,17 @@ def screenshot():
             img = np.rot90(img)
         cv2.imwrite(screenshot_path, img)
     # time.sleep(0.3)
+
+    img = cv2.imread(screenshot_path, 0)  # 1 is color, 0 is gray
+    # w, h = img.shape[:2]
+    w, h = img.shape[::-1]
+    if not (w == 1920 and h == 1080):
+        sys_log('!!! screenshoot size error, need 1920x1080, current is %sx%s' % (w, h))
+        exit()
+    else:
+        # sys_log('>>> correct size')
+        pass
+
 
 
 def random_tap():
@@ -115,6 +141,8 @@ def random_tap():
     x = random.randint(w // set, w // set * (set - 1))
     y = random.randint(h // set, h // set * (set - 1))
     tap(x, y)
+
+    sys_log('RANDOM TAP: x=%s, y=%s' % (x, y))
     
 
 

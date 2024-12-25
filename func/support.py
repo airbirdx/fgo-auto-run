@@ -30,13 +30,13 @@ def tap_support(num):
     sh = cv2.imread(screenshot_path, 0)
     w, h = sh.shape[::-1]
     if num == 1:
-        tap(w // 2, int(h * 0.4))  # choose the first one
+        tap(w // 2, int(h * (328/1080)))  # choose the first one
     elif num == 2:
-        tap(w // 2, int(h * 0.65))  # choose the 2 one
+        tap(w // 2, int(h * (641/1080)))  # choose the 2 one
     elif num == 8:
-        tap(w // 2, int(h * 0.5))  # choose the first one
+        tap(w // 2, int(h * (493/1080)))  # choose the first one
     elif num == 9:
-        tap(w // 2, int(h * 0.8))  # choose the 2 one
+        tap(w // 2, int(h * (793/1080)))  # choose the 2 one
     return True
 
 
@@ -190,6 +190,7 @@ def judge_support(mode):
         tap_suitable_support(sup=sup_all_rank)    # 最后一次 refresh 的结果
 
     else:
+        sys_log('select support fail')
         toast('select support fail')
         exit()
 
@@ -260,6 +261,7 @@ def select_support():
     elif mode == '1' or mode == '2':    ## TODO
         judge_support(mode)
 
+    sys_log('ALREADY SELECT THE SUPPORT.')
     # exit()
 
 

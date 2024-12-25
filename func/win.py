@@ -33,6 +33,7 @@ def win_and_next(scene):
     :return:
     """
     if scene == 'win2':
+        os.system('cp ./sh.png ./log/sh_win2_%s.png' % datetime.datetime.now().strftime('%y%m%d_%H%M%S%p'))
         win_judge()
 
     # thd = 0.85

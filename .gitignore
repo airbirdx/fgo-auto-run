@@ -5,6 +5,7 @@
 /build
 /log
 /tmp
+/env
 
 *.log
 *.bak

@@ -120,6 +120,10 @@ def main():
 if __name__ == '__main__':
     main()
 
+    # from func.case import sell_servant
+
+    # sell_servant()
+
 
 
 

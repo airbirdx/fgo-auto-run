@@ -28,9 +28,9 @@ def pic_in_sh(pic, thd=0.85):
     """
     img = cv2.imread(pic, 0)
     bool_res = img_in_sh(img, thd)
-    # if bool_res:
-    if 1:
-        dbg_log('%10s|  %s' % (str(bool_res), pic))
+    # # if bool_res:
+    # if 1:
+    #     dbg_log('%10s|  %s' % (str(bool_res), pic))
     return bool_res
 
 
